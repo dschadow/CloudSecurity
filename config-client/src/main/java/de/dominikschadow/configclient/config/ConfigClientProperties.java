@@ -20,11 +20,19 @@ package de.dominikschadow.configclient.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Properties for the Config Client application.
+ *
+ * @author Dominik Schadow
+ */
 @ConfigurationProperties
 @Data
 public class ConfigClientProperties {
     private Application application;
 
+    /**
+     * Basic application information.
+     */
     @Data
     public static class Application {
         private String name;
