@@ -3,4 +3,4 @@ spring:
     name: config-client
   cloud:
     config:
-      uri: htttp://localhost:8888
+      uri: http://localhost:8888
