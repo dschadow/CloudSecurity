@@ -3,4 +3,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/dschadow/CloudSecurity/config-repo
+          uri: https://github.com/dschadow/CloudSecurity
+          searchPaths: config-repo
+server:
+  port: 8888
