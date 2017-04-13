@@ -32,6 +32,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
     private ConfigClientProperties configClientProperties;
 
+    /**
+     * Returns a greeting containing the applications name and mode.
+     *
+     * @return The greeting
+     */
     @GetMapping
     public String index() {
         return "Hello from " + configClientProperties.getApplicationName() + " in " + configClientProperties.getApplicationMode() + " mode.";
