@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.home;
+package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.config.ConfigClientProperties;
 import lombok.AllArgsConstructor;
@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Dominik Schadow
  */
-@RestController("/")
+@RestController
 @AllArgsConstructor
-public class HomeController {
+public class AboutController {
     private ConfigClientProperties properties;
 
     /**
@@ -37,8 +37,8 @@ public class HomeController {
      *
      * @return The greeting
      */
-    @GetMapping
-    public String index() {
+    @GetMapping("/about")
+    public String about() {
         return "Hello from " + properties.getApplication().getName() + " in "
                 + properties.getApplication().getMode() + " mode.";
     }
