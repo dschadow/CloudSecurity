@@ -37,7 +37,7 @@ public class AboutController {
      *
      * @return The greeting
      */
-    @GetMapping("/about")
+    @GetMapping("/")
     public String about() {
         return "Hello from " + properties.getApplication().getName() + " in "
                 + properties.getApplication().getMode() + " mode.";
