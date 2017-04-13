@@ -1,1 +1,3 @@
-application: Config Client Production
+application:
+  name: Config Client
+  mode: production

@@ -23,5 +23,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties
 @Data
 public class ConfigClientProperties {
-    private String application;
+    private String applicationName;
+    private String applicationMode;
 }
