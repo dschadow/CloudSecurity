@@ -22,6 +22,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST controller to return basic application information.
+ *
+ * @author Dominik Schadow
+ */
 @RestController("/")
 @AllArgsConstructor
 public class HomeController {
@@ -29,6 +34,6 @@ public class HomeController {
 
     @GetMapping
     public String index() {
-        return configClientProperties.getApplication();
+        return "Hello from " + configClientProperties.getApplicationName() + " in " + configClientProperties.getApplicationMode() + " mode.";
     }
 }
