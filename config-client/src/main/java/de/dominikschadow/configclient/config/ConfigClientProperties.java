@@ -20,8 +20,8 @@ package de.dominikschadow.configclient.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "config.client")
+@ConfigurationProperties
 @Data
 public class ConfigClientProperties {
-    private String name;
+    private String application;
 }

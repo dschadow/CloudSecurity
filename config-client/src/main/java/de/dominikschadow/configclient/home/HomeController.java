@@ -29,6 +29,6 @@ public class HomeController {
 
     @GetMapping
     public String index() {
-        return configClientProperties.getName();
+        return configClientProperties.getApplication();
     }
 }
