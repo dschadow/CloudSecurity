@@ -1,0 +1,13 @@
+sudo: false
+language: java
+before_install: echo "MAVEN_OPTS='-Xmx2048m -XX:MaxPermSize=512m'" > ~/.mavenrc
+jdk: oraclejdk8
+branches:
+  only:
+    - develop
+install:  mvn versions:set
+script: mvn deploy cobertura:cobertura
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+addons:
+    srcclr: true
