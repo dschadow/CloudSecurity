@@ -35,11 +35,22 @@ import java.util.List;
 public class CredentialsController {
     private CredentialsRepository credentialsRepository;
 
+    /**
+     * Returns all credentials as a simple List.
+     *
+     * @return All credentials
+     */
     @GetMapping("/credentials")
     public List<Credentials> getAllCredentials() {
         return credentialsRepository.findAll();
     }
 
+    /**
+     * Returns the credentials identified by the given id.
+     *
+     * @param id The credentials id
+     * @return The credentials matching the id
+     */
     @GetMapping("/credentials/{id}")
     public Credentials getCredentials(@PathVariable Long id) {
         return credentialsRepository.findOne(id);

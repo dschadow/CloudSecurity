@@ -35,11 +35,22 @@ import java.util.List;
 public class UserController {
     private UserRepository userRepository;
 
+    /**
+     * Returns all users as a simple List.
+     *
+     * @return All users
+     */
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Returns the user identified by the given id.
+     *
+     * @param id The user id
+     * @return The user matching the id
+     */
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable Long id) {
         return userRepository.findOne(id);

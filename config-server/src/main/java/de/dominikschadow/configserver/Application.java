@@ -29,6 +29,11 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 @SpringBootApplication
 @EnableConfigServer
 public class Application {
+    /**
+     * Starts the config server application with the embedded Tomcat.
+     *
+     * @param args Runtime arguments
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
