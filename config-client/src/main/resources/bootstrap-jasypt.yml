@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-client
+    name: config-client-jasypt
   cloud:
     config:
       uri: http://localhost:8888
