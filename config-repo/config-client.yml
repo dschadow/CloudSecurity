@@ -1,6 +1,6 @@
 application:
   name: Config Client
-  mode: production
+  mode: Jasypt for Spring Boot
 
 spring:
   datasource:
