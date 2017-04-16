@@ -36,6 +36,6 @@ public class ConfigClientProperties {
     @Data
     public static class Application {
         private String name;
-        private String mode;
+        private String profile;
     }
 }

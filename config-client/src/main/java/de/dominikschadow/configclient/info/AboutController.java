@@ -33,13 +33,13 @@ public class AboutController {
     private ConfigClientProperties properties;
 
     /**
-     * Returns a greeting containing the applications name and mode.
+     * Returns a greeting containing the applications name and profile.
      *
      * @return The greeting
      */
     @GetMapping("/")
     public String about() {
-        return "Hello from " + properties.getApplication().getName() + " in "
-                + properties.getApplication().getMode() + " mode.";
+        return "Hello from " + properties.getApplication().getName() + " with "
+                + properties.getApplication().getProfile() + " profile.";
     }
 }

@@ -1,6 +1,6 @@
 application:
   name: Config Client
-  mode: Default
+  profile: Default
 
 spring:
   datasource:
