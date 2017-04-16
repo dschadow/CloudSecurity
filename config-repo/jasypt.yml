@@ -6,7 +6,7 @@ spring:
   datasource:
     name: config-client-db
     username: config-client-db-user
-    password: config-client-db-password
+    password: ENC(HvwxN1e02LBp8W9SgFvgDCk6Fv9u7qz6k8jwelOj2GjYZE12loKZHg==) # use config-client-jasypt as jasypt.encryptor.password to decrypt
   h2:
     console:
       enabled: true
