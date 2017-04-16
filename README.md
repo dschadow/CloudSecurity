@@ -1,12 +1,13 @@
-CloudSecurity
+Cloud Security
 ============
+
 This repository is all about cloud security using [Spring Boot](https://projects.spring.io/spring-boot), 
 [Spring Cloud (Config)](http://projects.spring.io/spring-cloud) and [Vault](https://www.vaultproject.io).
 
 # config-client
-This simple web application exposes some REST services with the endpoints `/`, `/users` and `/credentials`. Based on the
-active Spring profile the configuration files used are not encrypted (**default**), secured using jasypt (**jasypt**),
-or secured using vault (**vault**).
+This simple Spring Boot based web application exposes some REST services with the endpoints `/`, `/users` and 
+`/credentials`. Based on the active Spring profile the configuration files used are not encrypted (**default**), 
+secured using jasypt (**jasypt**), or secured using vault (**vault**).
 
 ## Profile default
 Configuration files are not protected at all, even sensitive configuration properties are available in plain text.
@@ -23,8 +24,9 @@ This profile is using [Vault](https://www.vaultproject.io) to secure sensitive c
 This folder contains all configuration files for all profiles used with the **config-client** application.
 
 # config-server
-This project contains the Spring Cloud Config server which must be started before using any of the other web applications.
-It's available on port 8888 and will use the configuration files provided in the **config-repo** folder.
+This project contains the Spring Cloud Config server which must be started as a Spring Boot application before using any 
+of the other web applications. It's available on port 8888 and will use the configuration files provided in the 
+**config-repo** folder.
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
