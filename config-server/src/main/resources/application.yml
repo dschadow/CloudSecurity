@@ -8,3 +8,10 @@ spring:
           default-label: develop
 server:
   port: 8888
+
+encrypt:
+  keyStore:
+    location: classpath:/server.jks
+    password: letmein
+    alias: mytestkey
+    secret: changeme
