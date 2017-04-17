@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: config-client-cipher
+  cloud:
+    config:
+      uri: http://localhost:8888

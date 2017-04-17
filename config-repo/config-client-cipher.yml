@@ -1,0 +1,12 @@
+application:
+  name: Config Client
+  profile: Config Server Cipher
+
+spring:
+  datasource:
+    name: config-client-db
+    username: config-client-db-user
+    password: '{cipher}AQAPseaUfV+p34giF9jspUa475vKWV3bLwJh9sL2Gco8xB0e4GG0z24LRIVXz5SKtESd+t9mFFkfPxJ/SgxPNOgAl+naZSay088buguJlpnYNHkNDafpoJmLGdeWq7ZTkdIeoCXpZWIioxz5e3GfWudsMjmcJ6smpq6J63OQkmHy6Z00av7kIKscNZksDDTikeKX02mnpGRelBZfMYqsMF96v7o7tuAT15tTR1v6SHrUpJ83hSy8GgtWRR6egZaTu8sYzJdkpjOmUMGXNI1flBvFdkWNt78BjzB5Lm4IiXINQFw6SObcTCsUv3nQbFOELVqg9ajVHrbKi3oaGwcbgpYR3VGgBzAgX/B/ToS/WBRLtRViSXTANE9iCvqArik4Ynfti6KKROBVk9MFe8q/MEiV'
+  h2:
+    console:
+      enabled: true
