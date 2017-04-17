@@ -6,16 +6,12 @@ This repository is all about cloud security using [Spring Boot](https://projects
 
 # config-client
 This simple Spring Boot based web application exposes some REST services with the endpoints `/`, `/users` and 
-`/credentials`. Based on the active Spring profile the configuration files used are not encrypted (**default**), 
-secured using jasypt (**jasypt**), or secured using vault (**vault**).
+`/credentials`. Based on the active Spring profile the configuration files used are not encrypted (**plain**), 
+secured using Spring Config encryption functionality (**cipher**), secured using jasypt (**jasypt**), or secured using 
+vault (**vault**). There is no default profile available so you have to provide a specific profile during start.
 
-## Profile default
+## Profile plain
 Configuration files are not protected at all, even sensitive configuration properties are available in plain text.
-
-## Profile jasypt
-This profile is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
-sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
-the value `config-client-jasypt` to decrypt the database password during application start.
 
 ## Profile cipher
 This profile uses Config Server functionality to encrypt sensitive properties. It requires either a symmetric or 
@@ -30,6 +26,11 @@ The Config Server endpoints help you to encrypt and decrypt data:
 
     curl localhost:8888/encrypt -d secretToEncrypt
     curl localhost:8888/decrypt -d secretToDecrypt
+
+## Profile jasypt
+This profile is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
+sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
+the value `config-client-jasypt` to decrypt the database password during application start.
 
 ## Profile vault
 This profile is using [Vault](https://www.vaultproject.io) to secure sensitive configuration properties.
