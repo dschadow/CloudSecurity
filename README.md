@@ -46,5 +46,6 @@ of the other web applications. It's available on port 8888 and will use the conf
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
 [![Code Climate](https://codeclimate.com/github/dschadow/CloudSecurity/badges/gpa.svg)](https://codeclimate.com/github/dschadow/CloudSecurity)
+[![Issue Count](https://codeclimate.com/github/dschadow/CloudSecurity/badges/issue_count.svg)](https://codeclimate.com/github/dschadow/CloudSecurity)
 [![codecov](https://codecov.io/gh/dschadow/CloudSecurity/branch/develop/graph/badge.svg)](https://codecov.io/gh/dschadow/CloudSecurity)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
