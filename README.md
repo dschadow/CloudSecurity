@@ -17,6 +17,20 @@ This profile is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/
 sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
 the value `config-client-jasypt` to decrypt the database password during application start.
 
+## Profile cipher
+This profile uses Config Server functionality to encrypt sensitive properties. It requires either a symmetric or 
+asymmetric key. The asymmetric implementation is using a keystore (`server.jks`) which was created by executing the 
+following command:
+
+    keytool -genkeypair -alias mytestkey -keyalg RSA \
+      -dname "CN=Config Server,OU=Unit,O=Organization,L=City,S=State,C=Germany" \
+      -keypass changeme -keystore server.jks -storepass letmein
+      
+The Config Server endpoints help you to encrypt and decrypt data:
+
+    curl localhost:8888/encrypt -d secretToEncrypt
+    curl localhost:8888/decrypt -d secretToDecrypt
+
 ## Profile vault
 This profile is using [Vault](https://www.vaultproject.io) to secure sensitive configuration properties.
 
