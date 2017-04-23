@@ -9,9 +9,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>config-client</artifactId>
+    <artifactId>config-client-vault</artifactId>
     <packaging>jar</packaging>
-    <name>Config Client</name>
+    <name>Config Client Vault</name>
 
     <properties>
         <start-class>de.dominikschadow.configclient.Application</start-class>
@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <artifactId>spring-cloud-starter-vault-config</artifactId>
         </dependency>
 
         <dependency>
@@ -30,12 +30,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>1.12</version>
         </dependency>
 
         <dependency>

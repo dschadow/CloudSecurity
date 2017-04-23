@@ -185,5 +185,6 @@
     <modules>
         <module>config-server</module>
         <module>config-client</module>
+        <module>config-client-vault</module>
     </modules>
 </project>

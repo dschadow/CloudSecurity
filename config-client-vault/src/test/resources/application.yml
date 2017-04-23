@@ -1,11 +1,9 @@
 application:
-  name: Config Client Vault
-  profile: Vault
+  name: Config Client Test
+  profile: Test
 
 spring:
   datasource:
     name: config-client-db
     username: config-client-db-user
-  h2:
-    console:
-      enabled: true
+    password: config-client-db-password

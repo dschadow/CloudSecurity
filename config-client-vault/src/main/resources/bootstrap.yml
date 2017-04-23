@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: config-client-vault
+  cloud:
+    config:
+      uri: http://localhost:8888
+    vault:
+      token: efe88b79-cf8b-825a-0f6f-ef1ca142782b
+      scheme: http
