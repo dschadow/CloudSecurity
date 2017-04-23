@@ -22,12 +22,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.support.VaultResponseSupport;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -69,5 +67,17 @@ public class SecretController {
         VaultResponseSupport response = vaultTemplate.read(SECRET_BASE_PATH + userId);
 
         return response.getData();
+    }
+
+    /**
+     * Returns the secrets stored at the configured base path.
+     *
+     * @return The loaded secrets from vault
+     */
+    @GetMapping("/secrets")
+    public List<String> listSecrets() {
+        List<String> response = vaultTemplate.list(SECRET_BASE_PATH);
+
+        return response;
     }
 }
