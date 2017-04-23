@@ -8,7 +8,8 @@ This repository is all about cloud security using [Spring Boot](https://projects
 This simple Spring Boot based web application exposes some REST services with the endpoints `/`, `/users` and 
 `/credentials`. Based on the active Spring profile the configuration files used are not encrypted (**plain**), 
 secured using Spring Config encryption functionality (**cipher**), or secured using jasypt (**jasypt**). There is no 
-default profile available so you have to provide a specific profile during start.
+default profile available so you have to provide a specific profile during start. All REST endpoints can be accessed
+via Swagger at **http://localhost:8080/swagger-ui.html**.
 
 ## Profile plain
 Configuration files are not protected at all, even sensitive configuration properties are available in plain text.
@@ -34,7 +35,8 @@ the value `config-client-jasypt` to decrypt the database password during applica
 
 # config-client-vault
 This simple Spring Boot based web application exposes some REST services with the endpoints `/`, `/users` and 
-`/credentials`. It is using [Vault](https://www.vaultproject.io) to secure sensitive configuration properties.
+`/credentials`. It is using [Vault](https://www.vaultproject.io) to secure sensitive configuration properties. All REST 
+endpoints can be accessed via Swagger at **http://localhost:8080/swagger-ui.html**.
 
 Vault must be started in order for this application to work:
 
