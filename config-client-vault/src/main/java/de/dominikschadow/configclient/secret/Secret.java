@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.data;
+package de.dominikschadow.configclient.secret;
 
 import lombok.Data;
 
