@@ -17,7 +17,9 @@
  */
 package de.dominikschadow.configclient.secret;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Secret for a user, consists of a user id and the data to proect.
@@ -25,6 +27,8 @@ import lombok.Data;
  * @author Dominik Schadow
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Secret {
     private String data;
     private Long userId;
