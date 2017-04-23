@@ -49,13 +49,6 @@
         </repository>
     </repositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>boxfuse-repo</id>
-            <url>https://files.boxfuse.com</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -125,11 +118,6 @@
                         </formats>
                         <check/>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>com.boxfuse.client</groupId>
-                    <artifactId>boxfuse-maven-plugin</artifactId>
-                    <version>${boxfuse.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>com.spotify</groupId>
