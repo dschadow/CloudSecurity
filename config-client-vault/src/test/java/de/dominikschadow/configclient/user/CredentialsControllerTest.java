@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
- * Tests the [@link CredentialsController} class.
+ * Tests the {@link CredentialsController} class.
  *
  * @author Dominik Schadow
  */

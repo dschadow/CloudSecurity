@@ -29,7 +29,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
- * Tests the [@link AboutController} class.
+ * Tests the {@link AboutController} class.
  *
  * @author Dominik Schadow
  */

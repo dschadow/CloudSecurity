@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
- * Tests the [@link UserController} class.
+ * Tests the {@link UserController} class.
  *
  * @author Dominik Schadow
  */
