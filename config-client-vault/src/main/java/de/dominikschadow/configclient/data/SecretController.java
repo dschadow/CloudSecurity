@@ -20,7 +20,7 @@ package de.dominikschadow.configclient.data;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.vault.core.VaultOperations;
+import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.support.VaultResponseSupport;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * REST controller to provide access to some {@link Secret} related operations. Uses Vault to write to and read
+ * REST controller to provide access to some {@link Secret} related operations. Uses Vault Template to write to and read
  * secrets from.
  *
  * @author Dominik Schadow
@@ -39,7 +39,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 public class SecretController {
-    private VaultOperations operations;
+    private VaultTemplate vaultTemplate;
     private static final String SECRET_BASE_PATH = "secret/";
 
     /**
@@ -53,7 +53,7 @@ public class SecretController {
         Map<String, String> data = new HashMap<>();
         data.put("secret", secret.getData());
 
-        operations.write(SECRET_BASE_PATH + secret.getUserId(), data);
+        vaultTemplate.write(SECRET_BASE_PATH + secret.getUserId(), data);
 
         return new ResponseEntity<>(secret, HttpStatus.CREATED);
     }
@@ -66,7 +66,7 @@ public class SecretController {
      */
     @GetMapping("/secrets/{userId}")
     public Object readSecret(@PathVariable String userId) {
-        VaultResponseSupport response = operations.read(SECRET_BASE_PATH + userId);
+        VaultResponseSupport response = vaultTemplate.read(SECRET_BASE_PATH + userId);
 
         return response.getData();
     }
