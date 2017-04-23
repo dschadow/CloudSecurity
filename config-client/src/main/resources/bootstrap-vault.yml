@@ -3,4 +3,4 @@ spring:
     name: config-client
   cloud:
     config:
-      token:
+      uri: http://localhost:8888
