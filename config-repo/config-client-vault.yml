@@ -1,0 +1,11 @@
+application:
+  name: Config Client Plain
+  profile: Vault
+
+spring:
+  datasource:
+    name: config-client-db
+    username: config-client-db-user
+  h2:
+    console:
+      enabled: true
