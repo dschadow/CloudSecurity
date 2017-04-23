@@ -5,5 +5,5 @@ spring:
     config:
       uri: http://localhost:8888
     vault:
-      token: b018051b-1227-611e-334a-46c7cb0d6cc3
+      token: 6585f5f0-4fb0-483c-5c81-2d9d093232fc
       scheme: http

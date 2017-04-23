@@ -18,7 +18,16 @@
 package de.dominikschadow.configclient.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Non security related configuration of the Config Client application.
@@ -27,5 +36,26 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(ConfigClientProperties.class)
+@EnableSwagger2
 public class WebConfig {
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("de.dominikschadow.configclient"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Spring Boot Config Client")
+                .description("Spring Boot application using Spring Cloud Config.")
+                .contact(new Contact("Dominik Schadow", "https://github.com/dschadow", "dominikschadow@gmail.com"))
+                .license("Apache License Version 2.0")
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html")
+                .version("1.0")
+                .build();
+    }
 }
