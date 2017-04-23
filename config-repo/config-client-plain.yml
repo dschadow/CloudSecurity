@@ -1,5 +1,5 @@
 application:
-  name: Config Client Plain
+  name: Config Client
   profile: Plain
 
 spring:
