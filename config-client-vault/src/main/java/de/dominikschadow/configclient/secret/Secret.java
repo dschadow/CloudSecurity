@@ -19,6 +19,11 @@ package de.dominikschadow.configclient.secret;
 
 import lombok.Data;
 
+/**
+ * Secret for a user, consists of a user id and the data to proect.
+ *
+ * @author Dominik Schadow
+ */
 @Data
 public class Secret {
     private String data;
