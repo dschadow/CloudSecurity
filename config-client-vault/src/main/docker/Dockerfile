@@ -3,7 +3,7 @@ MAINTAINER Dominik Schadow <dominikschadow@gmail.com>
 
 VOLUME /tmp
 
-ADD config-client.jar app.jar
+ADD config-client-vault.jar app.jar
 
 RUN sh -c 'touch /app.jar'
 
