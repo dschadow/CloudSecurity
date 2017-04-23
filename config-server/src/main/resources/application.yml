@@ -6,9 +6,7 @@ spring:
           uri: https://github.com/dschadow/CloudSecurity
           search-paths: config-repo
           default-label: develop
-    vault:
-      token: efe88b79-cf8b-825a-0f6f-ef1ca142782b
-      scheme: http
+
 server:
   port: 8888
 
