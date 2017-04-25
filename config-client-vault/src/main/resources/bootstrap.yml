@@ -2,8 +2,6 @@ spring:
   application:
     name: config-client-vault
   cloud:
-    config:
-      uri: http://localhost:8888
     vault:
-      token: 6585f5f0-4fb0-483c-5c81-2d9d093232fc
+      token: e04a72bb-4de4-8764-4210-9e21fc78cbaa
       scheme: http
