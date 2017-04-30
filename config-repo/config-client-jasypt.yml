@@ -1,6 +1,6 @@
 application:
   name: Config Client
-  profile: Jasypt for Spring Boot
+  profile: Jasypt
 
 spring:
   datasource:
