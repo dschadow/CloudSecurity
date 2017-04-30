@@ -41,6 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf()
                 .ignoringAntMatchers("/admin/h2-console/*")
                 .and()
+            .headers()
+                .frameOptions().sameOrigin()
+                .and()
             .formLogin();
         // @formatter:on
     }
