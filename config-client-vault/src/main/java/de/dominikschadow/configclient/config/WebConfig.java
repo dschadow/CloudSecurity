@@ -30,7 +30,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Non security related configuration of the Config Client application.
+ * Non security related configuration of the Config Client Vault application.
  *
  * @author Dominik Schadow
  */
