@@ -6,9 +6,8 @@ spring:
   h2:
     console:
       path: /admin/h2-console
-  datasource:
+  datasource: # other datasource properties must be provided by vault
     name: config-client-vault-db
-    username: config-client-vault-db-user
 
 # Actuator
 management:
