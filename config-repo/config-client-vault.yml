@@ -3,9 +3,14 @@ application:
   profile: Default
 
 spring:
-  datasource:
-    name: config-client-db
-    username: config-client-db-user
   h2:
     console:
-      enabled: true
+      path: /admin/h2-console
+  datasource: # other datasource properties must be provided by vault
+    name: config-client-vault-db
+
+# Actuator
+management:
+  context-path: /admin
+  security:
+    enabled: true
