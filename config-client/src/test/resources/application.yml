@@ -1,5 +1,5 @@
 application:
-  name: Config Client Test
+  name: Config Client
   profile: Test
 
 spring:
