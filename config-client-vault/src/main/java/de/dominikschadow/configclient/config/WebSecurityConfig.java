@@ -30,17 +30,23 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * Limits access to admin pages to admin and actuator roles, disables CSRF protection for easy Swagger UI usage
+     * and enables frames on same origin for h2 console usage.
+     *
+     * @param http HttpSecurity
+     * @throws Exception Any exception during configuration
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
         http
             .authorizeRequests()
-                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers("/admin/**").hasAnyRole("ADMIN", "ACTUATOR")
                 .mvcMatchers("/").permitAll()
                 .and()
             .csrf()
-                .ignoringAntMatchers("/admin/h2-console/*")
-                .and()
+                .disable()
             .headers()
                 .frameOptions().sameOrigin()
                 .and()
@@ -48,6 +54,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
     }
 
+    /**
+     * Creates an in memory user named user with password user and roles admin and actuator.
+     *
+     * @param auth AuthenticationManagerBuilder
+     * @throws Exception Any exception during configuration
+     */
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user").password("user").roles("ADMIN", "ACTUATOR");
