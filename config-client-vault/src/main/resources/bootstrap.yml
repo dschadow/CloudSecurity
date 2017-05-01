@@ -2,8 +2,10 @@ spring:
   application:
     name: config-client-vault
   cloud:
+    config:
+      uri: http://localhost:8888
+      name: config-client
+      label: develop
     vault:
-      host: localhost # localhost is the default
-      port: 8200 # 8200 is the default
-      scheme: http # only for test environment
-      token: 230b71cf-6db7-0573-6902-b538df395d01 # update this with a valid token
+      token: 79f5be18-f929-7b86-c81d-b28dddf4dc6a # update this with a valid token
+      scheme: http
