@@ -22,6 +22,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -42,11 +43,13 @@ public class CredentialsControllerTest {
     private MockMvc mvc;
 
     @Test
+    @WithMockUser(username = "user", password = "user", roles = "USER")
     public void getAllCredentialsReturnsOk() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/credentials")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "user", password = "user", roles = "USER")
     public void getSingleCredentialCReturnsOk() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/credentials/1")).andExpect(MockMvcResultMatchers.status().isOk());
     }
