@@ -35,8 +35,8 @@ the value `config-client-jasypt` to decrypt the database password during applica
 
 # config-client-vault
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. It is using 
-[Vault](https://www.vaultproject.io) to secure sensitive configuration properties. All REST endpoints can be accessed 
-via Swagger at **http://localhost:8080/swagger-ui.html**.
+[Vault](https://www.vaultproject.io) as a Config Server backend to secure sensitive configuration properties. All REST 
+endpoints can be accessed via Swagger at **http://localhost:8080/swagger-ui.html**.
 
 Vault must be started in order for this application to work:
 
@@ -55,8 +55,11 @@ applications.
 
 # config-server
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using  
-any of the other web applications that require a config server. After starting, tt is available on port 8888 and will 
-use the configuration files provided in the **config-repo** folder.
+any of the other web applications that require a config server. After starting without a specific profile, it is 
+available on port 8888 and will use the configuration files provided in the **config-repo** folder.
+
+To use it with a Vault storage backend you have to start the Config Server with the **vault** profile being active. This
+requires a launched Vault server as described with **config-client-vault**.
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
