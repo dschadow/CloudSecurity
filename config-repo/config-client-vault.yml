@@ -1,6 +1,6 @@
 application:
   name: Config Client Vault
-  profile: Vault
+  profile: Default
 
 spring:
   datasource:
