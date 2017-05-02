@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Creates an in memory user named user with password user and roles admin and actuator.
+     * Creates an in memory user named user with password secret and roles admin and actuator.
      *
      * @param auth AuthenticationManagerBuilder
      * @throws Exception Any exception during configuration
