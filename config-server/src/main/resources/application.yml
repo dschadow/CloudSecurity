@@ -7,6 +7,13 @@ spring:
           search-paths: config-repo
           default-label: develop
 
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: secret
+
 server:
   port: 8888
 

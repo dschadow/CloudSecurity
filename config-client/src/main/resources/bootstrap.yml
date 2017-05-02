@@ -4,3 +4,5 @@ spring:
       uri: http://localhost:8888
       name: config-client
       label: develop
+      username: user
+      password: secret
