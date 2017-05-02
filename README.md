@@ -49,6 +49,8 @@ Vault must be started in order for this application to work:
 The bootstrap.yml file in config-client-vault does use the root token shown during vault init. You have to update this
 token to the one shown during vault initialization.
 
+Basic auth credentials are user/secret.
+
 # config-repo
 This folder contains all configuration files for all profiles used with the **config-client** and **config-client-vault**
 applications.
@@ -59,7 +61,9 @@ any of the other web applications that require a config server. After starting w
 available on port 8888 and will use the configuration files provided in the **config-repo** folder.
 
 To use it with a Vault storage backend you have to start the Config Server with the **vault** profile being active. This
-requires a launched Vault server as described with **config-client-vault**.
+requires a launched Vault server as described in the **config-client-vault** section.
+
+Basic auth credentials are user/secret.
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
