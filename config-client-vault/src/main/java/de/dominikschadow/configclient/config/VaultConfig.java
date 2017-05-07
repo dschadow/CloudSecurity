@@ -17,7 +17,6 @@
  */
 package de.dominikschadow.configclient.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.vault.authentication.ClientAuthentication;
 import org.springframework.vault.authentication.TokenAuthentication;
@@ -31,9 +30,6 @@ import org.springframework.vault.config.AbstractVaultConfiguration;
  */
 @Configuration
 public class VaultConfig extends AbstractVaultConfiguration {
-    @Value("${spring.cloud.vault.token}")
-    private String token;
-
     @Override
     public VaultEndpoint vaultEndpoint() {
         VaultEndpoint vaultEndpoint = new VaultEndpoint();
@@ -44,6 +40,6 @@ public class VaultConfig extends AbstractVaultConfiguration {
 
     @Override
     public ClientAuthentication clientAuthentication() {
-        return new TokenAuthentication(token);
+        return new TokenAuthentication(getEnvironment().getProperty("spring.cloud.vault.token"));
     }
 }
