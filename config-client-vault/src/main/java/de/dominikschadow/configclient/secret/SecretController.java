@@ -22,15 +22,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.support.VaultResponseSupport;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * REST controller to provide access to some {@link Secret} related operations. Uses Vault Template to write to and read
- * secrets from.
+ * REST controller to provide access to some {@link Secret} related operations. Uses {@link VaultTemplate} to write to
+ * and read secrets from.
  *
  * @author Dominik Schadow
  */
@@ -76,8 +79,6 @@ public class SecretController {
      */
     @GetMapping("/secrets")
     public List<String> listSecrets() {
-        List<String> response = vaultTemplate.list(SECRET_BASE_PATH);
-
-        return response;
+        return vaultTemplate.list(SECRET_BASE_PATH);
     }
 }
