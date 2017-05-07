@@ -3,13 +3,6 @@ application:
   profile: Cipher
 
 spring:
-  boot:
-    admin:
-      url: http://localhost:8888
-      client:
-          metadata:
-            user.name: user
-            user.password: secret
   datasource:
     name: config-client-db
     username: config-client-db-user
