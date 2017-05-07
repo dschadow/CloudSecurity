@@ -1,0 +1,8 @@
+application:
+  name: Config Client Vault
+  profile: Default
+
+spring:
+  h2:
+    console:
+      enabled: true
