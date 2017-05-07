@@ -2,7 +2,14 @@ application:
   name: Config Client Vault
   profile: Vault
 
+management:
+  security:
+    enabled: false
+
 spring:
+  boot:
+    admin:
+      url: http://localhost:8888
   h2:
     console:
       enabled: true

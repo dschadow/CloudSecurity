@@ -2,7 +2,14 @@ application:
   name: Config Client
   profile: Cipher
 
+management:
+  security:
+    enabled: false
+
 spring:
+  boot:
+    admin:
+      url: http://localhost:8888
   datasource:
     name: config-client-db
     username: config-client-db-user
