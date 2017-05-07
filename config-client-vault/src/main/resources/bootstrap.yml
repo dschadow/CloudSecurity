@@ -4,10 +4,10 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: config-client
+      name: config-client-vault
       label: develop
       username: user
       password: secret
     vault:
-      token: 6e6ea485-5ea1-2957-0826-1389c7bff183 # update this with a valid token
+      token: eba39a96-01a0-62b1-6948-ca51a6dbc871 # update this with a valid token
       scheme: http
