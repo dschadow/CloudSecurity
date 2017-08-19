@@ -17,6 +17,7 @@
  */
 package de.dominikschadow.configclient.user;
 
+import de.dominikschadow.configclient.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.ArrayList;
+
+import static org.mockito.BDDMockito.given;
 
 /**
  * Tests the {@link UserController} class.
@@ -45,12 +50,14 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "user", password = "user", roles = "USER")
     public void getAllUsersReturnsOk() throws Exception {
+        given(userRepository.findAll()).willReturn(new ArrayList<>());
         mvc.perform(MockMvcRequestBuilders.get("/users")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     @WithMockUser(username = "user", password = "user", roles = "USER")
     public void getSingleUserReturnsOk() throws Exception {
+        given(userRepository.findOne(1L)).willReturn(new User());
         mvc.perform(MockMvcRequestBuilders.get("/users/1")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
