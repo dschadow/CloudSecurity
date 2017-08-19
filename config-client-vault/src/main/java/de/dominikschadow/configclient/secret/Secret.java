@@ -22,7 +22,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Secret for a user, consists of a user id and the data to proect.
+ * Secret for a user, consists of a user id and the data to protect.
  *
  * @author Dominik Schadow
  */
