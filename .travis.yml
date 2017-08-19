@@ -5,7 +5,6 @@ jdk: oraclejdk8
 branches:
   only:
     - develop
-install:  mvn versions:set
 script: mvn deploy cobertura:cobertura
 after_success:
   - bash <(curl -s https://codecov.io/bash)
