@@ -17,6 +17,7 @@
  */
 package de.dominikschadow.configclient.user;
 
+import de.dominikschadow.configclient.entities.Credentials;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.ArrayList;
+
+import static org.mockito.BDDMockito.given;
 
 /**
  * Tests the {@link CredentialsController} class.
@@ -43,11 +48,13 @@ public class CredentialsControllerTest {
 
     @Test
     public void getAllCredentialsReturnsOk() throws Exception {
+        given(credentialsRepository.findAll()).willReturn(new ArrayList<>());
         mvc.perform(MockMvcRequestBuilders.get("/credentials")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void getSingleCredentialCReturnsOk() throws Exception {
+        given(credentialsRepository.findOne(1L)).willReturn(new Credentials());
         mvc.perform(MockMvcRequestBuilders.get("/credentials/1")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
