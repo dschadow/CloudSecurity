@@ -35,7 +35,7 @@ the value `config-client-jasypt` to decrypt the database password during applica
 
 # config-client-vault
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. It is using 
-[Vault](https://www.vaultproject.io) as a Config Server backend to secure sensitive configuration properties. All REST 
+[Vault](https://www.vaultproject.io) as a Config Server backend to securely store sensitive configuration properties. All REST 
 endpoints can be accessed via Swagger at **http://localhost:8080/swagger-ui.html**.
 
 Vault must be started in order for this application to work:
