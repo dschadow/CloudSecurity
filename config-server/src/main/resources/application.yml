@@ -23,3 +23,6 @@ encrypt:
     password: letmein
     alias: mytestkey
     secret: changeme
+
+logging:
+  level: warn
