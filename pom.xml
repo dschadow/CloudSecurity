@@ -70,6 +70,11 @@
                 <version>${swagger.version}</version>
                 <scope>compile</scope>
             </dependency>
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>1.14</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
