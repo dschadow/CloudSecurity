@@ -64,14 +64,13 @@ public class SecretControllerTest {
         VaultResponse vaultResponse = new VaultResponse();
         vaultResponse.setData(data);
 
-
         when(vaultTemplate.read("secret/12345")).thenReturn(vaultResponse);
-        assertThat(secretController.readSecret("12345")).toString().contains("geheim");
+        assertThat(secretController.readSecret("12345").toString()).contains("geheim");
     }
 
     @Test
     public void createSecretWithSuccess() throws Exception {
         Secret secret = new Secret("geheim", 12345L);
-        assertThat(secretController.writeSecret(secret)).toString().contains("201");
+        assertThat(secretController.writeSecret(secret).toString()).contains("201");
     }
 }
