@@ -17,7 +17,8 @@
  */
 package de.dominikschadow.configclient.config;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -26,14 +27,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Dominik Schadow
  */
 @ConfigurationProperties
-@Data
+@Getter
+@Setter
 public class ConfigClientProperties {
     private Application application;
 
     /**
      * Basic application information.
      */
-    @Data
+    @Getter
+    @Setter
     public static class Application {
         private String name;
         private String profile;

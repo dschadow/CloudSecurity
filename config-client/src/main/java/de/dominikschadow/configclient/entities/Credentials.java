@@ -17,7 +17,8 @@
  */
 package de.dominikschadow.configclient.entities;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,8 +31,9 @@ import javax.persistence.Table;
  * @author Dominik Schadow
  */
 @Entity
-@Table(name = "credentials")
-@Data
+@Table
+@Getter
+@Setter
 public class Credentials {
     @Id
     @GeneratedValue
