@@ -29,7 +29,7 @@ import java.util.Set;
  * @author Dominik Schadow
  */
 @Entity
-@Table(name = "users")
+@Table
 @Getter
 @Setter
 public class User {

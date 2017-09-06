@@ -17,18 +17,16 @@
  */
 package de.dominikschadow.configclient.secret;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Secret for a user, consists of a user id and the data to protect.
  *
  * @author Dominik Schadow
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class Secret {
     private String data;
     private Long userId;

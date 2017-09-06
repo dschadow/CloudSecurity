@@ -1,6 +1,6 @@
-INSERT INTO users (id, firstname, lastname) VALUES (1, 'Arthur', 'Dent');
-INSERT INTO users (id, firstname, lastname) VALUES (2, 'Zaphod', 'Beeblebrox');
-INSERT INTO users (id, firstname, lastname) VALUES (3, 'Ford', 'Prefect');
+INSERT INTO user (id, firstname, lastname) VALUES (1, 'Arthur', 'Dent');
+INSERT INTO user (id, firstname, lastname) VALUES (2, 'Zaphod', 'Beeblebrox');
+INSERT INTO user (id, firstname, lastname) VALUES (3, 'Ford', 'Prefect');
 
 INSERT INTO credentials (id, user_id, username, password) VALUES (1, 1, 'arthur_dent', 'dent1');
 INSERT INTO credentials (id, user_id, username, password) VALUES (2, 1, 'arthur_dent', 'dent2');

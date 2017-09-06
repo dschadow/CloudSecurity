@@ -24,7 +24,8 @@ import org.springframework.vault.client.VaultEndpoint;
 import org.springframework.vault.config.AbstractVaultConfiguration;
 
 /**
- * Simple vault configuration for local usage only. Uses http as scheme and is therefore insecure.
+ * Simple vault configuration for local usage only. Uses http as scheme and is therefore insecure. But since this is a
+ * demo project we can live with that.
  *
  * @author Dominik Schadow
  */
