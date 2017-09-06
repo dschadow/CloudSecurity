@@ -18,14 +18,11 @@
 package de.dominikschadow.configclient.secret;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.support.VaultResponseSupport;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,14 +46,14 @@ public class SecretController {
      * @param secret The secret to store
      * @return The stored secret
      */
-    @PostMapping("/secrets")
-    public ResponseEntity<Secret> writeSecret(Secret secret) {
+    @PostMapping(value = "/secrets", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Secret> writeSecret(@RequestBody Secret secret) {
         Map<String, String> data = new HashMap<>();
         data.put("secret", secret.getData());
 
         vaultTemplate.write(SECRET_BASE_PATH + secret.getUserId(), data);
 
-        return new ResponseEntity<>(secret, HttpStatus.CREATED);
+        return ResponseEntity.ok(secret);
     }
 
     /**

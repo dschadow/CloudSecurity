@@ -15,30 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.entities;
+package de.dominikschadow.configserver;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.Set;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Users entity.
+ * Main class to start the embedded web server and the Spring Boot application.
  *
  * @author Dominik Schadow
  */
-@Entity
-@Table
-@Getter
-@Setter
-public class User {
-    @Id
-    @GeneratedValue
-    private Long id;
-    private String firstname;
-    private String lastname;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private Set<Credentials> credentials;
+@SpringBootApplication
+public class Application {
+    /**
+     * Starts the vault server application with the embedded Tomcat.
+     *
+     * @param args Runtime arguments
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 }

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: config-server-vault
+
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: secret
+
+server:
+  port: 8888
+
+logging:
+  level: warn

@@ -17,8 +17,7 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.config.ConfigClientProperties;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Dominik Schadow
  */
 @RestController
-@AllArgsConstructor
 public class AboutController {
-    private ConfigClientProperties properties;
+    @Value("${name:n/a}")
+    private String name;
+
+    @Value("${profile:n/a}")
+    private String profile;
 
     /**
      * Returns a greeting containing the applications name and profile.
@@ -39,7 +41,6 @@ public class AboutController {
      */
     @GetMapping("/")
     public String about() {
-        return "Hello from " + properties.getApplication().getName() + " with "
-                + properties.getApplication().getProfile() + " profile.";
+        return "Hello from " + name + " with " + profile + " profile.";
     }
 }

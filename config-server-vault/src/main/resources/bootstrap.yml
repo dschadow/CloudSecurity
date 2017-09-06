@@ -1,10 +1,7 @@
 spring:
-  application:
-    name: config-client-vault
   cloud:
     vault:
       host: localhost
-      port: 8200
       scheme: http
-      authentication: token
+      port: 8200
       token: 6345edeb-c1ce-d3b6-aa5f-0e6df956be96

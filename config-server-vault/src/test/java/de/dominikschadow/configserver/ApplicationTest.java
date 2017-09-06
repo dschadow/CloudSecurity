@@ -15,15 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.user;
+package de.dominikschadow.configserver;
 
-import de.dominikschadow.configclient.entities.Credentials;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Credentials repository to access the {@link Credentials} in the database.
+ * Tests the application itself and tries to startup the application context.
  *
  * @author Dominik Schadow
  */
-public interface CredentialsRepository extends JpaRepository<Credentials, Long> {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class ApplicationTest {
+    @Test
+    public void contextLoads() {
+    }
 }
