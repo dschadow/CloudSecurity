@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: config-client-vault
+  cloud:
+    vault:
+      enabled: false
