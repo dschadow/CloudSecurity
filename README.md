@@ -19,15 +19,15 @@ This profile uses Config Server functionality to encrypt sensitive properties. I
 asymmetric key. The sample is based on asymmetric encryption and is using a keystore (`server.jks`) which was created by 
 executing the following command:
 
-    keytool -genkeypair -alias mytestkey -keyalg RSA \
+    keytool -genkeypair -alias configserver -keyalg RSA \
       -dname "CN=Config Server,OU=Unit,O=Organization,L=City,S=State,C=Germany" \
-      -keypass changeme -keystore server.jks -storepass letmein
+      -keypass secret -keystore server.jks -storepass secret
       
 The [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy File](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)
 must be installed in order for this to work. The Config Server endpoints help to encrypt and decrypt data:
 
-    curl localhost:8888/encrypt -d secretToEncrypt -u user:secret
-    curl localhost:8888/decrypt -d secretToDecrypt -u user:secret
+    curl http://localhost:8888/encrypt -d secretToEncrypt -u user:secret
+    curl http://localhost:8888/decrypt -d secretToDecrypt -u user:secret
 
 ## Profile jasypt
 This profile is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure

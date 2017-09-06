@@ -19,10 +19,10 @@ server:
 
 encrypt:
   key-store:
-    location: classpath:/server.jks
-    password: letmein
-    alias: mytestkey
-    secret: changeme
+    location: classpath:server.jks
+    password: secret
+    alias: configserver
+    secret: secret
 
 logging:
   level: warn
