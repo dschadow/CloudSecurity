@@ -7,6 +7,3 @@ spring:
     name: config-client-db
     username: config-client-db-user
     password: config-client-db-password
-
-logging:
-  level: info
