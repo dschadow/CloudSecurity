@@ -1,2 +1,6 @@
+spring:
+  application:
+    name: config-client-vault
+
 logging:
   level: error
