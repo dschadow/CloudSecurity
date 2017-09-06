@@ -23,10 +23,11 @@ executing the following command:
       -dname "CN=Config Server,OU=Unit,O=Organization,L=City,S=State,C=Germany" \
       -keypass changeme -keystore server.jks -storepass letmein
       
-The Config Server endpoints help to encrypt and decrypt data:
+The [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy File](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)
+must be installed in order for this to work. The Config Server endpoints help to encrypt and decrypt data:
 
-    curl localhost:8888/encrypt -d secretToEncrypt
-    curl localhost:8888/decrypt -d secretToDecrypt
+    curl localhost:8888/encrypt -d secretToEncrypt -u user:secret
+    curl localhost:8888/decrypt -d secretToDecrypt -u user:secret
 
 ## Profile jasypt
 This profile is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
