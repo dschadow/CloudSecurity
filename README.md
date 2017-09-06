@@ -8,8 +8,8 @@ This repository is all about cloud security with [Spring Boot](https://projects.
 
 ## config-server
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using  
-any of the other web applications that require a config server. After starting without a specific profile, it is 
-available on port 8888 and will use the configuration files provided in the **config-repo** folder.
+the (client) web application **config-client**. After starting the Spring Boot application without a specific profile, 
+the server is available on port 8888 and will use the configuration files provided in the **config-repo** folder.
 
 Basic auth credentials are user/secret.
 
@@ -44,15 +44,13 @@ sensitive configuration properties. You have to provide an environment variable 
 the value `config-client-jasypt` to decrypt the database password during application start.
 
 ## config-repo
-This folder contains all configuration files for all profiles used with the **config-client** and **config-client-vault**
-applications.
+This folder contains all configuration files for all profiles used in the **config-client** application.
 
 # Vault
 
 ## config-server-vault
 This project contains the Spring Cloud Vault server which must be started like a Spring Boot application before using  
-the corresponding client web applications **config-client-vault**. [Vault](https://www.vaultproject.io) must be started 
-on localhost:
+the (client) web application **config-client-vault**. [Vault](https://www.vaultproject.io) must be started on localhost:
 
     vault server -config config/vault-local.conf
     export VAULT_ADDR=http://127.0.0.1:8200
