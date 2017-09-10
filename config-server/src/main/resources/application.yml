@@ -18,11 +18,12 @@ server:
   port: 8888
 
 encrypt:
-  key-store:
-    location: classpath:server.jks
-    password: secret
-    alias: configserver
-    secret: secret
+  key-store: # asymmetric encryption
+   location: classpath:server.jks
+   password: secret
+   alias: configserver
+   secret: secret
+  #key: This1sABigSecret # symmetric encryption
 
 logging:
   level: warn
