@@ -55,7 +55,8 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.SR3</version>
+                <!-- bug in SR2, will be fixed in SR4: https://github.com/spring-cloud/spring-cloud-config/issues/767 -->
+                <version>Dalston.SR1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
