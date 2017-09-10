@@ -13,6 +13,12 @@ the server is available on port 8888 and will use the configuration files provid
 
 Basic auth credentials are user/secret.
 
+Starting config server without a profile requires Internet access to read the configuration files from my GitHub repo. 
+To use a local configuration instead (e.g. the one in the **config-repo** directory) you have to enable the **native**
+profile and to provide a file system resource containing the configuration, e.g. 
+
+    spring.cloud.config.server.native.search-locations=file:/var/config-repo/
+
 ## config-client
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. Based on the active 
 Spring profile the configuration files used are not encrypted (**plain**), secured using Spring Config encryption 
@@ -55,6 +61,7 @@ the (client) web application **config-client-vault**. [Vault](https://www.vaultp
     vault server -config config/vault-local.conf
     export VAULT_ADDR=http://127.0.0.1:8200
     vault init -key-shares=5 -key-threshold=2
+    export VAULT_TOKEN=[Root Token]
     vault unseal [Key 1]
     vault unseal [Key 2]
 
