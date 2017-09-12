@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <name>Cloud Security</name>
     <url>https://github.com/dschadow/CloudSecurity</url>
-    <description>This repository contains cloud security sample projects.</description>
+    <description>This repository contains sample projects for different cloud security topics.</description>
 
     <organization>
         <name>Dominik Schadow</name>
@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>1.5.7.RELEASE</version>
         <relativePath/>
     </parent>
 
