@@ -44,7 +44,7 @@ public class CredentialsRepositoryTest {
     public void findAllReturnsAllCredentials() throws Exception {
         List<Credentials> credentials = repository.findAll();
 
-        assertEquals(credentials.size(), 6);
+        assertEquals(6, credentials.size());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CredentialsRepositoryTest {
 
         Credentials credentials = repository.findOne(credentialsId);
 
-        assertEquals(credentials.getUsername(), "arthur_dent");
+        assertEquals("arthur_dent", credentials.getUsername());
     }
 
     @Test

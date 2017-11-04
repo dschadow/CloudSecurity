@@ -44,7 +44,7 @@ public class UserRepositoryTest {
     public void findAllReturnsAllUsers() throws Exception {
         List<User> users = repository.findAll();
 
-        assertEquals(users.size(), 3);
+        assertEquals(3, users.size());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class UserRepositoryTest {
 
         User user = repository.findOne(credentialsId);
 
-        assertEquals(user.getLastname(), "Dent");
+        assertEquals("Dent", user.getLastname());
     }
 
     @Test
