@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    name: local-client-db
+    username: local-client-db-user
+    password: local-client-db-password
+  application:
+    name: local-client
+
+logging:
+  level: error
