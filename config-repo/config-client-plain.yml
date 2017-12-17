@@ -4,9 +4,9 @@ application:
 
 spring:
   datasource:
-    name: config-client-db
-    username: config-client-db-user
-    password: config-client-db-password
+    name: client-db
+    username: client-user
+    password: client-password
   h2:
     console:
       enabled: true
