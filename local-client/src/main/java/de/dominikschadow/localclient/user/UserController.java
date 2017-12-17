@@ -17,7 +17,6 @@
  */
 package de.dominikschadow.localclient.user;
 
-import de.dominikschadow.localclient.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

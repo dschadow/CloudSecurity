@@ -15,30 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.entities;
+package de.dominikschadow.localclient.credentials;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.Set;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Users entity.
+ * Credentials repository to access the {@link Credentials} in the database.
  *
  * @author Dominik Schadow
  */
-@Entity
-@Table
-@Getter
-@Setter
-public class User {
-    @Id
-    @GeneratedValue
-    private Long id;
-    private String firstname;
-    private String lastname;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private Set<Credentials> credentials;
+public interface CredentialsRepository extends JpaRepository<Credentials, Long> {
 }

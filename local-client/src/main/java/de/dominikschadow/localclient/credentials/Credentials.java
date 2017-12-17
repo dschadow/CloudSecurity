@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.entities;
+package de.dominikschadow.localclient.credentials;
 
 import lombok.Getter;
 import lombok.Setter;

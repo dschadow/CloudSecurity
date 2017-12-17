@@ -21,7 +21,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Main class to start the embedded web server and the Spring Boot application.
+ * Main class to configure and start the embedded web server and the Spring Boot application.
  *
  * @author Dominik Schadow
  */

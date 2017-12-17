@@ -17,7 +17,6 @@
  */
 package de.dominikschadow.localclient.user;
 
-import de.dominikschadow.localclient.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

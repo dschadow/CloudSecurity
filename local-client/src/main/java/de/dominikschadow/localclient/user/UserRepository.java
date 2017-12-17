@@ -17,7 +17,6 @@
  */
 package de.dominikschadow.localclient.user;
 
-import de.dominikschadow.localclient.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
