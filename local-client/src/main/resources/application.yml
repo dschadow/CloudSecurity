@@ -1,10 +1,10 @@
 spring:
   datasource:
-    name: local-client-db
-    username: local-client-db-user
-    # password is local-client-db-password
+    name: client-db
+    username: client-user
+    # password is client-password
     # provide sample-password as jasypt.encryptor.password to decrypt
-    password: ENC(QrNB/jNhHkA4CXrVEGeGVCiMXGA9n0cr1JacOw3buwVhQkn7HZfqEA==)
+    password: ENC(A+eOm8o7/iYmYVrqrbpxf0eGTJywpR5f)
   h2:
     console:
       enabled: true
