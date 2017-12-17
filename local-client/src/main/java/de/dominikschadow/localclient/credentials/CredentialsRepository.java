@@ -17,12 +17,14 @@
  */
 package de.dominikschadow.localclient.credentials;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Credentials repository to access the {@link Credentials} in the database.
  *
  * @author Dominik Schadow
  */
-public interface CredentialsRepository extends JpaRepository<Credentials, Long> {
+@RepositoryRestResource(collectionResourceRel = "credentials", path = "credentials")
+public interface CredentialsRepository extends PagingAndSortingRepository<Credentials, Long> {
 }

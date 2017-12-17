@@ -23,8 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -41,9 +39,9 @@ public class CredentialsRepositoryTest {
 
     @Test
     public void findAllReturnsAllCredentials() {
-        List<Credentials> credentials = repository.findAll();
+        long credentials = repository.count();
 
-        assertEquals(6, credentials.size());
+        assertEquals(6, credentials);
     }
 
     @Test

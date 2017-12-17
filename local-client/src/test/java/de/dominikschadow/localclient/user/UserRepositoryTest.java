@@ -23,8 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -41,9 +39,9 @@ public class UserRepositoryTest {
 
     @Test
     public void findAllReturnsAllUsers() {
-        List<User> users = repository.findAll();
+        long users = repository.count();
 
-        assertEquals(3, users.size());
+        assertEquals(3, users);
     }
 
     @Test
