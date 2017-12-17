@@ -22,6 +22,7 @@
         <java.version>1.8</java.version>
         <swagger.version>2.7.0</swagger.version>
         <jacoco.version>0.7.9</jacoco.version>
+        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
     </properties>
 
     <parent>
@@ -55,7 +56,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.SR1</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
