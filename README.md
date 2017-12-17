@@ -8,7 +8,9 @@ This repository is all about cloud security with [Spring Boot](https://projects.
 The local-client is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
 sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
 the value `sample-password` to decrypt the database password during application start. This demo application shows the
-most simple way to encrypt sensitive properties without using Spring Cloud functionality.
+most simple way to encrypt sensitive properties without using Spring Cloud functionality. It does not provide a user
+interface. `/` shows basic application information, other entities are exposed via Spring Data Rest at the `/credentials`
+and `/users` endpoints.
 
 # Spring Cloud Config Server
 
