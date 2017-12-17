@@ -4,6 +4,12 @@ Cloud Security
 This repository is all about cloud security with [Spring Boot](https://projects.spring.io/spring-boot), 
 [Spring Cloud](http://projects.spring.io/spring-cloud) and [Vault](https://www.vaultproject.io).
 
+# Jasypt
+The local-client is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
+sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
+the value `sample-password` to decrypt the database password during application start. This demo application shows the
+most simple way to encrypt sensitive properties without using Spring Cloud functionality.
+
 # Spring Cloud Config Server
 
 ## config-server
@@ -21,10 +27,9 @@ profile and to provide a file system resource containing the configuration, e.g.
 
 ## config-client
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. Based on the active 
-Spring profile the configuration files used are not encrypted (**plain**), secured using Spring Config encryption 
-functionality (**cipher**), or secured using jasypt (**jasypt**). There is no default profile available so you have to 
-provide a specific profile during start. All REST endpoints can be accessed via Swagger at 
-**http://localhost:8080/swagger-ui.html**.
+Spring profile the configuration files used are not encrypted (**plain**) or secured using Spring Config encryption 
+functionality (**cipher**). There is no default profile available so you have to provide a specific profile during 
+start. All REST endpoints can be accessed via Swagger at **http://localhost:8080/swagger-ui.html**.
 
 ### Profile plain
 Configuration files are not protected at all, even sensitive configuration properties are available in plain text.
@@ -43,11 +48,6 @@ must be installed in order for this to work. The Config Server endpoints help to
 
     curl http://localhost:8888/encrypt -d secretToEncrypt -u user:secret
     curl http://localhost:8888/decrypt -d secretToDecrypt -u user:secret
-
-### Profile jasypt
-This profile is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
-sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
-the value `config-client-jasypt` to decrypt the database password during application start.
 
 ## config-repo
 This folder contains all configuration files for all profiles used in the **config-client** application.
