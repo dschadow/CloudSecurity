@@ -15,30 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.config;
+package de.dominikschadow.configclient.user;
 
+import de.dominikschadow.configclient.credentials.Credentials;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import javax.persistence.*;
+import java.util.Set;
 
 /**
- * Properties for the Config Client application.
+ * Users entity.
  *
  * @author Dominik Schadow
  */
-@ConfigurationProperties
+@Entity
+@Table
 @Getter
 @Setter
-public class ConfigClientProperties {
-    private Application application;
-
-    /**
-     * Basic application information.
-     */
-    @Getter
-    @Setter
-    public static class Application {
-        private String name;
-        private String profile;
-    }
+public class User {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String firstname;
+    private String lastname;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private Set<Credentials> credentials;
 }

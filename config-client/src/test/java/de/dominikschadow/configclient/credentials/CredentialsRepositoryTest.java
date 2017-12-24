@@ -15,16 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.user;
+package de.dominikschadow.configclient.credentials;
 
-import de.dominikschadow.configclient.entities.Credentials;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -41,14 +38,14 @@ public class CredentialsRepositoryTest {
     private CredentialsRepository repository;
 
     @Test
-    public void findAllReturnsAllCredentials() throws Exception {
-        List<Credentials> credentials = repository.findAll();
+    public void findAllReturnsAllCredentials() {
+        long credentials = repository.count();
 
-        assertEquals(6, credentials.size());
+        assertEquals(6, credentials);
     }
 
     @Test
-    public void validIdFindOneReturnsCredentials() throws Exception {
+    public void validIdFindOneReturnsCredentials() {
         Long credentialsId = 1L;
 
         Credentials credentials = repository.findOne(credentialsId);
@@ -57,7 +54,7 @@ public class CredentialsRepositoryTest {
     }
 
     @Test
-    public void invalidIdFindOneReturnsNull() throws Exception {
+    public void invalidIdFindOneReturnsNull() {
         Long credentialsId = 100L;
 
         Credentials credentials = repository.findOne(credentialsId);

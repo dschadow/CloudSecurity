@@ -15,30 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.entities;
+package de.dominikschadow.configclient;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Credentials entity.
+ * Properties for the Config Client application.
  *
  * @author Dominik Schadow
  */
-@Entity
-@Table
+@ConfigurationProperties
 @Getter
 @Setter
-public class Credentials {
-    @Id
-    @GeneratedValue
-    private Long id;
-    private Long userId;
-    private String username;
-    private String password;
+public class ConfigClientProperties {
+    private Application application;
+
+    /**
+     * Basic application information.
+     */
+    @Getter
+    @Setter
+    public static class Application {
+        private String name;
+        private String profile;
+    }
 }

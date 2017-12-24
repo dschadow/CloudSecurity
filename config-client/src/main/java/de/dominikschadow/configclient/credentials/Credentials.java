@@ -15,16 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.entities;
+package de.dominikschadow.configclient.credentials;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * Users entity.
+ * Credentials entity.
  *
  * @author Dominik Schadow
  */
@@ -32,13 +34,11 @@ import java.util.Set;
 @Table
 @Getter
 @Setter
-public class User {
+public class Credentials {
     @Id
     @GeneratedValue
     private Long id;
-    private String firstname;
-    private String lastname;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private Set<Credentials> credentials;
+    private Long userId;
+    private String username;
+    private String password;
 }

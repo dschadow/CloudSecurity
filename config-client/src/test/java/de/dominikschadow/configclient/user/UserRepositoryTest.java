@@ -17,14 +17,11 @@
  */
 package de.dominikschadow.configclient.user;
 
-import de.dominikschadow.configclient.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -41,14 +38,14 @@ public class UserRepositoryTest {
     private UserRepository repository;
 
     @Test
-    public void findAllReturnsAllUsers() throws Exception {
-        List<User> users = repository.findAll();
+    public void findAllReturnsAllUsers() {
+        long users = repository.count();
 
-        assertEquals(3, users.size());
+        assertEquals(3, users);
     }
 
     @Test
-    public void validIdFindOneReturnsCredentials() throws Exception {
+    public void validIdFindOneReturnsCredentials() {
         Long credentialsId = 1L;
 
         User user = repository.findOne(credentialsId);
@@ -57,7 +54,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void invalidIdFindOneReturnsNull() throws Exception {
+    public void invalidIdFindOneReturnsNull() {
         Long userId = 100L;
 
         User user = repository.findOne(userId);
