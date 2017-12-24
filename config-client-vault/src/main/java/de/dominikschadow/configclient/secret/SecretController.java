@@ -23,7 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.support.VaultResponse;
-import org.springframework.vault.support.VaultResponseSupport;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -40,7 +39,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class SecretController {
     private VaultTemplate vaultTemplate;
-    private static final String SECRET_BASE_PATH = "secret/";
+    public static final String SECRET_BASE_PATH = "secret/";
 
     /**
      * Write the given secret into vault using the base bath and the user id as path.
@@ -74,13 +73,11 @@ public class SecretController {
             response = Object.class)
     public ResponseEntity<Object> readSecretContent(@PathVariable String userId,
                                                     @RequestParam(value = "type", required = false) String type) {
-        if ("content".equals(type)) {
-            VaultResponseSupport secret = vaultTemplate.read(SECRET_BASE_PATH + userId);
+        VaultResponse secret = vaultTemplate.read(SECRET_BASE_PATH + userId);
 
+        if ("content".equals(type)) {
             return ResponseEntity.ok(secret.getData());
         } else {
-            VaultResponseSupport secret = vaultTemplate.read(SECRET_BASE_PATH + userId);
-
             return ResponseEntity.ok(secret);
         }
     }
