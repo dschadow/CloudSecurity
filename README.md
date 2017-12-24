@@ -1,9 +1,12 @@
 Cloud Security
 ============
 
-This repository is all about cloud security with [Spring Boot](https://projects.spring.io/spring-boot), 
+This repository is about cloud security with [Spring Boot](https://projects.spring.io/spring-boot), 
 [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It shows
 you different possibilities on how to store secrets securely in the cloud.
+
+It requires [Java 8](http://www.oracle.com/technetwork/java/), [Maven 3](http://maven.apache.org/) and 
+[Lombok](https://projectlombok.org/) in order to work.
 
 # Jasypt
 The local-client is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
