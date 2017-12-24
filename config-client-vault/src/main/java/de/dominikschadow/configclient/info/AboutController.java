@@ -17,7 +17,9 @@
  */
 package de.dominikschadow.configclient.info;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +41,8 @@ public class AboutController {
      *
      * @return The greeting
      */
-    @GetMapping("/")
+    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ApiOperation(value = "Returns application and profile information", response = String.class)
     public String about() {
         return "Hello from " + name + " with " + profile + " profile.";
     }
