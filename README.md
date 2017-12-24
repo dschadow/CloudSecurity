@@ -12,9 +12,9 @@ It requires [Java 8](http://www.oracle.com/technetwork/java/), [Maven 3](http://
 The local-client is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
 sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
 the value `sample-password` to decrypt the database password during application start. This demo application shows the
-most simple way to encrypt sensitive properties without using Spring Cloud or Vault functionality. It does not provide a 
-user interface. `/` shows basic application information, other entities are exposed via Spring Data Rest at the 
-`/credentials` and `/users` endpoints.
+most simple way to encrypt sensitive properties without using Spring Cloud Config or Vault functionality. It does not 
+provide a user interface. `/` shows basic application information, other entities are exposed via Spring Data Rest at 
+the `/credentials` and `/users` endpoints.
 
 # Spring Cloud Config
 
