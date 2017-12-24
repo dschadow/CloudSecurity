@@ -4,9 +4,9 @@ application:
 
 spring:
   datasource:
-    name: config-client-db
-    username: config-client-db-user
-    password: '{cipher}AQAPseaUfV+p34giF9jspUa475vKWV3bLwJh9sL2Gco8xB0e4GG0z24LRIVXz5SKtESd+t9mFFkfPxJ/SgxPNOgAl+naZSay088buguJlpnYNHkNDafpoJmLGdeWq7ZTkdIeoCXpZWIioxz5e3GfWudsMjmcJ6smpq6J63OQkmHy6Z00av7kIKscNZksDDTikeKX02mnpGRelBZfMYqsMF96v7o7tuAT15tTR1v6SHrUpJ83hSy8GgtWRR6egZaTu8sYzJdkpjOmUMGXNI1flBvFdkWNt78BjzB5Lm4IiXINQFw6SObcTCsUv3nQbFOELVqg9ajVHrbKi3oaGwcbgpYR3VGgBzAgX/B/ToS/WBRLtRViSXTANE9iCvqArik4Ynfti6KKROBVk9MFe8q/MEiV'
+    name: client-db
+    username: client-user
+    password: '{cipher}AQAqlybemTv/2bAgv55r9orMec/UHUQEp86pHupQLagPijM1G1T/Niqw0lGtev5JpbfRtT4GMCnkKzsl0yTc9hW3AJoZSu7mj8D7HsUAw5FMbv/kdbAGjvTkiGsrY7u8wZI6JR9FHPoBXJDlWp11sdzNMogi4XBDHrrerUsE6CM+TTFpfvOjFcpguHJqxTmfdzpEkmiBQ+SnRPCRs4vuaCSWDMNM7yz9MKafh2NnxPozHMjWllDowvV6QTgc903W9Xu5CkuiH68Cs4wddVjMe1rNT6rWJuddSCCv/JF9oD2LbU0LEW0//cd6TKxyrtcoZ+jSiyy4XkMoy6xDYCY8BoWeT+GMgF9Xd3NaXjN4BkSW41mEhS3QcqHOzcCJyyNkGAI='
   h2:
     console:
       enabled: true

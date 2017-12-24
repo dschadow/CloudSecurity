@@ -1,12 +1,11 @@
 sudo: false
 language: java
-before_install: echo "MAVEN_OPTS='-Xmx2048m -XX:MaxPermSize=512m'" > ~/.mavenrc
 jdk: oraclejdk8
 branches:
   only:
     - develop
-script: mvn deploy cobertura:cobertura
+before_install:
+  - echo "MAVEN_OPTS='-Xmx2048m'" > ~/.mavenrc
+script: mvn -Dlogging.level.org.springframework=error -Dlogging.level.org.hibernate=error deploy cobertura:cobertura
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-addons:
-    srcclr: true

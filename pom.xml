@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <name>Cloud Security</name>
     <url>https://github.com/dschadow/CloudSecurity</url>
-    <description>This repository contains cloud security sample projects.</description>
+    <description>This repository contains sample projects for different cloud security topics.</description>
 
     <organization>
         <name>Dominik Schadow</name>
@@ -22,12 +22,13 @@
         <java.version>1.8</java.version>
         <swagger.version>2.7.0</swagger.version>
         <jacoco.version>0.7.9</jacoco.version>
+        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -55,7 +56,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.SR3</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -74,12 +75,7 @@
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
-                <version>1.15</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>1.16</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -87,26 +83,6 @@
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4.1</version>
-                <executions>
-                    <execution>
-                        <id>enforce-maven</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>3.0</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -154,11 +130,6 @@
                         <skip>true</skip>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.3.0.603</version>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -173,7 +144,21 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>2.1.1</version>
+                <version>3.0.2</version>
+                <configuration>
+                    <!-- Analyzers not required in this project -->
+                    <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
+                    <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
+                    <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
+                    <composerAnalyzerEnabled>false</composerAnalyzerEnabled>
+                    <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
+                    <nspAnalyzerEnabled>false</nspAnalyzerEnabled>
+                    <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
+                    <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
+                    <swiftPackageManagerAnalyzerEnabled>false</swiftPackageManagerAnalyzerEnabled>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                    <nexusAnalyzerEnabled>false</nexusAnalyzerEnabled>
+                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -183,20 +168,18 @@
                 </reportSets>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version>
-                <configuration>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <xmlOutput>true</xmlOutput>
-                </configuration>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>3.1.0-RC8</version>
             </plugin>
         </plugins>
     </reporting>
 
     <modules>
-        <module>config-server</module>
+        <module>local-client</module>
         <module>config-client</module>
+        <module>config-server</module>
         <module>config-client-vault</module>
+        <module>config-server-vault</module>
     </modules>
 </project>

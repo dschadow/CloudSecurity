@@ -19,6 +19,15 @@ package de.dominikschadow.configclient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Main class to start the embedded web server and the Spring Boot application.
@@ -26,6 +35,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Dominik Schadow
  */
 @SpringBootApplication
+@EnableSwagger2
 public class Application {
     /**
      * Starts the config client application with the embedded Tomcat.
@@ -35,4 +45,26 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("de.dominikschadow.configclient"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Spring Boot Config Client Vault")
+                .description("Spring Boot application using Vault.")
+                .contact(new Contact("Dominik Schadow", "https://github.com/dschadow", "dominikschadow@gmail.com"))
+                .license("Apache License Version 2.0")
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html")
+                .version("1.0")
+                .build();
+    }
+
 }

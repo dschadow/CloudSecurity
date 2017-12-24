@@ -17,7 +17,7 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.config.ConfigClientProperties;
+import de.dominikschadow.configclient.ConfigClientProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
