@@ -66,7 +66,8 @@ A local [Vault](https://www.vaultproject.io/) installation is required for the f
 
 ## config-server-vault
 This project contains the Spring Cloud Vault server which must be started like a Spring Boot application before using  
-the (client) web application **config-client-vault**. Vault must be started on localhost:
+the (client) web application **config-client-vault**. Vault must be started on localhost with the configuration
+located in the config directory:
 
     vault server -config config/vault-local.conf
     export VAULT_ADDR=http://127.0.0.1:8200
