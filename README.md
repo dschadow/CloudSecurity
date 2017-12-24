@@ -89,7 +89,8 @@ After starting the Spring Boot application without a specific profile, the serve
 ## config-client-vault
 This Spring Boot based web application exposes the REST endpoints `/` and `/secrets`. The `/` endpoint provides simple
 read access to the values created during initialization. The `/secrets` endpoint provides POST and GET methods to read 
-and write individual values to the configured Vault.
+and write individual values to the configured Vault. You can use [Swagger UI](http://localhost:8080/swagger-ui.html) 
+to interact with these endpoints.
     
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml)
 file in the config-client-vault project does use the root token shown during vault init. You have to update this token 
