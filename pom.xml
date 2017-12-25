@@ -8,7 +8,9 @@
     <packaging>pom</packaging>
     <name>Cloud Security</name>
     <url>https://github.com/dschadow/CloudSecurity</url>
-    <description>This repository contains sample projects for different cloud security topics.</description>
+    <description>This repository contains different sample projects for cloud security using Jasypt, Spring Cloud Config
+        and Vault.
+    </description>
 
     <organization>
         <name>Dominik Schadow</name>
