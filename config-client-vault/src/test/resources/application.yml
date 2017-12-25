@@ -1,6 +1,12 @@
+application:
+  name: Config Client Vault
+  profile: Test
+
 spring:
-  application:
-    name: config-client-vault
+  datasource:
+    name: config-client-db
+    username: config-client-db-user
+    password: config-client-db-password
 
 logging:
   level: error
