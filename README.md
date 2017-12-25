@@ -17,23 +17,26 @@ provide a user interface. `/` shows basic application information, other entitie
 the `/credentials` and `/users` endpoints.
 
 # Spring Cloud Config
-
-The following application uses [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) to separate code and 
-configuration.
+All client applications use [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) to separate code and 
+configuration and therefore require a running config server before starting the actual application.
 
 ## config-server
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using  
-the (client) web application **config-client**. After starting the config server without a specific profile, the 
-server is available on port 8888 and will use the configuration files provided in the **config-repo** folder in the
-GitHub repository.
+the web applications **config-client** or **config-client-vault**. After starting the config server without a specific 
+profile, the server is available on port 8888 and will use the configuration files provided in the **config-repo** 
+folder in my GitHub repository.
 
-Starting config server without a profile requires Internet access to read the configuration files from my GitHub repo. 
-To use a local configuration instead (e.g. the one in the **config-repo** directory) you have to enable the **native**
-profile during startup and to provide a file system resource location containing the configuration, e.g. 
+Starting the config server without a profile therefore requires Internet access to read the configuration files from my 
+GitHub repo. To use a local configuration instead (e.g. the one in the **config-repo** directory) you have to enable 
+the **native** profile during startup and to provide a file system resource location containing the configuration, e.g. 
 
     spring.cloud.config.server.native.search-locations=file:/var/config-repo/
 
 Basic auth credentials (user/secret) are required when accessing the config server.
+
+### config-repo
+This folder contains all configuration files for all profiles used in the **config-client** and **config-client-vault**
+applications.
 
 ## config-client
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. Based on the active 
@@ -60,14 +63,9 @@ endpoints help to encrypt and decrypt data:
     curl http://localhost:8888/encrypt -d secretToEncrypt -u user:secret
     curl http://localhost:8888/decrypt -d secretToDecrypt -u user:secret
 
-## config-repo
-This folder contains all configuration files for both profiles used in the **config-client** application.
-
 # Vault
-
-A local [Vault](https://www.vaultproject.io/) installation is required for the following sample applications to work.
-
-Vault must be started on localhost with the [local configuration](https://github.com/dschadow/CloudSecurity/blob/develop/config/vault-local.conf)
+A local [Vault](https://www.vaultproject.io/) installation is required for the **config-client-vault** application to 
+work. This Vault must be started on localhost with the [local configuration](https://github.com/dschadow/CloudSecurity/blob/develop/config/vault-local.conf)
 in the config directory:
 
     vault server -config config/vault-local.conf
@@ -77,29 +75,20 @@ in the config directory:
     vault unseal [Key 1]
     vault unseal [Key 2]
 
-It must contain the following values:
+It must contain the following values that are not contained in the Spring Cloud Config configuration for 
+**config-client-vault**:
 
-    vault write secret/config-client-vault name=config-client-vault profile=default
-
-## config-server-vault
-This project contains the Spring Cloud Vault server which must be started like a Spring Boot application before using  
-the (client) web application **config-client-vault**.
-
-The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml)
-file in the config-server-vault project does use the root token shown during vault init. You have to update this token 
-to the one shown during vault initialization.
-
-After starting the Spring Boot application without a specific profile, the server is available on port 8888.
+    vault write secret/config-client-vault spring.datasource.name=client-db spring.datasource.username=client-user spring.datasource.password=client-password
 
 ## config-client-vault
-This Spring Boot based web application exposes the REST endpoints `/` and `/secrets`. The `/` endpoint provides simple
-read access to the values created during initialization. The `/secrets` endpoint provides POST and GET methods to read 
-and write individual values to the configured Vault. You can use the applicationns [Swagger UI](http://localhost:8080/swagger-ui.html) 
-to interact with these endpoints.
+This Spring Boot based web application combines Spring Cloud Config and Vault and exposes the REST endpoints `/`, 
+`/users`, `/credentials` (like the **config-client** application) and `/secrets`. The `/secrets` endpoint provides POST 
+and GET methods to read and write individual values to the configured Vault. You can use the applications 
+[Swagger UI](http://localhost:8080/swagger-ui.html) to interact with these endpoints.
     
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml)
-file in the config-client-vault project does use the root token shown during vault init. You have to update this token 
-to the one shown during vault initialization in order to interact with vault.
+file in the **config-client-vault** project does use the root token shown during vault init. You have to update this 
+token to the one shown during vault initialization in order to interact with vault.
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
