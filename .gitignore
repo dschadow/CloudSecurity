@@ -2,8 +2,8 @@
 *.log
 *.lck
 .idea
-*/target*
 .settings*
 .metadata*
 .classpath
 .project
+target/
