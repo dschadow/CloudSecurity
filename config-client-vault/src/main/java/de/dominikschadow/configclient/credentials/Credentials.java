@@ -15,24 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configserver;
+package de.dominikschadow.configclient.credentials;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * Main class to start the embedded web server and the Spring Boot application.
+ * Credentials entity.
  *
  * @author Dominik Schadow
  */
-@SpringBootApplication
-public class Application {
-    /**
-     * Starts the vault server application with the embedded Tomcat.
-     *
-     * @param args Runtime arguments
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+@Entity
+@Table
+@Getter
+@Setter
+public class Credentials {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private Long userId;
+    private String username;
+    private String password;
 }

@@ -15,22 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configserver;
+package de.dominikschadow.configclient.credentials;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
- * Tests the application itself and tries to startup the application context.
+ * Credentials repository to access the {@link Credentials} in the database.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class ApplicationTest {
-    @Test
-    public void contextLoads() {
-    }
+@RepositoryRestResource(collectionResourceRel = "credentials", path = "credentials")
+public interface CredentialsRepository extends PagingAndSortingRepository<Credentials, Long> {
 }

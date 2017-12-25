@@ -17,8 +17,9 @@
  */
 package de.dominikschadow.configclient.info;
 
+import de.dominikschadow.configclient.ConfigClientProperties;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,12 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Dominik Schadow
  */
 @RestController
+@AllArgsConstructor
 public class AboutController {
-    @Value("${name:n/a}")
-    private String name;
-
-    @Value("${profile:n/a}")
-    private String profile;
+    private ConfigClientProperties properties;
 
     /**
      * Returns a greeting containing the applications name and profile.
@@ -44,6 +42,7 @@ public class AboutController {
     @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "Returns application and profile information", response = String.class)
     public String about() {
-        return "Hello from " + name + " with " + profile + " profile.";
+        return "Hello from " + properties.getApplication().getName() + " with "
+                + properties.getApplication().getProfile() + " profile.";
     }
 }
