@@ -17,14 +17,19 @@
  */
 package de.dominikschadow.configclient.info;
 
+import de.dominikschadow.configclient.ConfigClientProperties;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.mockito.BDDMockito.given;
 
 /**
  * Tests the {@link AboutController} class.
@@ -37,8 +42,21 @@ public class AboutControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @MockBean
+    private ConfigClientProperties properties;
+
+    private ConfigClientProperties.Application application;
+
+    @Before
+    public void setup() {
+        application = new ConfigClientProperties.Application();
+        application.setName("Test");
+        application.setProfile("Test");
+    }
+
     @Test
     public void openHomepageReturnsOk() throws Exception {
+        given(properties.getApplication()).willReturn(application);
         mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
