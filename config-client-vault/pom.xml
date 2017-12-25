@@ -12,6 +12,7 @@
     <artifactId>config-client-vault</artifactId>
     <packaging>jar</packaging>
     <name>Config Client Vault</name>
+    <description>Uses Spring Cloud Config and Vault to access configuration.</description>
 
     <properties>
         <start-class>de.dominikschadow.configclient.Application</start-class>

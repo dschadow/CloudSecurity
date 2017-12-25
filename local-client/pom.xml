@@ -12,6 +12,7 @@
     <artifactId>local-client</artifactId>
     <packaging>jar</packaging>
     <name>Local Client</name>
+    <description>Uses Jasypt to store sensitive information securely in configuration files.</description>
 
     <properties>
         <start-class>de.dominikschadow.localclient.Application</start-class>

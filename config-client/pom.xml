@@ -12,6 +12,7 @@
     <artifactId>config-client</artifactId>
     <packaging>jar</packaging>
     <name>Config Client</name>
+    <description>Uses Spring Cloud Config to access configuration (plain and encrypted).</description>
 
     <properties>
         <start-class>de.dominikschadow.configclient.Application</start-class>
