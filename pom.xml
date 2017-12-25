@@ -17,6 +17,18 @@
         <url>http://www.dominikschadow.de</url>
     </organization>
 
+    <developers>
+        <developer>
+            <id>1</id>
+            <name>Dominik Schadow</name>
+            <email>dominikschadow@gmail.com</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <properties>
         <docker.image.prefix>dschadow</docker.image.prefix>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
