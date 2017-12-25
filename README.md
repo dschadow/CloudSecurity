@@ -9,6 +9,8 @@ It requires [Java 8](http://www.oracle.com/technetwork/java/), [Maven 3](http://
 [Lombok](https://projectlombok.org/) in order to work.
 
 # Jasypt
+
+## local-client
 The local-client is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
 sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
 the value `sample-password` to decrypt the database password during application start. This demo application shows the
