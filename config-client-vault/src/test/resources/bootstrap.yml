@@ -4,3 +4,5 @@ spring:
       enabled: false
     vault:
       enabled: false
+  profiles:
+    active: test
