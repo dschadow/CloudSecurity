@@ -23,7 +23,7 @@ All client applications use [Spring Cloud Config](https://cloud.spring.io/spring
 configuration and therefore require a running config server before starting the actual application.
 
 ## config-server
-This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using  
+This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using 
 the web applications **config-client** or **config-client-vault**. After starting the config server without a specific 
 profile, the server is available on port 8888 and will use the configuration files provided in the **config-repo** 
 folder in my GitHub repository.
