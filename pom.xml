@@ -128,6 +128,13 @@
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>1.0.0</version>
                 </plugin>
+                <!-- required for Travis CI -->
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -144,7 +151,7 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-                    <!-- Analyzers not required in this project -->
+                    <!-- analyzers not required in this project -->
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
                     <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
                     <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
