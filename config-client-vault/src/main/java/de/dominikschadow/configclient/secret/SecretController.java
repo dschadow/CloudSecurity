@@ -62,20 +62,21 @@ public class SecretController {
 
     /**
      * Returns the complete secret identified by the given user id. Returned data can be limited to the secrets content
-     * by specifying the value content for the query param type.
+     * by specifying the value secret for the query param type.
      *
      * @param userId The user id to load the secret for
+     * @param type   The return type, empty for all, secret for the secret only
      * @return The loaded secret from vault
      */
     @GetMapping(value = "/secrets/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Returns the secret stored for the given user id",
-            notes = "Returned data can be limited to the secrets content by specifying the value content for the query param type.",
+            notes = "Returned data can be limited to the secrets content by specifying the value secret for the query param type.",
             response = Object.class)
-    public ResponseEntity<Object> readSecretContent(@PathVariable String userId,
-                                                    @RequestParam(value = "type", required = false) String type) {
+    public ResponseEntity<Object> readSecret(@PathVariable String userId,
+                                             @RequestParam(value = "type", required = false) String type) {
         VaultResponse secret = vaultTemplate.read(SECRET_BASE_PATH + userId);
 
-        if ("content".equals(type)) {
+        if ("secret".equals(type)) {
             return ResponseEntity.ok(secret.getData());
         } else {
             return ResponseEntity.ok(secret);
