@@ -66,9 +66,9 @@ endpoints help to encrypt and decrypt data:
 # Vault
 A local [Vault](https://www.vaultproject.io/) installation is required for the **config-client-vault** application to 
 work. This Vault must be started on localhost with the [local configuration](https://github.com/dschadow/CloudSecurity/blob/develop/config/vault-local.conf)
-in the config directory:
+in the root directory:
 
-    vault server -config config/vault-local.conf
+    vault server -config vault-local.conf
     export VAULT_ADDR=http://127.0.0.1:8200
     vault init -key-shares=5 -key-threshold=2
     export VAULT_TOKEN=[Root Token]
