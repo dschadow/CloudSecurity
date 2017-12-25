@@ -67,10 +67,8 @@ This folder contains all configuration files for both profiles used in the **con
 
 A local [Vault](https://www.vaultproject.io/) installation is required for the following sample applications to work.
 
-## config-server-vault
-This project contains the Spring Cloud Vault server which must be started like a Spring Boot application before using  
-the (client) web application **config-client-vault**. Vault must be started on localhost with the configuration
-located in the config directory:
+Vault must be started on localhost with the [local configuration](https://github.com/dschadow/CloudSecurity/blob/develop/config/vault-local.conf)
+in the config directory:
 
     vault server -config config/vault-local.conf
     export VAULT_ADDR=http://127.0.0.1:8200
@@ -83,6 +81,10 @@ It must contain the following values:
 
     vault write secret/config-client-vault name=config-client-vault profile=default
 
+## config-server-vault
+This project contains the Spring Cloud Vault server which must be started like a Spring Boot application before using  
+the (client) web application **config-client-vault**.
+
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml)
 file in the config-server-vault project does use the root token shown during vault init. You have to update this token 
 to the one shown during vault initialization.
@@ -92,12 +94,12 @@ After starting the Spring Boot application without a specific profile, the serve
 ## config-client-vault
 This Spring Boot based web application exposes the REST endpoints `/` and `/secrets`. The `/` endpoint provides simple
 read access to the values created during initialization. The `/secrets` endpoint provides POST and GET methods to read 
-and write individual values to the configured Vault. You can use [Swagger UI](http://localhost:8080/swagger-ui.html) 
+and write individual values to the configured Vault. You can use the applicationns [Swagger UI](http://localhost:8080/swagger-ui.html) 
 to interact with these endpoints.
     
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml)
 file in the config-client-vault project does use the root token shown during vault init. You have to update this token 
-to the one shown during vault initialization.
+to the one shown during vault initialization in order to interact with vault.
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
