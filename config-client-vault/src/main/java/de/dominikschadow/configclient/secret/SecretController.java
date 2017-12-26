@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * REST controller to provide access to some {@link Secret} related operations. Uses {@link VaultTemplate} to write to
- * and read secrets from.
+ * REST controller to provide access to some {@link Secret} related operations. Uses {@link VaultTemplate} to write,
+ * delete, list and read secrets from the configured vault.
  *
  * @author Dominik Schadow
  */
@@ -58,6 +58,20 @@ public class SecretController {
         VaultResponse vaultResponse = vaultTemplate.write(SECRET_BASE_PATH + secret.getUserId(), data);
 
         return ResponseEntity.ok(vaultResponse);
+    }
+
+    /**
+     * Deletes the secret stored in the vault for the given user id.
+     *
+     * @param userId The user id to delete the secret for
+     * @return Empty response
+     */
+    @DeleteMapping("/secrets/{userId}")
+    @ApiOperation(value = "Deletes the secret stored for the given user id")
+    public ResponseEntity deleteSecret(@PathVariable String userId) {
+        vaultTemplate.delete(SECRET_BASE_PATH + userId);
+
+        return ResponseEntity.ok().build();
     }
 
     /**

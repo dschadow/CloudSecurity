@@ -34,6 +34,7 @@ import org.springframework.vault.support.VaultResponse;
 import java.util.Arrays;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 
 /**
  * Tests the {@link SecretController} class.
@@ -84,5 +85,14 @@ public class SecretControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.post("/secrets").contentType(MediaType.APPLICATION_JSON)
                 .content(secretJson)).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void deleteSecretForUserReturnsOk() throws Exception {
+        String path = SecretController.SECRET_BASE_PATH + "12345";
+
+        doNothing().when(vaultTemplate).delete(path);
+
+        mvc.perform(MockMvcRequestBuilders.delete("/secrets/12345")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
