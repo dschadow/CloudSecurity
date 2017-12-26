@@ -17,7 +17,7 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.ConfigClientProperties;
+import de.dominikschadow.configclient.ConfigClientVaultProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,13 +43,13 @@ public class AboutControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private ConfigClientProperties properties;
+    private ConfigClientVaultProperties properties;
 
-    private ConfigClientProperties.Application application;
+    private ConfigClientVaultProperties.Application application;
 
     @Before
     public void setup() {
-        application = new ConfigClientProperties.Application();
+        application = new ConfigClientVaultProperties.Application();
         application.setName("Test");
         application.setProfile("Test");
     }

@@ -22,14 +22,14 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Properties for the Config Client application.
+ * Properties for the Config Client Vault application.
  *
  * @author Dominik Schadow
  */
 @ConfigurationProperties
 @Getter
 @Setter
-public class ConfigClientProperties {
+public class ConfigClientVaultProperties {
     private Application application;
 
     /**

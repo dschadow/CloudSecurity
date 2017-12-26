@@ -27,7 +27,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @author Dominik Schadow
  */
 @SpringBootApplication
-@EnableConfigurationProperties(ConfigClientProperties.class)
+@EnableConfigurationProperties(ConfigClientVaultProperties.class)
 public class Application {
     /**
      * Starts the config client application with the embedded Tomcat.

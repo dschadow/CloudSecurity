@@ -17,7 +17,7 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.ConfigClientProperties;
+import de.dominikschadow.configclient.ConfigClientVaultProperties;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class AboutController {
-    private ConfigClientProperties properties;
+    private ConfigClientVaultProperties properties;
 
     /**
      * Returns a greeting containing the applications name and profile.
