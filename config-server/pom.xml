@@ -12,7 +12,9 @@
     <artifactId>config-server</artifactId>
     <packaging>jar</packaging>
     <name>Config Server</name>
-    <description>Provides access (plain and encrypted) to other Spring applications in this repository.</description>
+    <description>Provides access (plain and encrypted) to the configured repo for other Spring applications in this
+        repository.
+    </description>
 
     <properties>
         <start-class>de.dominikschadow.configserver.Application</start-class>
