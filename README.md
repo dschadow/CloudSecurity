@@ -6,7 +6,9 @@ This repository is about cloud security with [Spring Boot](https://projects.spri
 you different possibilities on how to store secrets securely in the cloud.
 
 It requires [Java 8](http://www.oracle.com/technetwork/java/), [Maven 3](http://maven.apache.org/) and 
-[Lombok](https://projectlombok.org/) in order to work.
+[Lombok](https://projectlombok.org/) in order to work. Before Java 8 Update 161 the 
+[Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)
+are required as well. 
 
 # Jasypt
 
