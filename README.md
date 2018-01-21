@@ -66,8 +66,9 @@ endpoints help to encrypt and decrypt data:
     curl http://localhost:8888/decrypt -d secretToDecrypt -u user:secret
 
 # Vault
-A local [Vault](https://www.vaultproject.io/) installation is required for the **config-client-vault** application to 
-work. This Vault must be started on localhost with the [local configuration](https://github.com/dschadow/CloudSecurity/blob/develop/config/vault-local.conf)
+A local [Vault](https://www.vaultproject.io/) installation is required for the **config-client-vault** and the
+**config-server-vault** applications to work. This Vault must be started on localhost with the 
+[local configuration](https://github.com/dschadow/CloudSecurity/blob/develop/config/vault-local.conf)
 in the root directory:
 
     vault server -config vault-local.conf
