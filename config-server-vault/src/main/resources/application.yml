@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: vault
+
+server:
+  port: 8888
+
+logging:
+  level: warn
