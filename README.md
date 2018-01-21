@@ -92,6 +92,14 @@ The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/confi
 file in the **config-client-vault** project does use the root token shown during vault init. You have to update this 
 token to the one shown during vault initialization in order to interact with vault.
 
+## config-server-vault
+This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using 
+the web applications **config-client** or **config-client-vault**. After starting the config server without a specific 
+profile, the server is available on port 8888 and will use the configuration provided in the local Vault. The
+[bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml)
+requires a valid Vault token. Clients that want to access any configuration must provide a valid Vault token as well
+via a *X-Config-Token* header.
+
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
 [![codecov](https://codecov.io/gh/dschadow/CloudSecurity/branch/develop/graph/badge.svg)](https://codecov.io/gh/dschadow/CloudSecurity)
