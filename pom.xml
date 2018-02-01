@@ -16,7 +16,7 @@
         <java.version>1.8</java.version>
         <swagger.version>2.8.0</swagger.version>
         <spring-cloud.version>Edgware.SR1</spring-cloud.version>
-        <jasypt.version>1.17</jasypt.version>
+        <jasypt.version>1.18</jasypt.version>
     </properties>
 
     <description>This repository contains different sample projects for cloud security using Jasypt, Spring Cloud Config
@@ -43,7 +43,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
+        <version>1.5.10.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -164,7 +164,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
                 <configuration>
                     <!-- analyzers not required in this project -->
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
