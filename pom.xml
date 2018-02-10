@@ -15,7 +15,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <swagger.version>2.8.0</swagger.version>
-        <spring-cloud.version>Edgware.SR1</spring-cloud.version>
+        <spring-cloud.version>Edgware.SR2</spring-cloud.version>
         <jasypt.version>1.18</jasypt.version>
     </properties>
 
