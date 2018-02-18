@@ -58,6 +58,13 @@
         <developerConnection>scm:git:git@github.com:dschadow/CloudSecurity.git</developerConnection>
     </scm>
 
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
     <repositories>
         <repository>
             <id>spring-plugins-repository</id>
