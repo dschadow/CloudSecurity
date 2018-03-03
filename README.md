@@ -75,33 +75,39 @@ in the root directory:
 
     vault server -config vault-local.conf
     export VAULT_ADDR=http://127.0.0.1:8200
-    vault init -key-shares=5 -key-threshold=2
+    vault operator init -key-shares=5 -key-threshold=2
     export VAULT_TOKEN=[Root Token]
-    vault unseal [Key 1]
-    vault unseal [Key 2]
+    vault operator unseal [Key 1]
+    vault operator unseal [Key 2]
+    
+Alternatively it is possible to start the Vault server locally in dev mode and provide the configured root-token-id 
+during initialization (recommended for first steps):
 
-It must contain the following values that are not contained in the Spring Cloud Config configuration for 
+    vault server -dev -dev-root-token-id="00000000-0000-0000-0000-000000000000" -dev-listen-address="127.0.0.1:8200"  
+    export VAULT_ADDR=http://127.0.0.1:8200  
+
+The created Vault must contain the following values that are not contained in the Spring Cloud Config configuration for 
 **config-client-vault**:
 
-    vault write secret/config-client-vault spring.datasource.name=client-db spring.datasource.username=client-user spring.datasource.password=client-password
+    vault write secret/config-client-vault application.name=config-client-vault application.profile=MyProfile
 
 ## config-client-vault
 This Spring Boot based web application combines Spring Cloud Config and Vault and exposes the REST endpoints `/`, 
 `/users`, `/credentials` (like the **config-client** application) and `/secrets`. The `/secrets` endpoint provides POST 
 and GET methods to read and write individual values to the configured Vault. You can use the applications 
-[Swagger UI](http://localhost:8080/swagger-ui.html) to interact with these endpoints.
+[Swagger UI](http://localhost:8080/swagger-ui.html) to interact with the endpoints `/` and `/secrets`.
     
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml)
 file in the **config-client-vault** project does use the root token shown during vault init. You have to update this 
-token to the one shown during vault initialization in order to interact with vault.
+token to the one shown during vault initialization in order to interact with Vault or you have to use the Vault dev mode.
 
 ## config-server-vault
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using 
 the web applications **config-client** or **config-client-vault**. After starting the config server without a specific 
 profile, the server is available on port 8888 and will use the configuration provided in the local Vault. The
 [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml)
-requires a valid Vault token. Clients that want to access any configuration must provide a valid Vault token as well
-via a *X-Config-Token* header.
+requires a valid Vault token or you have to use the Vault dev mode. Clients that want to access any configuration must 
+provide a valid Vault token as well via a *X-Config-Token* header.
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
