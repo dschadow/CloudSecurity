@@ -4,8 +4,5 @@ jdk: oraclejdk8
 branches:
   only:
     - develop
-before_install:
-  - echo "MAVEN_OPTS='-Xmx2048m'" > ~/.mavenrc
-script: mvn package
 after_success:
   - bash <(curl -s https://codecov.io/bash)
