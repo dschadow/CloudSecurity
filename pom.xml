@@ -15,8 +15,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <swagger.version>2.8.0</swagger.version>
-        <spring-cloud.version>Edgware.SR2</spring-cloud.version>
-        <jasypt.version>1.18</jasypt.version>
+        <spring-cloud.version>Edgware.SR3</spring-cloud.version>
+        <jasypt.version>2.0.0</jasypt.version>
     </properties>
 
     <description>This repository contains different sample projects for cloud security using Jasypt, Spring Cloud Config
@@ -43,7 +43,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.10.RELEASE</version>
+        <version>1.5.11.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -106,28 +106,9 @@
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
             <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.1.3</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -170,7 +151,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>3.1.1</version>
+                <version>3.1.2</version>
                 <configuration>
                     <!-- analyzers not required in this project -->
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
