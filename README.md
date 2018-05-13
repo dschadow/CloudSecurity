@@ -3,7 +3,7 @@ Cloud Security
 
 This repository is about cloud security with [Spring Boot](https://projects.spring.io/spring-boot), 
 [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It shows
-you different possibilities on how to store secrets securely in the cloud.
+you different possibilities on how to store secrets securely for local and cloud web applications.
 
 It requires [Java 8](http://www.oracle.com/technetwork/java/), [Maven 3](http://maven.apache.org/) and 
 [Lombok](https://projectlombok.org/) in order to work. Before Java 8 Update 161 the 
@@ -16,9 +16,9 @@ are required as well.
 The local-client is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure
 sensitive configuration properties. You have to provide an environment variable named `jasypt.encryptor.password` with
 the value `sample-password` to decrypt the database password during application start. This demo application shows the
-most simple way to encrypt sensitive properties without using Spring Cloud Config or Vault functionality. It does not 
-provide a user interface. `/` shows basic application information, other entities are exposed via Spring Data Rest at 
-the `/credentials` and `/users` endpoints.
+most simple way to encrypt sensitive properties without requiring another web application or any external system. After
+launching, `http://localhost:8080` shows basic application information, other entities are exposed via Spring Data Rest 
+at the `/credentials` and `/users` endpoints.
 
 # Spring Cloud Config
 All client applications use [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) to separate code and 
