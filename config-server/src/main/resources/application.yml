@@ -6,13 +6,6 @@ spring:
           uri: https://github.com/dschadow/CloudSecurity
           search-paths: config-repo
 
-security:
-  basic:
-    enabled: true
-  user:
-    name: user
-    password: secret
-
 server:
   port: 8888
 
