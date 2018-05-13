@@ -54,7 +54,7 @@ public class CredentialRepositoryTest {
         Optional<Credential> credentials = repository.findById(credentialsId);
 
         assertTrue(credentials.isPresent());
-        assertEquals("arthur_dent", credentials.get().getUsername());
+        assertEquals("arthur1", credentials.get().getUsername());
     }
 
     @Test
