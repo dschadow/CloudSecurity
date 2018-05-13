@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.credentials;
+package de.dominikschadow.configclient.credential;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,20 +25,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 /**
- * Tests the {@link CredentialsRepository} interface.
+ * Tests the {@link CredentialRepository} interface.
  *
  * @author Dominik Schadow
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CredentialsRepositoryTest {
+public class CredentialRepositoryTest {
     @Autowired
-    private CredentialsRepository repository;
+    private CredentialRepository repository;
 
     @Test
     public void findAllReturnsAllCredentials() {
@@ -51,17 +49,17 @@ public class CredentialsRepositoryTest {
     public void validIdFindOneReturnsCredentials() {
         Long credentialsId = 1L;
 
-        Optional<Credentials> credentials = repository.findById(credentialsId);
+        Optional<Credential> credentials = repository.findById(credentialsId);
 
         assertTrue(credentials.isPresent());
-        assertEquals("arthur_dent", credentials.get().getUsername());
+        assertEquals("arthur1", credentials.get().getUsername());
     }
 
     @Test
     public void invalidIdFindOneReturnsNull() {
         Long credentialsId = 100L;
 
-        Optional<Credentials> credentials = repository.findById(credentialsId);
+        Optional<Credential> credentials = repository.findById(credentialsId);
 
         assertFalse(credentials.isPresent());
     }

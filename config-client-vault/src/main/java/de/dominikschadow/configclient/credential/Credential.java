@@ -15,16 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.configclient.credentials;
+package de.dominikschadow.configclient.credential;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * Credentials repository to access the {@link Credentials} in the database.
+ * Credential entity.
  *
  * @author Dominik Schadow
  */
-@RepositoryRestResource(collectionResourceRel = "credentials", path = "credentials")
-public interface CredentialsRepository extends PagingAndSortingRepository<Credentials, Long> {
+@Entity
+@Table
+@Getter
+@Setter
+public class Credential {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private Long userId;
+    private String username;
+    private String password;
 }
