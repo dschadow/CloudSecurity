@@ -9,4 +9,5 @@ spring:
     password: config-client-db-password
 
 logging:
-  level: error
+  level:
+    root: info

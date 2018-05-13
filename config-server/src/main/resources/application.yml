@@ -17,4 +17,5 @@ server:
   port: 8888
 
 logging:
-  level: warn
+  level:
+    root: info
