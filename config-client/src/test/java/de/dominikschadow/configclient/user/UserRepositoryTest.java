@@ -23,8 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests the {@link UserRepository} interface.
@@ -46,19 +47,20 @@ public class UserRepositoryTest {
 
     @Test
     public void validIdFindOneReturnsCredentials() {
-        Long credentialsId = 1L;
+        Long userId = 1L;
 
-        User user = repository.findOne(credentialsId);
+        Optional<User> user = repository.findById(userId);
 
-        assertEquals("Dent", user.getLastname());
+        assertTrue(user.isPresent());
+        assertEquals("Dent", user.get().getLastname());
     }
 
     @Test
     public void invalidIdFindOneReturnsNull() {
         Long userId = 100L;
 
-        User user = repository.findOne(userId);
+        Optional<User> user = repository.findById(userId);
 
-        assertNull(user);
+        assertFalse(user.isPresent());
     }
 }

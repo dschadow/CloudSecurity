@@ -23,8 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests the {@link CredentialsRepository} interface.
@@ -48,17 +49,18 @@ public class CredentialsRepositoryTest {
     public void validIdFindOneReturnsCredentials() {
         Long credentialsId = 1L;
 
-        Credentials credentials = repository.findOne(credentialsId);
+        Optional<Credentials> credentials = repository.findById(credentialsId);
 
-        assertEquals("arthur_dent", credentials.getUsername());
+        assertTrue(credentials.isPresent());
+        assertEquals("arthur_dent", credentials.get().getUsername());
     }
 
     @Test
     public void invalidIdFindOneReturnsNull() {
         Long credentialsId = 100L;
 
-        Credentials credentials = repository.findOne(credentialsId);
+        Optional<Credentials> credentials = repository.findById(credentialsId);
 
-        assertNull(credentials);
+        assertFalse(credentials.isPresent());
     }
 }
