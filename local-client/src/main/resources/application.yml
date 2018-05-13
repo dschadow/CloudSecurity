@@ -15,4 +15,5 @@ spring:
       default-media-type: application/json
 
 logging:
-  level: warn
+  level:
+    root: info
