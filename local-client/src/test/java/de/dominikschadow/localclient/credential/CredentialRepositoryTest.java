@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.credentials;
+package de.dominikschadow.localclient.credential;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,15 +30,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 /**
- * Tests the {@link CredentialsRepository} interface.
+ * Tests the {@link CredentialRepository} interface.
  *
  * @author Dominik Schadow
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CredentialsRepositoryTest {
+public class CredentialRepositoryTest {
     @Autowired
-    private CredentialsRepository repository;
+    private CredentialRepository repository;
 
     @Test
     public void findAllReturnsAllCredentials() {
@@ -51,7 +51,7 @@ public class CredentialsRepositoryTest {
     public void validIdFindOneReturnsCredentials() {
         Long credentialsId = 1L;
 
-        Optional<Credentials> credentials = repository.findById(credentialsId);
+        Optional<Credential> credentials = repository.findById(credentialsId);
 
         assertTrue(credentials.isPresent());
         assertEquals("arthur_dent", credentials.get().getUsername());
@@ -61,7 +61,7 @@ public class CredentialsRepositoryTest {
     public void invalidIdFindOneReturnsNull() {
         Long credentialsId = 100L;
 
-        Optional<Credentials> credentials = repository.findById(credentialsId);
+        Optional<Credential> credentials = repository.findById(credentialsId);
 
         assertFalse(credentials.isPresent());
     }

@@ -18,13 +18,11 @@
 package de.dominikschadow.localclient.user;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * User repository to access the {@link User} in the database.
  *
  * @author Dominik Schadow
  */
-@RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 }

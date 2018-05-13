@@ -17,7 +17,7 @@
  */
 package de.dominikschadow.localclient.user;
 
-import de.dominikschadow.localclient.credentials.Credentials;
+import de.dominikschadow.localclient.credential.Credential;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,5 +41,5 @@ public class User {
     private String lastname;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
-    private Set<Credentials> credentials;
+    private Set<Credential> credentials;
 }
