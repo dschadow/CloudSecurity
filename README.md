@@ -53,19 +53,19 @@ Configuration files are not protected at all, even sensitive configuration prope
 
 ### Profile cipher
 This profile uses Config Server functionality to encrypt sensitive properties. It requires either a symmetric or 
-asymmetric key. The sample is based on asymmetric encryption and is using a keystore (`server.jks`) which was created by 
+asymmetric key. The sample is based on asymmetric encryption and is using a keystore (`server.p12`) which was created by 
 executing the following command:
 
-    keytool -genkeypair -alias configserver -keyalg RSA \
+    keytool -genkeypair -alias configserver -storetype PKCS12 -keyalg RSA \
       -dname "CN=Config Server,OU=Unit,O=Organization,L=City,S=State,C=Germany" \
-      -keypass secret -keystore server.jks -storepass secret
+      -keypass secret -keystore server.p12 -storepass secret
       
 Depending on your Java version, the [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy File](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)
 must be installed in order for this to work (newer Java versions already contain this extension). The Config Server 
 endpoints help to encrypt and decrypt data:
 
-    curl http://localhost:8888/encrypt -d secretToEncrypt -u user:secret
-    curl http://localhost:8888/decrypt -d secretToDecrypt -u user:secret
+    curl localhost:8888/encrypt -d secretToEncrypt -u user:secret
+    curl localhost:8888/decrypt -d secretToDecrypt -u user:secret
 
 # Vault
 A local [Vault](https://www.vaultproject.io/) installation is required for the **config-client-vault** and the

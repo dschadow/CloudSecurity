@@ -10,9 +10,7 @@ spring:
   h2:
     console:
       enabled: true
-  data:
-    rest:
-      default-media-type: application/json
 
 logging:
-  level: warn
+  level:
+    root: info

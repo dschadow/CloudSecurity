@@ -2,10 +2,6 @@ application:
   name: Config Client Vault
   profile: Default
 
-spring:
-  data:
-    rest:
-      default-media-type: application/json
-
 logging:
-  level: warn
+  level:
+    root: info
