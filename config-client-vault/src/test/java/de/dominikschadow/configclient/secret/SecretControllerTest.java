@@ -28,8 +28,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.vault.core.VaultTemplate;
-import org.springframework.vault.support.VaultResponse;
+import org.springframework.vault.core.VaultOperations;
+import org.springframework.vault.support.VaultResponseSupport;
 
 import java.util.Arrays;
 
@@ -49,38 +49,27 @@ public class SecretControllerTest {
     @Autowired
     private ObjectMapper mapper;
     @MockBean
-    private VaultTemplate vaultTemplate;
+    private VaultOperations vault;
 
     @Test
     public void getAllSecretsReturnsOk() throws Exception {
-        given(vaultTemplate.list(SecretController.SECRET_BASE_PATH)).willReturn(Arrays.asList("1234", "12345"));
+        given(vault.list(SecretController.SECRET_BASE_PATH)).willReturn(Arrays.asList("1234", "12345"));
 
         mvc.perform(MockMvcRequestBuilders.get("/secrets")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void getSecretForUserReturnsOk() throws Exception {
-        VaultResponse vaultResponse = new VaultResponse();
         String path = SecretController.SECRET_BASE_PATH + "12345";
 
-        given(vaultTemplate.read(path)).willReturn(vaultResponse);
+        given(vault.read(path, Secret.class)).willReturn(new VaultResponseSupport<>());
 
         mvc.perform(MockMvcRequestBuilders.get("/secrets/12345")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    public void getSecretContentForUserReturnsOk() throws Exception {
-        VaultResponse vaultResponse = new VaultResponse();
-        String path = SecretController.SECRET_BASE_PATH + "12345";
-
-        given(vaultTemplate.read(path)).willReturn(vaultResponse);
-
-        mvc.perform(MockMvcRequestBuilders.get("/secrets/12345?type=content")).andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
     public void writeSecretForUserReturnsOk() throws Exception {
-        Secret secret = Secret.builder().userId(12345L).data("My secret").build();
+        Secret secret = Secret.builder().key("12345").data("My secret").build();
         String secretJson = mapper.writeValueAsString(secret);
 
         mvc.perform(MockMvcRequestBuilders.post("/secrets").contentType(MediaType.APPLICATION_JSON)
@@ -91,7 +80,7 @@ public class SecretControllerTest {
     public void deleteSecretForUserReturnsOk() throws Exception {
         String path = SecretController.SECRET_BASE_PATH + "12345";
 
-        doNothing().when(vaultTemplate).delete(path);
+        doNothing().when(vault).delete(path);
 
         mvc.perform(MockMvcRequestBuilders.delete("/secrets/12345")).andExpect(MockMvcResultMatchers.status().isOk());
     }

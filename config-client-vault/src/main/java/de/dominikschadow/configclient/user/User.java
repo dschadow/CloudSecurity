@@ -40,6 +40,6 @@ public class User {
     private String firstname;
     private String lastname;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "key")
     private Set<Credential> credentials;
 }

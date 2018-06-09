@@ -32,6 +32,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Secret {
+    private String key;
     private String data;
-    private Long userId;
 }

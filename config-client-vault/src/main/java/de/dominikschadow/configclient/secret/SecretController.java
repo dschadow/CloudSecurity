@@ -21,16 +21,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.vault.core.VaultTemplate;
+import org.springframework.vault.core.VaultOperations;
 import org.springframework.vault.support.VaultResponse;
+import org.springframework.vault.support.VaultResponseSupport;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * REST controller to provide access to some {@link Secret} related operations. Uses {@link VaultTemplate} to write,
+ * REST controller to provide access to some {@link Secret} related operations. Uses {@link VaultOperations} to write,
  * delete, list and read secrets from the configured vault.
  *
  * @author Dominik Schadow
@@ -38,63 +37,51 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 public class SecretController {
-    private VaultTemplate vaultTemplate;
-    public static final String SECRET_BASE_PATH = "secret/";
+    private VaultOperations vault;
+    static final String SECRET_BASE_PATH = "secret/";
 
     /**
-     * Write the given secret into vault using the base bath and the user id as path.
+     * Write the given secret into vault using the base bath and the key as path.
      *
      * @param secret The secret to store
      * @return The stored secret
      */
     @PostMapping(value = "/secrets", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Writes the given secret into the vault",
-            notes = "Writes the given secret content into the vault using the given user id as path.",
+            notes = "Writes the given secret content into the vault using the given key as path.",
             response = VaultResponse.class)
     public ResponseEntity<VaultResponse> writeSecret(@RequestBody Secret secret) {
-        Map<String, String> data = new HashMap<>();
-        data.put("secret", secret.getData());
-
-        VaultResponse vaultResponse = vaultTemplate.write(SECRET_BASE_PATH + secret.getUserId(), data);
+        VaultResponse vaultResponse = vault.write(SECRET_BASE_PATH + secret.getKey(), secret);
 
         return ResponseEntity.ok(vaultResponse);
     }
 
     /**
-     * Deletes the secret stored in the vault for the given user id.
+     * Deletes the secret stored in the vault for the given key.
      *
-     * @param userId The user id to delete the secret for
+     * @param key The key to delete the secret for
      * @return Empty response
      */
-    @DeleteMapping("/secrets/{userId}")
-    @ApiOperation(value = "Deletes the secret stored for the given user id")
-    public ResponseEntity deleteSecret(@PathVariable String userId) {
-        vaultTemplate.delete(SECRET_BASE_PATH + userId);
+    @DeleteMapping("/secrets/{key}")
+    @ApiOperation(value = "Deletes the secret stored for the given key")
+    public ResponseEntity deleteSecret(@PathVariable String key) {
+        vault.delete(SECRET_BASE_PATH + key);
 
         return ResponseEntity.ok().build();
     }
 
     /**
-     * Returns the complete secret identified by the given user id. Returned data can be limited to the secrets content
-     * by specifying the value secret for the query param type.
+     * Returns the complete secret identified by the given key.
      *
-     * @param userId The user id to load the secret for
-     * @param type   The return type, empty for all, secret for the secret only
+     * @param key The key to load the secret for
      * @return The loaded secret from vault
      */
-    @GetMapping(value = "/secrets/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Returns the secret stored for the given user id",
-            notes = "Returned data can be limited to the secrets content by specifying the value secret for the query param type.",
-            response = Object.class)
-    public ResponseEntity<Object> readSecret(@PathVariable String userId,
-                                             @RequestParam(value = "type", required = false) String type) {
-        VaultResponse secret = vaultTemplate.read(SECRET_BASE_PATH + userId);
+    @GetMapping(value = "/secrets/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Returns the secret stored for the given key", response = Secret.class)
+    public ResponseEntity<Secret> readSecret(@PathVariable String key) {
+        VaultResponseSupport<Secret> secret = vault.read(SECRET_BASE_PATH + key, Secret.class);
 
-        if ("secret".equals(type)) {
-            return ResponseEntity.ok(secret.getData());
-        } else {
-            return ResponseEntity.ok(secret);
-        }
+        return ResponseEntity.ok(secret.getData());
     }
 
     /**
@@ -107,7 +94,7 @@ public class SecretController {
             response = String.class,
             responseContainer = "List")
     public ResponseEntity<List<String>> listSecrets() {
-        List<String> secrets = vaultTemplate.list(SECRET_BASE_PATH);
+        List<String> secrets = vault.list(SECRET_BASE_PATH);
 
         return ResponseEntity.ok(secrets);
     }
