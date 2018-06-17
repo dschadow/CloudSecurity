@@ -62,16 +62,20 @@ The Config Server endpoints help to encrypt and decrypt data:
 # Vault
 A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the
 **config-server-vault** applications to work. Vault must be started on localhost with the 
-[local configuration](https://github.com/dschadow/CloudSecurity/blob/develop/vault-local.conf)
+[in-memory configuration](https://github.com/dschadow/CloudSecurity/blob/develop/vault-inmem.conf)
 in the projects' root directory:
 
-    vault server -config vault-local.conf
+    vault server -config vault-inmem.conf
     export VAULT_ADDR=http://127.0.0.1:8200
     vault operator init -key-shares=5 -key-threshold=2
     export VAULT_TOKEN=[Root Token]
     vault operator unseal [Key 1]
     vault operator unseal [Key 2]
     
+There are two more configuration files in his directory: [file configuration](https://github.com/dschadow/CloudSecurity/blob/develop/vault-file.conf)
+which stores all Vault data in the configured directory and [consul configuration](https://github.com/dschadow/CloudSecurity/blob/develop/vault-consul.conf)
+which uses Consul for that purpose (a running Consul must be available).
+
 The displayed root token must be available for every Spring application that wants to access vault. Alternatively, it is 
 possible to start the Vault server locally in dev mode and provide the configured root-token-id during initialization 
 (recommended for first steps):
