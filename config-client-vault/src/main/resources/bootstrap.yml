@@ -4,8 +4,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      username: user
-      password: secret
     vault:
       host: localhost
       port: 8200
