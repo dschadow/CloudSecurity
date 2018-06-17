@@ -100,7 +100,7 @@ provide a valid Vault token as well via a *X-Config-Token* header.
 This Spring Boot based web application contacts the Spring Cloud Config Server for configuration and exposes the REST 
 endpoints `/`, `/users`, `/credentials` (like the **config-client** application) and `/secrets`. The `/secrets` endpoint 
 communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured 
-Vault. You can use the applications [Swagger UI](http://localhost:8080/swagger-ui.html) to interact with all endpoints.
+Vault. You can use the applications **Swagger UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints.
     
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml)
 file in the **config-client-vault** project does use the root token shown during vault init. You have to update this 
