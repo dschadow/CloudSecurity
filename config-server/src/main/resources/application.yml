@@ -6,6 +6,12 @@ spring:
           uri: https://github.com/dschadow/CloudSecurity
           search-paths: config-repo
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 server:
   port: 8888
 

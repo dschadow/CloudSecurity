@@ -11,6 +11,12 @@ spring:
   application:
     name: local-client
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 logging:
   level:
     root: info

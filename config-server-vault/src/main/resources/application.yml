@@ -2,6 +2,12 @@ spring:
   profiles:
     active: vault
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 server:
   port: 8888
 
