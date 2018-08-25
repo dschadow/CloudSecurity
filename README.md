@@ -2,12 +2,15 @@ Cloud Security
 ============
 
 This repository contains cloud security projects with [Spring Boot](https://projects.spring.io/spring-boot), 
-[Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It offers different possibilities on how to store secrets securely for local and cloud based web applications.
+[Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). 
+It offers different possibilities on how to store secrets securely for local and cloud based web applications.
 
-It requires [Java 8](http://www.oracle.com/technetwork/java/), [Maven 3](http://maven.apache.org/) and 
+All applications require [Java 8](http://www.oracle.com/technetwork/java/), [Maven 3](http://maven.apache.org/) and 
 [Lombok](https://projectlombok.org/) in order to work. Before Java 8 Update 161, the 
 [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)
 are required as well. 
+
+Every application (clients and config servers) exposes all Spring Actuator endpoints at the default */actuator* endpoint.
 
 # Jasypt
 
