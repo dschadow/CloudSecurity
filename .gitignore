@@ -6,5 +6,6 @@
 .metadata*
 .classpath
 .project
+.factorypath
 target/
 vault_data/
