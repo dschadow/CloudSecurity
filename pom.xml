@@ -4,14 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cloudsecurity</artifactId>
     <groupId>de.dominikschadow</groupId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <packaging>pom</packaging>
     <name>Cloud Security</name>
     <url>https://github.com/dschadow/CloudSecurity</url>
 
-    <description>This repository contains different sample projects for cloud security using Jasypt, Spring Cloud Config
-        and Vault.
-    </description>
+    <description>Sample projects for cloud security using Jasypt, Spring Cloud Config and Vault.</description>
 
     <properties>
         <docker.image.prefix>dschadow</docker.image.prefix>
@@ -19,26 +17,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
-        <spring-cloud.version>Finchley.SR1</spring-cloud.version>
+        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
         <jasypt.version>2.1.0</jasypt.version>
     </properties>
-
-    <organization>
-        <name>Dominik Schadow</name>
-        <url>http://www.dominikschadow.de</url>
-    </organization>
-
-    <developers>
-        <developer>
-            <id>1</id>
-            <name>Dominik Schadow</name>
-            <email>dominikschadow@gmail.com</email>
-            <roles>
-                <role>Project Lead</role>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -46,32 +27,6 @@
         <version>2.0.6.RELEASE</version>
         <relativePath/>
     </parent>
-
-    <issueManagement>
-        <system>GitHub Issue Tracking</system>
-        <url>https://github.com/dschadow/CloudSecurity/issues</url>
-    </issueManagement>
-
-    <scm>
-        <url>https://github.com/dschadow/CloudSecurity</url>
-        <connection>scm:git:git://github.com/dschadow/CloudSecurity.git</connection>
-        <developerConnection>scm:git:git@github.com:dschadow/CloudSecurity.git</developerConnection>
-    </scm>
-
-    <licenses>
-        <license>
-            <name>Apache License 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
-
-    <repositories>
-        <repository>
-            <id>spring-plugins-repository</id>
-            <name>Spring Artifactory Plugins (Dependencies) Repository</name>
-            <url>http://repo.springsource.org/plugins-release</url>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -103,8 +58,6 @@
     </dependencyManagement>
 
     <build>
-        <defaultGoal>spring-boot:run</defaultGoal>
-
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -126,9 +79,14 @@
     <reporting>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.9</version>
+            </plugin>
+            <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.6</version>
+                <version>3.1.7</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -144,15 +102,15 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>3.3.2</version>
+                <version>3.3.3</version>
                 <configuration>
-                    <!-- analyzers not required in this project -->
+                    <!-- analyzers not required in these projects -->
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
                     <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
                     <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
                     <composerAnalyzerEnabled>false</composerAnalyzerEnabled>
                     <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
-                    <nspAnalyzerEnabled>false</nspAnalyzerEnabled>
+                    <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled>
                     <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
                     <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
                     <swiftPackageManagerAnalyzerEnabled>false</swiftPackageManagerAnalyzerEnabled>
@@ -177,4 +135,39 @@
         <module>config-client-vault</module>
         <module>config-server-vault</module>
     </modules>
+
+    <organization>
+        <name>Dominik Schadow</name>
+        <url>https://blog.dominikschadow.de</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>1</id>
+            <name>Dominik Schadow</name>
+            <email>dominikschadow@gmail.com</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>GitHub Issue Tracking</system>
+        <url>https://github.com/dschadow/CloudSecurity/issues</url>
+    </issueManagement>
+
+    <scm>
+        <url>https://github.com/dschadow/CloudSecurity</url>
+        <connection>scm:git:git://github.com/dschadow/CloudSecurity.git</connection>
+        <developerConnection>scm:git:git@github.com:dschadow/CloudSecurity.git</developerConnection>
+    </scm>
 </project>
