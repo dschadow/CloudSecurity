@@ -6,7 +6,7 @@ spring:
   datasource:
     name: client-db
     username: client-user
-    password: '{cipher}AQAetDFEjQGrGWiir6ROZCadNbLCb+1WGJrUnxu1vSNLmilP8HPm7w5agjsnZE3GKfhYIADuV2wlPPEi4OWVuhVyjh170KM3tuHSerA/Efr7GugMTBdI+VjkHZvCH76rTyhpSE578g3npaBsNoSH+9pRr9NBBV4B1bbvFEWYUL7y8xIcfRQUP8gOhwvdn9cp6X6NX3vE4bWHxgYEUrEZVqX5R0pgcUTHf35SC1HTE9cT3DYbNzdw27ECN2YSA+IdHdv0DXbesqlJ92z6251517gMJ3BiSsaQdh8zcdNlttfem///jUBxsWRbMuUiLIDTEr3/53EYoWCm5BtmK7ZxdhwcVsVHsK7qsXQvkFD+6ov/jofdegVc3zU1n32xFzSqhNM='
+    password: '{cipher}AQAtzrbgIjeR/NpvkZv6EKcoNSYU7vk+5clXahgvcm5FAVXJVnSDjfjX7sLQbRq/pMwVsRmaNsrhEiQRrTc6EUzQZChxbg81R1Y/oxuxIBjdAIUNtuihglPH64Rz31z/ExsYPCblLo8ESP01xu0bclQs7gaLyfsmCNSrPosVAXXjbF2KS9uqAk8e6k4CT5wnzN72NAcYQWjMPKY+AGRz6a7R+ENeEqwm8s5xZtmJrCDnCHUg2PMdcKT6oKn6drL/tiLHat7m5DsbKMsYvuRAb3U6MDAGTLkws6bEjptCTtcxjy12hfDRVwxR3EYS/80W7oYCtKmsgFa5yeY/M0ccVhImu9TRgj/j/7E0hhJ3DEiEPfQ3UtzK4wm77vFl3LXKjh4='
   h2:
     console:
       enabled: true

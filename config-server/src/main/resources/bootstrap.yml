@@ -1,7 +1,7 @@
 encrypt:
-  key-store: # asymmetric encryption
-   location: classpath:server.p12
-   password: secret
-   alias: configserver
-   secret: secret
+  keyStore: # asymmetric encryption
+    location: classpath:/server.jks
+    password: secret
+    alias: configserver
+    secret: secret
 #  key: This1sABigSecret # symmetric encryption
