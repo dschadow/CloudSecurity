@@ -7,6 +7,8 @@ spring:
     name: config-client-db
     username: config-client-db-user
     password: config-client-db-password
+  main:
+    allow-bean-definition-overriding: true
 
 logging:
   level:
