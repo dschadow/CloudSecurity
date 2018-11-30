@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.6.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -86,7 +86,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.7</version>
+                <version>3.1.8</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -102,7 +102,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>3.3.3</version>
+                <version>4.0.0</version>
                 <configuration>
                     <!-- analyzers not required in these projects -->
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
