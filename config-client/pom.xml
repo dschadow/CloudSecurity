@@ -15,7 +15,7 @@
     <description>Uses Spring Cloud Config to access configuration (plain and encrypted).</description>
 
     <properties>
-        <start-class>de.dominikschadow.configclient.Application</start-class>
+        <start-class>de.dominikschadow.configclient.ConfigClientApplication</start-class>
     </properties>
 
     <dependencies>

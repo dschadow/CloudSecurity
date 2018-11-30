@@ -28,13 +28,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  */
 @SpringBootApplication
 @EnableConfigurationProperties(ConfigClientProperties.class)
-public class Application {
+public class ConfigClientApplication {
     /**
      * Starts the config client application with the embedded Tomcat.
      *
      * @param args Runtime arguments
      */
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(ConfigClientApplication.class, args);
     }
 }
