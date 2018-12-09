@@ -108,14 +108,19 @@
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
                     <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
                     <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
+                    <opensslAnalyzerEnabled>false</opensslAnalyzerEnabled>
+                    <cmakeAnalyzerEnabled>false</cmakeAnalyzerEnabled>
+                    <autoconfAnalyzerEnabled>false</autoconfAnalyzerEnabled>
                     <composerAnalyzerEnabled>false</composerAnalyzerEnabled>
                     <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
                     <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled>
+                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
                     <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
+                    <nugetconfAnalyzerEnabled>false</nugetconfAnalyzerEnabled>
                     <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
+                    <bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
                     <swiftPackageManagerAnalyzerEnabled>false</swiftPackageManagerAnalyzerEnabled>
                     <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-                    <nexusAnalyzerEnabled>false</nexusAnalyzerEnabled>
                 </configuration>
                 <reportSets>
                     <reportSet>
