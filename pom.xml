@@ -91,7 +91,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.9</version>
+                <version>3.1.10</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -107,7 +107,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>4.0.1</version>
+                <version>4.0.2</version>
                 <configuration>
                     <!-- analyzers not required in these projects -->
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
