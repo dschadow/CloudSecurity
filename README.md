@@ -67,7 +67,7 @@ A local [Vault](https://www.vaultproject.io/) server is required for the **confi
 **config-server-vault** applications to work. Using Docker as described below is the recommended and fully initialized version.
 
 ## Docker
-Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. The only thing you have to do is to unseal Vault with the master key provided [here](https://github.com/dschadow/CloudSecurity/blob/develop/Docker/vault-keys.json) (key-shares and key-threshold are both set to 1). After that, you can start the Spring Boot applications as described below.
+Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. The only thing you have to do is to unseal Vault with the master key provided [here](https://github.com/dschadow/CloudSecurity/blob/develop/Docker/vault-keys.json) (key-shares and key-threshold are both set to 1). The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui). After that, you can start the Spring Boot applications as described below.
 
 ## Local Installation
 Vault must be started on localhost with the 
