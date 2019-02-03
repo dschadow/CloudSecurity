@@ -1,10 +1,9 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:11-jre-slim
 MAINTAINER Dominik Schadow <dominikschadow@gmail.com>
-
-VOLUME /tmp
 
 EXPOSE 8080
 
-ADD target/config-client.jar app.jar
+ARG JAR_FILE
+ADD target/${JAR_FILE} app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
