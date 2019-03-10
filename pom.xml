@@ -17,8 +17,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
-        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-        <jasypt.version>2.1.0</jasypt.version>
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <jasypt.version>2.1.1</jasypt.version>
     </properties>
 
     <parent>
@@ -99,7 +99,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.10</version>
+                <version>3.1.11</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
