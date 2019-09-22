@@ -69,11 +69,20 @@ There are two more configuration files in his directory: [file configuration](ht
 The displayed root token must be available for every Spring application that wants to access vault. Alternatively, it is possible to start the Vault server locally in dev mode and provide the configured root-token-id during initialization (recommended for first steps):
 
     vault server -dev -dev-root-token-id="00000000-0000-0000-0000-000000000000" -dev-listen-address="127.0.0.1:8200"  
+    export VAULT_DEV_ROOT_TOKEN_ID=[Root Token]
     export VAULT_ADDR=http://127.0.0.1:8200  
 
 The created Vault must contain the following values that are not contained in the Spring Cloud Config configuration for **config-client-vault**:
 
-    vault write secret/config-client-vault application.name="Config Client Vault" application.profile="Demo"
+    vault kv put secret/config-client-vault application.name="Config Client Vault" application.profile="Demo"
+    
+### Transit Engine
+Further configuration is required to interact with the **transit** endpoints of the config-client-vault application:
+
+    vault secrets enable transit
+    vault write -f transit/keys/my-sample-key
+    
+Now you can use the **transit** endpoints with the key name **my-sample-key**.
 
 ## config-server-vault
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in the given Vault. The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
