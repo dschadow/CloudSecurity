@@ -2,5 +2,5 @@ spring:
   cloud:
     vault:
       authentication: token
-      token: s.6OJrsF19K5vVGoLxSihFV86R
+      token: 00000000-0000-0000-0000-000000000000
       scheme: http
