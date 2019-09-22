@@ -43,8 +43,6 @@ This profile uses Config Server functionality to encrypt sensitive properties. I
       -dname "CN=Config Server,OU=Unit,O=Organization,L=City,S=State,C=Germany" \
       -keypass secret -keystore server.p12 -storepass secret
       
-Depending on your Java version, the [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy File](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)must be installed in order for this to work (newer Java versions already contain this extension).
-
 The Config Server endpoints help to encrypt and decrypt data:
 
     curl localhost:8888/encrypt -d secretToEncrypt -u user:secret
