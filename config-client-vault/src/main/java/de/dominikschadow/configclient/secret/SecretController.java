@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2019 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -18,7 +18,7 @@
 package de.dominikschadow.configclient.secret;
 
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultOperations;
@@ -35,9 +35,9 @@ import java.util.List;
  * @author Dominik Schadow
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SecretController {
-    private VaultOperations vault;
+    private final VaultOperations vault;
     static final String SECRET_BASE_PATH = "secret/";
 
     /**
