@@ -42,7 +42,13 @@ public class AboutController {
     @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "Returns application and profile information", response = String.class)
     public String about() {
-        return "Hello from " + properties.getApplication().getName() + " with "
-                + properties.getApplication().getProfile() + " profile.";
+        String response = "Vault not initialized/ available.";
+
+        if (properties.getApplication() != null) {
+            response = "Hello from " + properties.getApplication().getName() + " with "
+                    + properties.getApplication().getProfile() + " profile.";
+        }
+
+        return response;
     }
 }
