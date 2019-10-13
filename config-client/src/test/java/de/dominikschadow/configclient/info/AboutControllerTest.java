@@ -57,6 +57,7 @@ public class AboutControllerTest {
     @Test
     public void openHomepageReturnsOk() throws Exception {
         given(properties.getApplication()).willReturn(application);
+
         mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

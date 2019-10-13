@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests the {@link UserRepository} interface.
@@ -42,7 +42,7 @@ public class UserRepositoryTest {
     public void findAllReturnsAllUsers() {
         long users = repository.count();
 
-        assertEquals(3, users);
+        assertThat(users).isEqualTo(3);
     }
 
     @Test
@@ -51,8 +51,8 @@ public class UserRepositoryTest {
 
         Optional<User> user = repository.findById(userId);
 
-        assertTrue(user.isPresent());
-        assertEquals("Dent", user.get().getLastname());
+        assertThat(user.isPresent()).isTrue();
+        assertThat(user.get().getLastname()).isEqualTo("Dent");
     }
 
     @Test
@@ -61,6 +61,6 @@ public class UserRepositoryTest {
 
         Optional<User> user = repository.findById(userId);
 
-        assertFalse(user.isPresent());
+        assertThat(user.isPresent()).isFalse();
     }
 }

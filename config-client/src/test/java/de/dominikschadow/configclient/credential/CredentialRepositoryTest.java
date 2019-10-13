@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests the {@link CredentialRepository} interface.
@@ -42,7 +42,7 @@ public class CredentialRepositoryTest {
     public void findAllReturnsAllCredentials() {
         long credentials = repository.count();
 
-        assertEquals(6, credentials);
+        assertThat(credentials).isEqualTo(6);
     }
 
     @Test
@@ -51,8 +51,8 @@ public class CredentialRepositoryTest {
 
         Optional<Credential> credentials = repository.findById(credentialsId);
 
-        assertTrue(credentials.isPresent());
-        assertEquals("arthur1", credentials.get().getUsername());
+        assertThat(credentials.isPresent()).isTrue();
+        assertThat(credentials.get().getUsername()).isEqualTo("arthur1");
     }
 
     @Test
@@ -61,6 +61,6 @@ public class CredentialRepositoryTest {
 
         Optional<Credential> credentials = repository.findById(credentialsId);
 
-        assertFalse(credentials.isPresent());
+        assertThat(credentials.isPresent()).isFalse();
     }
 }
