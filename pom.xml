@@ -115,7 +115,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>5.2.2</version>
+                <version>5.2.4</version>
                 <configuration>
                     <!-- analyzers not required in these projects -->
                     <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
