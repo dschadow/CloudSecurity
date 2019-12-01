@@ -18,7 +18,7 @@
         <java.version>11</java.version>
         <swagger.version>2.9.2</swagger.version>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-        <jasypt.version>2.1.2</jasypt.version>
+        <jasypt.version>3.0.0</jasypt.version>
     </properties>
 
     <parent>
@@ -72,6 +72,11 @@
                             <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                         </buildArgs>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.ulisesbocchio</groupId>
+                    <artifactId>jasypt-maven-plugin</artifactId>
+                    <version>${jasypt.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

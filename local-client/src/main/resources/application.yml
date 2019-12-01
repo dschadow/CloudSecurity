@@ -4,7 +4,7 @@ spring:
     username: client-user
     # password is client-password
     # provide sample-password as jasypt.encryptor.password to decrypt
-    password: ENC(A+eOm8o7/iYmYVrqrbpxf0eGTJywpR5f)
+    password: ENC(byF912frlZUCifdrOFlGJ8LTjWpVIutKtzU0St2X/hZ9sqRp9kOsg5Se8FVxshFu)
   h2:
     console:
       enabled: true
