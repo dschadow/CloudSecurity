@@ -123,22 +123,26 @@
                 <version>5.2.4</version>
                 <configuration>
                     <!-- analyzers not required in these projects -->
-                    <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
-                    <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
-                    <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
-                    <opensslAnalyzerEnabled>false</opensslAnalyzerEnabled>
-                    <cmakeAnalyzerEnabled>false</cmakeAnalyzerEnabled>
+                    <artifactoryAnalyzerEnabled>false</artifactoryAnalyzerEnabled>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                     <autoconfAnalyzerEnabled>false</autoconfAnalyzerEnabled>
+                    <bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
+                    <cmakeAnalyzerEnabled>false</cmakeAnalyzerEnabled>
+                    <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
                     <composerAnalyzerEnabled>false</composerAnalyzerEnabled>
+                    <golangDepEnabled>false</golangDepEnabled>
+                    <golangModEnabled>false</golangModEnabled>
+                    <nexusAnalyzerEnabled>false</nexusAnalyzerEnabled>
                     <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
                     <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled>
-                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
-                    <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
                     <nugetconfAnalyzerEnabled>false</nugetconfAnalyzerEnabled>
-                    <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
-                    <bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
+                    <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
+                    <opensslAnalyzerEnabled>false</opensslAnalyzerEnabled>
+                    <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
+                    <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
+                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                    <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
                     <swiftPackageManagerAnalyzerEnabled>false</swiftPackageManagerAnalyzerEnabled>
-                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                 </configuration>
                 <reportSets>
                     <reportSet>
