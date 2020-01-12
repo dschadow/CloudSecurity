@@ -5,10 +5,11 @@ This repository contains cloud security projects with [Spring Boot](https://proj
 
 Every application (clients and config servers) exposes all Spring Actuator endpoints at the default */actuator* endpoint.
 
-# Requirements
-- [Java 11](http://www.oracle.com/technetwork/java)
+# Technologies
+- [Java 11](https://openjdk.java.net/)
 - [Lombok](https://projectlombok.org/)
-- [Maven 3](http://maven.apache.org/)
+- [Maven 3](https://maven.apache.org/)
+- [Vault 1.3](https://vaultproject.io/)
 
 # Jasypt
 
