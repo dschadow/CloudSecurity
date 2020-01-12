@@ -58,19 +58,18 @@
     </dependencyManagement>
 
     <build>
+        <defaultGoal>mvn compile jib:dockerBuild</defaultGoal>
+
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>dockerfile-maven-plugin</artifactId>
-                    <version>1.4.13</version>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>1.8.0</version>
                     <configuration>
-                        <skip>true</skip>
-                        <repository>${docker.image.prefix}/${project.artifactId}</repository>
-                        <tag>${project.version}</tag>
-                        <buildArgs>
-                            <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                        </buildArgs>
+                        <to>
+                            <image>${docker.image.prefix}/${project.artifactId}</image>
+                        </to>
                     </configuration>
                 </plugin>
                 <plugin>
