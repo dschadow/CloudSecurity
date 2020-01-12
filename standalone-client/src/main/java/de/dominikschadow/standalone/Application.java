@@ -15,30 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.credential;
+package de.dominikschadow.standalone;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Credential entity.
+ * Main class to configure and start the embedded web server and the Spring Boot application.
  *
  * @author Dominik Schadow
  */
-@Entity
-@Table
-@Getter
-@Setter
-public class Credential {
-    @Id
-    @GeneratedValue
-    private Long id;
-    private Long userId;
-    private String username;
-    private String password;
+@SpringBootApplication
+public class Application {
+    /**
+     * Starts the application with the embedded Tomcat.
+     *
+     * @param args Runtime arguments
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 }

@@ -15,24 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient;
+package de.dominikschadow.standalone.user;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
- * Main class to configure and start the embedded web server and the Spring Boot application.
+ * User repository to access the {@link User} in the database.
  *
  * @author Dominik Schadow
  */
-@SpringBootApplication
-public class Application {
-    /**
-     * Starts the application with the embedded Tomcat.
-     *
-     * @param args Runtime arguments
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 }

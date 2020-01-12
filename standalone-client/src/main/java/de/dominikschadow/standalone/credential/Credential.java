@@ -15,30 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.info;
+package de.dominikschadow.standalone.credential;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * REST controller to return basic application information.
+ * Credential entity.
  *
  * @author Dominik Schadow
  */
-@RestController
-public class AboutController {
-    @Value("${spring.application.name}")
-    private String applicationName;
-
-    /**
-     * Returns a greeting containing the applications name.
-     *
-     * @return The greeting
-     */
-    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String about() {
-        return "Hello from " + applicationName;
-    }
+@Entity
+@Table
+@Getter
+@Setter
+public class Credential {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private Long userId;
+    private String username;
+    private String password;
 }

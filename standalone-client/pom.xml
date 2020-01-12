@@ -9,9 +9,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>local-client</artifactId>
+    <artifactId>standalone-client</artifactId>
     <packaging>jar</packaging>
-    <name>Local Client</name>
+    <name>Standalone Client</name>
     <description>Uses Jasypt to store sensitive information securely in configuration files.</description>
 
     <dependencies>

@@ -156,7 +156,7 @@
     </reporting>
 
     <modules>
-        <module>local-client</module>
+        <module>standalone-client</module>
         <module>config-client</module>
         <module>config-server</module>
         <module>config-client-vault</module>

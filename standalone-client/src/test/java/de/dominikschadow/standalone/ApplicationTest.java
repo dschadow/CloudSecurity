@@ -15,14 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.user;
+package de.dominikschadow.standalone;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * User repository to access the {@link User} in the database.
+ * Tests the application itself and tries to startup the application context.
  *
  * @author Dominik Schadow
  */
-public interface UserRepository extends PagingAndSortingRepository<User, Long> {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@TestPropertySource(properties = {"jasypt.encryptor.password = sample-password"})
+public class ApplicationTest {
+    @Test
+    public void contextLoads() {
+    }
 }

@@ -15,31 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.user;
+package de.dominikschadow.standalone.credential;
 
-import de.dominikschadow.localclient.credential.Credential;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.Set;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
- * Users entity.
+ * Credential repository to access the {@link Credential} in the database.
  *
  * @author Dominik Schadow
  */
-@Entity
-@Table
-@Getter
-@Setter
-public class User {
-    @Id
-    @GeneratedValue
-    private Long id;
-    private String firstname;
-    private String lastname;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private Set<Credential> credentials;
+public interface CredentialRepository extends PagingAndSortingRepository<Credential, Long> {
 }

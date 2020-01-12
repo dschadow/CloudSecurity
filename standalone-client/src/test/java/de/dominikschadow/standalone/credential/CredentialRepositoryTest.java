@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.credential;
+package de.dominikschadow.standalone.credential;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

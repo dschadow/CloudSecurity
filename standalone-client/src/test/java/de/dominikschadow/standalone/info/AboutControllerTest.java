@@ -15,52 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.user;
+package de.dominikschadow.standalone.info;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
- * Tests the {@link UserRepository} interface.
+ * Tests the {@link AboutController} class.
  *
  * @author Dominik Schadow
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest
-public class UserRepositoryTest {
+@WebMvcTest(AboutController.class)
+public class AboutControllerTest {
     @Autowired
-    private UserRepository repository;
+    private MockMvc mvc;
 
     @Test
-    public void findAllReturnsAllUsers() {
-        long users = repository.count();
-
-        assertThat(users).isEqualTo(3);
-    }
-
-    @Test
-    public void validIdFindOneReturnsCredentials() {
-        Long userId = 1L;
-
-        Optional<User> user = repository.findById(userId);
-
-        assertThat(user.isPresent()).isTrue();
-        assertThat(user.get().getLastname()).isEqualTo("Dent");
-    }
-
-    @Test
-    public void invalidIdFindOneReturnsNull() {
-        Long userId = 100L;
-
-        Optional<User> user = repository.findById(userId);
-
-        assertThat(user.isPresent()).isFalse();
+    public void openHomepageReturnsOk() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

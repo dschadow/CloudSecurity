@@ -15,14 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient.credential;
+package de.dominikschadow.standalone.info;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Credential repository to access the {@link Credential} in the database.
+ * REST controller to return basic application information.
  *
  * @author Dominik Schadow
  */
-public interface CredentialRepository extends PagingAndSortingRepository<Credential, Long> {
+@RestController
+public class AboutController {
+    @Value("${spring.application.name}")
+    private String applicationName;
+
+    /**
+     * Returns a greeting containing the applications name.
+     *
+     * @return The greeting
+     */
+    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String about() {
+        return "Hello from " + applicationName;
+    }
 }

@@ -12,7 +12,7 @@ Every application (clients and config servers) exposes all Spring Actuator endpo
 
 # Jasypt
 
-## local-client
+## standalone-client
 The local client application is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure sensitive configuration properties. This demo application shows the most simple way to encrypt sensitive properties without requiring another web application or any external system. You have to provide an environment variable named `jasypt.encryptor.password` with the value `sample-password` to decrypt the database password during application start.  After launching, `http://localhost:8080` shows basic application information, other entities are exposed via Spring Data Rest at the `/credentials` and `/users` endpoints.
 
 # Spring Cloud Config

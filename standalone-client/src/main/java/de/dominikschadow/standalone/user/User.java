@@ -15,24 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.dominikschadow.localclient;
+package de.dominikschadow.standalone.user;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import de.dominikschadow.standalone.credential.Credential;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Set;
 
 /**
- * Tests the application itself and tries to startup the application context.
+ * Users entity.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@TestPropertySource(properties = {"jasypt.encryptor.password = sample-password"})
-public class ApplicationTest {
-    @Test
-    public void contextLoads() {
-    }
+@Entity
+@Table
+@Getter
+@Setter
+public class User {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String firstname;
+    private String lastname;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private Set<Credential> credentials;
 }
