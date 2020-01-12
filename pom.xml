@@ -70,6 +70,9 @@
                         <to>
                             <image>${docker.image.prefix}/${project.artifactId}</image>
                         </to>
+                        <container>
+                            <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                        </container>
                     </configuration>
                 </plugin>
                 <plugin>
