@@ -14,10 +14,6 @@
     <name>Config Server Vault</name>
     <description>Provides access to the configured Vault for other Spring applications in this repository.</description>
 
-    <properties>
-        <start-class>de.dominikschadow.configserver.vault.Application</start-class>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
