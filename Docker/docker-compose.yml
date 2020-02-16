@@ -15,9 +15,4 @@ services:
       - ./file:/vault/file
       - ./config:/vault/config
       - ./policies:/vault/policies
-    networks:
-      - vault-dev
     entrypoint: vault server -config=/vault/config/dev-file.hcl
-
-networks:
-  vault-dev:
