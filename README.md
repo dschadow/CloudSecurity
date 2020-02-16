@@ -14,7 +14,7 @@ Every application (clients and config servers) exposes all Spring Actuator endpo
 # Jasypt
 
 ## standalone-client
-The local client application is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure sensitive configuration properties. This demo application shows the most simple way to encrypt sensitive properties without requiring another web application or any external system. You have to provide an environment variable named `jasypt.encryptor.password` with the value `sample-password` to decrypt the database password during application start.  After launching, `http://localhost:8080` shows basic application information, other entities are exposed via Spring Data Rest at the `/credentials` and `/users` endpoints.
+The standalone application is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure sensitive configuration properties. This demo application shows the most simple way to encrypt sensitive properties without requiring another service or system. You have to provide an environment variable named `jasypt.encryptor.password` with the value `sample-password` to decrypt the database password during application start.  After launching, `http://localhost:8080` shows basic application information.
 
 # Spring Cloud Config
 All client applications use [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) to separate code and configuration and therefore require a running config server before starting the actual application.
@@ -53,45 +53,63 @@ The Config Server endpoints help to encrypt and decrypt data:
 A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Docker as described below is the recommended and fully initialized version.
 
 ## Docker
-Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. The only thing you have to do is to unseal Vault with the master key provided [here](https://github.com/dschadow/CloudSecurity/blob/develop/Docker/vault-keys.json) (key-shares and key-threshold are both set to 1). The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui). After that, you can start the Spring Boot applications as described below.
+Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. The only thing you have to do is to unseal Vault with the master key provided [here](https://github.com/dschadow/CloudSecurity/blob/develop/Docker/vault-keys.json) (key-shares and key-threshold are both set to 1). The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui) and to use the values provided in `keys_base64` and `root_token`. After that, you can start the Spring Boot applications as described below.
 
-## Local Installation
-Vault must be started on localhost with the [in-memory configuration](https://github.com/dschadow/CloudSecurity/blob/develop/vault-inmem.conf) in the projects' root directory:
+## config-server-vault
+This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault. The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients (like a browser) that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
 
-    vault server -config vault-inmem.conf
+## config-client-vault
+This Spring Boot based web application contacts the Spring Cloud Config Server for configuration and exposes the REST endpoints `/`, `/users`, `/credentials` (like the **config-client** application) and `/secrets`. The `/secrets` endpoint communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured Vault. You can use the applications **Swagger UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints.
+    
+The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml) file in the **config-client-vault** project does require the root token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault.
+
+# Manual Vault configuration
+In case you don't want to use the provided Vault Docker image you can find the required steps to initialize Vault below.
+
+    vault server -config vault-file.conf
     export VAULT_ADDR=http://127.0.0.1:8200
     vault operator init -key-shares=5 -key-threshold=2
     export VAULT_TOKEN=[Root Token]
     vault operator unseal [Key 1]
     vault operator unseal [Key 2]
     
-There are two more configuration files in his directory: [file configuration](https://github.com/dschadow/CloudSecurity/blob/develop/vault-file.conf) which stores all Vault data in the configured directory and [consul configuration](https://github.com/dschadow/CloudSecurity/blob/develop/vault-consul.conf) which uses Consul for that purpose (a running Consul must be available).
+Using `vault-inmen.conf` is an alternative, but keep in mind that all configuration is lost when shutting down Vault.
 
-The displayed root token must be available for every Spring application that wants to access vault. Alternatively, it is possible to start the Vault server locally in dev mode and provide the configured root-token-id during initialization (recommended for first steps):
+The displayed root token must be available in every Spring application that should access vault. This token must therefore be updated in every bootstrap.yml file.
 
-    vault server -dev -dev-root-token-id="00000000-0000-0000-0000-000000000000" -dev-listen-address="127.0.0.1:8200"  
-    export VAULT_DEV_ROOT_TOKEN_ID=[Root Token]
-    export VAULT_ADDR=http://127.0.0.1:8200  
+Execute the following commands in order to enable the required backend and other services and to provide the required data:
 
-The created Vault must contain the following values that are not contained in the Spring Cloud Config configuration for **config-client-vault**:
-
+    # provide configuration data for the config-client-vault application
     vault kv put secret/config-client-vault application.name="Config Client Vault" application.profile="Demo"
     
-### Transit Engine
-Further configuration is required to interact with the **transit** endpoints of the config-client-vault application:
-
+    # enable and configure AppRole authentication
+    vault auth enable approle
+    
+    vault write auth/approle/role/config-server \
+        token_ttl=1h \
+        token_max_ttl=4h \
+        token_policies=config-server-policy
+        
+    vault read auth/approle/role/config-server/role-id
+    # update config-server-vault/bootstrap.yml with the returned role-id
+    
+    vault write -f auth/approle/role/config-server/secret-id
+    # update config-server-vault/bootstrap.yml with the returned secret-id
+    
+    vault write auth/approle/role/config-client \
+        token_ttl=1h \
+        token_max_ttl=4h \
+        token_policies=config-client-policy
+    
+    vault read auth/approle/role/config-client/role-id
+    # update config-client-vault/bootstrap.yml with the returned role-id
+    
+    vault write -f auth/approle/role/config-client/secret-id
+    # update config-client-vault/bootstrap.yml with the returned secret-id
+    
+    # enable the Transit backend and provide a key
     vault secrets enable transit
-    vault write -f transit/keys/my-sample-key
-    
-Now you can use the **transit** endpoints with the key name **my-sample-key**.
-
-## config-server-vault
-This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in the given Vault. The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
-
-## config-client-vault
-This Spring Boot based web application contacts the Spring Cloud Config Server for configuration and exposes the REST endpoints `/`, `/users`, `/credentials` (like the **config-client** application) and `/secrets`. The `/secrets` endpoint communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured Vault. You can use the applications **Swagger UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints.
-    
-The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml) file in the **config-client-vault** project does require the root token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault.
+    vault write -f transit/keys/symmetric-sample-key
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
