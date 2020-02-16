@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -26,19 +26,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author Dominik Schadow
  */
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "application")
 @Getter
 @Setter
 public class ConfigClientVaultProperties {
-    private Application application;
-
-    /**
-     * Basic application information.
-     */
-    @Getter
-    @Setter
-    public static class Application {
-        private String name;
-        private String profile;
-    }
+    private String name;
+    private String profile;
 }

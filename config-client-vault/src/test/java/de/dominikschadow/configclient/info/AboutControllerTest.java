@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -18,7 +18,6 @@
 package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.ConfigClientVaultProperties;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,19 +44,13 @@ public class AboutControllerTest {
     @MockBean
     private ConfigClientVaultProperties properties;
 
-    private ConfigClientVaultProperties.Application application;
-
-    @Before
-    public void setup() {
-        application = new ConfigClientVaultProperties.Application();
-        application.setName("Test");
-        application.setProfile("Test");
-    }
-
     @Test
     public void openHomepageReturnsOk() throws Exception {
-        given(properties.getApplication()).willReturn(application);
+        given(properties.getName()).willReturn("Config Client Vault");
+        given(properties.getProfile()).willReturn("Test");
 
-        mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Application information: Config Client Vault with profile Test"));
     }
 }

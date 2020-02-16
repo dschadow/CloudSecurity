@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -38,7 +38,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecretController {
     private final VaultOperations vault;
-    static final String SECRET_BASE_PATH = "secret/";
+    static final String SECRET_BASE_PATH = "secret/config-client-vault/";
 
     /**
      * Write the given secret into vault using the base bath and the key as path.
@@ -64,7 +64,7 @@ public class SecretController {
      */
     @DeleteMapping("/secrets/{key}")
     @ApiOperation(value = "Deletes the secret stored for the given key")
-    public ResponseEntity deleteSecret(@PathVariable String key) {
+    public ResponseEntity<Void> deleteSecret(@PathVariable String key) {
         vault.delete(SECRET_BASE_PATH + key);
 
         return ResponseEntity.ok().build();

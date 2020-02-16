@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -19,7 +19,6 @@ package de.dominikschadow.configclient;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -30,13 +29,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Configuration for Swagger. Must not be active during tests.
+ * Configuration for Swagger.
  *
  * @author Dominik Schadow
  */
 @Configuration
 @EnableSwagger2
-@Profile("!test")
 public class SwaggerConfig {
     @Bean
     public Docket api() {
@@ -51,12 +49,11 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot Config Client Vault")
-                .description("Spring Boot application using Vault.")
+                .description("Spring Boot application using Vault with Config Server and directly via VaultTemplate.")
                 .contact(new Contact("Dominik Schadow", "https://github.com/dschadow", "dominikschadow@gmail.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("1.0")
+                .version("2.3.0")
                 .build();
     }
-
 }
