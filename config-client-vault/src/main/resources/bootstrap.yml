@@ -8,7 +8,15 @@ spring:
       host: localhost
       port: 8200
       scheme: http
-      authentication: token
-      token: 00000000-0000-0000-0000-000000000000
+
+      # Token authentication
+      #authentication: TOKEN
+      #token: s.39SL8SdQsr5Hq7nqLc6Mb76d
+
+      # AppRole authentication
+      authentication: APPROLE
+      app-role:
+        role-id: 33eb2393-1e02-93ce-dc62-892e267f8e57
+        secret-id: b72b639a-d86b-9a92-1474-e23cf1ce8b2d
   jpa:
     open-in-view: true
