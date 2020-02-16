@@ -18,7 +18,6 @@ services:
     networks:
       - vault-dev
     entrypoint: vault server -config=/vault/config/dev-file.hcl
-    restart: always
 
 networks:
   vault-dev:
