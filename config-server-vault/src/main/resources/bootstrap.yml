@@ -1,14 +1,15 @@
-spring:
-  cloud:
-    vault:
-      scheme: http
+spring.cloud.vault:
+  kv:
+    enabled: true
+    backend: kv-v2
+  scheme: http
 
-      # Token authentication
-      #authentication: TOKEN
-      #token: s.39SL8SdQsr5Hq7nqLc6Mb76d
+  # Token authentication
+  #authentication: TOKEN
+  #token: s.WaK4N4tnBlvcffYHOg5BTTut
 
-      # AppRole authentication
-      authentication: APPROLE
-      app-role:
-        role-id: 07c2ca09-1c50-a0f2-c1ef-8a9e1130089c
-        secret-id: 713f1d28-5f06-f0f6-85de-ee2dbea0a63d
+  # AppRole authentication
+  authentication: APPROLE
+  app-role:
+    role-id: 5da5ca89-b094-5746-b40d-9ea36ed40291
+    secret-id: ae40059f-16ae-6885-b170-8ecfada131f6

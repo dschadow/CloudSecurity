@@ -38,11 +38,11 @@ This Spring Boot based web application exposes the REST endpoints `/`, `/users` 
 Configuration files are not protected at all, even sensitive configuration properties are stored in plain text.
 
 ### Profile cipher
-This profile uses Config Server functionality to encrypt sensitive properties. It requires either a symmetric or asymmetric key. The sample is based on asymmetric encryption and is using a keystore (`server.p12`) which was created with the following command:
+This profile uses Config Server functionality to encrypt sensitive properties. It requires either a symmetric or asymmetric key. The sample is based on asymmetric encryption and is using a keystore (`server.jks`) which was created with the following command:
 
-    keytool -genkeypair -alias configserver -storetype PKCS12 -keyalg RSA \
+    keytool -genkeypair -alias configserver -storetype JKS -keyalg RSA \
       -dname "CN=Config Server,OU=Unit,O=Organization,L=City,S=State,C=Germany" \
-      -keypass secret -keystore server.p12 -storepass secret
+      -keypass secret -keystore server.jks -storepass secret
       
 The Config Server endpoints help to encrypt and decrypt data:
 
@@ -53,7 +53,19 @@ The Config Server endpoints help to encrypt and decrypt data:
 A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Docker as described below is the recommended and fully initialized version.
 
 ## Docker
-Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. The only thing you have to do is to unseal Vault with the master key provided [here](https://github.com/dschadow/CloudSecurity/blob/develop/Docker/vault-keys.json) (key-shares and key-threshold are both set to 1). The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui) and to use the values provided in `keys_base64` and `root_token`. After that, you can start the Spring Boot applications as described below.
+Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. The only thing you have to do is to unseal Vault with three out of the five unseal keys. The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
+
+| Key #  | Unseal Key                                   |
+|--------|----------------------------------------------|
+| 1      | +KH72Bz6+KbwfNcqICGC08QdIyMjIpVwA5IwumZj+dxu |
+| 2      | +eLBsx8JUXpR6KZY5+6sUYXK2UobYfq1k7u2vwwWxQUD |
+| 3      | v6JBDA34C4/t7CNatOEtoxZJNLZMcZ1flX/R3Cbq0Pnn |
+| 4      | kWgyk8nwaHLTIz/aN/IQMA5gLdYnqtb6XeV473S/qMNv |
+| 5      | /eXaypXuVdeKKmG9NPIynMBbM3zG2HahYIWgIYdisbNz |
+
+The root token is `s.WaK4N4tnBlvcffYHOg5BTTut`
+ 
+After that, you can start the Spring Boot applications as described below.
 
 ## config-server-vault
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault. The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients (like a browser) that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
@@ -66,21 +78,25 @@ The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/confi
 # Manual Vault configuration
 In case you don't want to use the provided Vault Docker image you can find the required steps to initialize Vault below.
 
-    vault server -config vault-file.conf
+    vault server -config Docker/config/dev-file.hcl
     export VAULT_ADDR=http://127.0.0.1:8200
-    vault operator init -key-shares=5 -key-threshold=2
+    vault operator init
     export VAULT_TOKEN=[Root Token]
     vault operator unseal [Key 1]
     vault operator unseal [Key 2]
-    
-Using `vault-inmen.conf` is an alternative, but keep in mind that all configuration is lost when shutting down Vault.
-
-The displayed root token must be available in every Spring application that should access vault. This token must therefore be updated in every bootstrap.yml file.
+    vault operator unseal [Key 3]
 
 Execute the following commands in order to enable the required backend and other services and to provide the required data:
 
+    # enable secrets backend
+    vault secrets enable kv-v2
+
     # provide configuration data for the config-client-vault application
-    vault kv put secret/config-client-vault application.name="Config Client Vault" application.profile="Demo"
+    vault kv put kv-v2/config-client-vault application.name="Config Client Vault" application.profile="Demo"
+    
+    # import policies
+    vault policy write config-server-policy Docker/policies/config-server-policy.hcl
+    vault policy write config-client-policy Docker/policies/config-client-policy.hcl
     
     # enable and configure AppRole authentication
     vault auth enable approle

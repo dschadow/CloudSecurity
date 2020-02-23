@@ -22,11 +22,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultOperations;
+import org.springframework.vault.core.VaultVersionedKeyValueOperations;
 import org.springframework.vault.support.VaultResponse;
-import org.springframework.vault.support.VaultResponseSupport;
+import org.springframework.vault.support.Versioned;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * REST controller to provide access to some {@link Secret} related operations. Uses {@link VaultOperations} to write,
@@ -38,7 +41,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecretController {
     private final VaultOperations vault;
-    static final String SECRET_BASE_PATH = "secret/config-client-vault/";
+    static final String KV_BASE_PATH = "kv-v2";
+    static final String PERSONAL_SECRETS_PATH = "my-secrets/";
+    private VaultVersionedKeyValueOperations versionedKeyValueOperations;
+
+    @PostConstruct
+    public void init() {
+        versionedKeyValueOperations = vault.opsForVersionedKeyValue(KV_BASE_PATH);
+    }
 
     /**
      * Write the given secret into vault using the base bath and the key as path.
@@ -50,10 +60,13 @@ public class SecretController {
     @ApiOperation(value = "Writes the given secret into the vault",
             notes = "Writes the given secret content into the vault using the given key as path.",
             response = VaultResponse.class)
-    public ResponseEntity<VaultResponse> writeSecret(@RequestBody Secret secret) {
-        VaultResponse vaultResponse = vault.write(SECRET_BASE_PATH + secret.getKey(), secret);
+    public ResponseEntity<Versioned.Version> writeSecret(@RequestBody Secret secret) {
+        Map<String, String> value = new HashMap<>();
+        value.put("data", secret.getData());
 
-        return ResponseEntity.ok(vaultResponse);
+        Versioned.Metadata metadata = versionedKeyValueOperations.put(PERSONAL_SECRETS_PATH + secret.getKey(), value);
+
+        return ResponseEntity.ok(metadata.getVersion());
     }
 
     /**
@@ -65,37 +78,22 @@ public class SecretController {
     @DeleteMapping("/secrets/{key}")
     @ApiOperation(value = "Deletes the secret stored for the given key")
     public ResponseEntity<Void> deleteSecret(@PathVariable String key) {
-        vault.delete(SECRET_BASE_PATH + key);
+        versionedKeyValueOperations.delete(PERSONAL_SECRETS_PATH + key);
 
         return ResponseEntity.ok().build();
     }
 
     /**
-     * Returns the complete secret identified by the given key.
+     * Returns the secret identified by the given key.
      *
      * @param key The key to load the secret for
      * @return The loaded secret from vault
      */
     @GetMapping(value = "/secrets/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Returns the secret stored for the given key", response = Secret.class)
-    public ResponseEntity<Secret> readSecret(@PathVariable String key) {
-        VaultResponseSupport<Secret> secret = vault.read(SECRET_BASE_PATH + key, Secret.class);
+    public ResponseEntity<Map<String, Object>> readSecret(@PathVariable String key) {
+        Versioned<Map<String, Object>> secret = versionedKeyValueOperations.get(PERSONAL_SECRETS_PATH + key);
 
         return ResponseEntity.ok(secret.getData());
-    }
-
-    /**
-     * Returns the secrets stored at the configured base path.
-     *
-     * @return The loaded secrets from vault
-     */
-    @GetMapping(value = "/secrets", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Returns a list of secret stored in the vault at the configured base path",
-            response = String.class,
-            responseContainer = "List")
-    public ResponseEntity<List<String>> listSecrets() {
-        List<String> secrets = vault.list(SECRET_BASE_PATH);
-
-        return ResponseEntity.ok(secrets);
     }
 }

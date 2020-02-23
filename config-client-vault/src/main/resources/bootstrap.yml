@@ -5,18 +5,21 @@ spring:
     config:
       uri: http://localhost:8888
     vault:
+      kv:
+        enabled: true
+        backend: kv-v2
       host: localhost
       port: 8200
       scheme: http
 
       # Token authentication
       #authentication: TOKEN
-      #token: s.39SL8SdQsr5Hq7nqLc6Mb76d
+      #token: s.WaK4N4tnBlvcffYHOg5BTTut
 
       # AppRole authentication
       authentication: APPROLE
       app-role:
-        role-id: 33eb2393-1e02-93ce-dc62-892e267f8e57
-        secret-id: b72b639a-d86b-9a92-1474-e23cf1ce8b2d
+        role-id: 634ac346-9e77-db4e-cd8f-c002662339ea
+        secret-id: 62f5d5ea-7402-a6c9-1fe8-76edbec11181
   jpa:
     open-in-view: true

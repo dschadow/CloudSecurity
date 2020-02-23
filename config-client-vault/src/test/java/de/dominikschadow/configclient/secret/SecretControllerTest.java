@@ -53,14 +53,14 @@ public class SecretControllerTest {
 
     @Test
     public void getAllSecretsReturnsOk() throws Exception {
-        given(vault.list(SecretController.SECRET_BASE_PATH)).willReturn(Arrays.asList("1234", "12345"));
+        given(vault.list(SecretController.KV_BASE_PATH)).willReturn(Arrays.asList("1234", "12345"));
 
         mvc.perform(MockMvcRequestBuilders.get("/secrets")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void getSecretForUserReturnsOk() throws Exception {
-        String path = SecretController.SECRET_BASE_PATH + "12345";
+        String path = SecretController.KV_BASE_PATH + "12345";
 
         given(vault.read(path, Secret.class)).willReturn(new VaultResponseSupport<>());
 
@@ -78,7 +78,7 @@ public class SecretControllerTest {
 
     @Test
     public void deleteSecretForUserReturnsOk() throws Exception {
-        String path = SecretController.SECRET_BASE_PATH + "12345";
+        String path = SecretController.KV_BASE_PATH + "12345";
 
         doNothing().when(vault).delete(path);
 
