@@ -1,7 +1,7 @@
 path "kv-v2/*" {
-  capabilities = ["read", "list"]
+  capabilities = ["read"]
 }
 
 path "secret/*" {
-  capabilities = ["read", "list"]
+  capabilities = ["read"]
 }

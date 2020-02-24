@@ -1,5 +1,5 @@
 path "kv-v2/*" {
-  capabilities = ["create", "read", "update", "delete", "list"]
+  capabilities = ["read"]
 }
 
 path "kv-v2/my-secrets/*" {
@@ -7,7 +7,7 @@ path "kv-v2/my-secrets/*" {
 }
 
 path "secret/*" {
-capabilities = ["read"]
+  capabilities = ["read"]
 }
 
 path "transit/*" {
