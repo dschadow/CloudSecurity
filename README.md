@@ -98,6 +98,12 @@ Execute the following commands in order to enable the required backend and other
     vault policy write config-server-policy Docker/policies/config-server-policy.hcl
     vault policy write config-client-policy Docker/policies/config-client-policy.hcl
     
+    # create a token for config-client-vault
+    vault token create -policy=config-client-policy
+    
+    # create a token for config-client-server
+    vault token create -policy=config-server-policy
+    
     # enable and configure AppRole authentication
     vault auth enable approle
     
