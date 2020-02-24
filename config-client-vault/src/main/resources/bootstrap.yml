@@ -13,8 +13,8 @@ spring:
       scheme: http
 
       # Token authentication
-      #authentication: TOKEN
-      #token: s.WaK4N4tnBlvcffYHOg5BTTut
+#      authentication: TOKEN
+#      token: s.SYJwdgYvMzeCVMhlPxgVGiBG
 
       # AppRole authentication
       authentication: APPROLE
