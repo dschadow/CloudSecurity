@@ -38,7 +38,6 @@ public class Credential {
     @Id
     @GeneratedValue
     private Long id;
-    private Long userId;
     private String username;
     private String password;
 }
