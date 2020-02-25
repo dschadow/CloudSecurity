@@ -13,3 +13,7 @@ path "secret/*" {
 path "transit/*" {
   capabilities = ["read", "update"]
 }
+
+path "database/creds/*" {
+  capabilities = ["read"]
+}
