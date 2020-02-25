@@ -24,6 +24,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Credential entity.
@@ -38,6 +40,10 @@ public class Credential {
     @Id
     @GeneratedValue
     private Long id;
+    @NotNull
+    @Size(min = 5, max = 50, message  = "Username must be between {min} and {max} characters")
     private String username;
-    private String password;
+    @NotNull
+    @Size(min = 5, max = 10, message  = "PIN must be between {min} and {max} characters")
+    private String pin;
 }
