@@ -11,6 +11,10 @@ spring:
       host: localhost
       port: 8200
       scheme: http
+      # enable dynamic database credentials
+      database:
+        enabled: true
+        role: config-client-vault-write
 
       # Token authentication
 #      authentication: TOKEN
@@ -21,5 +25,10 @@ spring:
       app-role:
         role-id: 634ac346-9e77-db4e-cd8f-c002662339ea
         secret-id: 62f5d5ea-7402-a6c9-1fe8-76edbec11181
+  datasource:
+    url: jdbc:postgresql://localhost:5432/config-client-vault
+    # credentials are obtained via Vault
   jpa:
     open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
