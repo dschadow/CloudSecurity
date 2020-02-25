@@ -16,3 +16,8 @@ services:
       - ./config:/vault/config
       - ./policies:/vault/policies
     entrypoint: vault server -config=/vault/config/dev-file.hcl
+    networks:
+      - cloud-security
+
+networks:
+  cloud-security:
