@@ -132,6 +132,33 @@ Execute the following commands in order to enable the required backend and other
     # enable the Transit backend and provide a key
     vault secrets enable transit
     vault write -f transit/keys/symmetric-sample-key
+    
+    # enable dynamic database secrets
+    vault secrets enable database
+    
+    # create a write role
+    vault write database/roles/config-client-vault-write \
+      db_name=config-client-vault \
+      creation_statements="CREATE ROLE \"{{name}}\" \
+        WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
+        GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+      revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\
+      default_ttl="1h" \
+      max_ttl="24h"
+    
+    # create the database connection
+    vault write database/config/config-client-vault \
+        plugin_name=postgresql-database-plugin \
+        allowed_roles="*" \
+        connection_url="postgresql://{{username}}:{{password}}@postgres:5432/config-client-vault?sslmode=disable" \
+        username="postgres" \
+        password="password"
+        
+    # force rotation for root user
+    vault write --force /database/rotate-root/config-client-vault
+    
+    # create new credentials
+    vault read database/creds/config-client-vault-write
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
