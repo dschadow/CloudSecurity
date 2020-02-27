@@ -109,6 +109,7 @@ Execute the following commands in order to enable the required backend and other
     # enable and configure AppRole authentication
     vault auth enable approle
     
+    # create roles with 1 hour TTL (can be renewed for up to 4 hours of its first creation)
     vault write auth/approle/role/config-server \
         token_ttl=1h \
         token_max_ttl=4h \
