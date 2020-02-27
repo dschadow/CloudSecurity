@@ -48,8 +48,9 @@ public class VaultConfig {
 
     @PostConstruct
     public void postConstruct() {
-        final RequestedSecret secret = RequestedSecret.renewable(databaseRole);
-        String vaultCredsPath = "database/creds/" + databaseRole;
+        final String vaultCredsPath = "database/creds/" + databaseRole;
+
+        final RequestedSecret secret = RequestedSecret.renewable(vaultCredsPath);
 
         secretLeaseContainer.addLeaseListener(secretLeaseEvent -> {
             if (secretLeaseEvent.getSource() == secret) {
