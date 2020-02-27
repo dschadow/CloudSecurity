@@ -17,12 +17,22 @@
  */
 package de.dominikschadow.configclient.credential;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
- * Credential repository to access the {@link Credential} in the database.
+ * Service to handle {@link Credential} related operations.
  *
  * @author Dominik Schadow
  */
-public interface CredentialRepository extends JpaRepository<Credential, Long> {
+@Service
+@RequiredArgsConstructor
+public class CredentialService {
+    private final CredentialRepository credentialRepository;
+
+    public List<Credential> getAllCredentials() {
+        return credentialRepository.findAll();
+    }
 }
