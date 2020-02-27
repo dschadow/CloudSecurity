@@ -136,12 +136,12 @@ Execute the following commands in order to enable the required backend and other
     # enable dynamic database secrets
     vault secrets enable database
     
-    # create a write role
+    # create an all privileges role
     vault write database/roles/config-client-vault-write \
       db_name=config-client-vault \
       creation_statements="CREATE ROLE \"{{name}}\" \
         WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
-        GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
       revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\
       default_ttl="1h" \
       max_ttl="24h"
