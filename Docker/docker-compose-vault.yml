@@ -1,18 +1,6 @@
 version: '3.7'
 
 services:
-  postgres:
-    image: postgres
-    container_name: postgres
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_ROOT_PASSWORD=password
-    ports:
-      - "5432:5432"
-    volumes:
-      - config_client_vault_db_data:/var/lib/postgresql/data
-    networks:
-      - cloud-security
   vault:
     image: vault
     container_name: vault
@@ -30,9 +18,6 @@ services:
     entrypoint: vault server -config=/vault/config/dev-file.hcl
     networks:
       - cloud-security
-
-volumes:
-  config_client_vault_db_data:
 
 networks:
   cloud-security:
