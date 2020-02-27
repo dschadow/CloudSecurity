@@ -7,14 +7,15 @@ spring:
     vault:
       kv:
         enabled: true
+        application-name: ${spring.application.name}
         backend: kv-v2
-      host: localhost
-      port: 8200
-      scheme: http
       # enable dynamic database credentials
       database:
         enabled: true
         role: config-client-vault-write
+      host: localhost
+      port: 8200
+      scheme: http
 
       # Token authentication
 #      authentication: TOKEN
