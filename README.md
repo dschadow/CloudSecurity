@@ -67,6 +67,8 @@ The root token is `s.WaK4N4tnBlvcffYHOg5BTTut`
  
 After that, you can start the Spring Boot applications as described below. The Docker Compose file `docker-compose.yml` launches Vault and the PostgreSQL database required in the config-client-vault project. You can launch Vault separately with the `docker-compose-vault.yml` file.
 
+Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
+
 ## config-server-vault
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault. The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/bootstrap.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients (like a browser) that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
 
@@ -75,7 +77,7 @@ This Spring Boot based web application contacts the Spring Cloud Config Server f
     
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml) file in the **config-client-vault** project does require valid credentials to access Vault. The active configuration is using AppRole, but Token support is available too.
 
-# Manual Vault configuration
+# Manual Vault Configuration
 In case you don't want to use the provided Vault Docker image you can find the required steps to initialize Vault below.
 
     vault server -config Docker/config/dev-file.hcl
