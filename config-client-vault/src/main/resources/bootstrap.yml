@@ -18,6 +18,9 @@ spring:
 
       # Token authentication
 #      authentication: TOKEN
+      # root token
+#      token: s.WaK4N4tnBlvcffYHOg5BTTut
+      # config-client-vault token
 #      token: s.SYJwdgYvMzeCVMhlPxgVGiBG
 
       # AppRole authentication
