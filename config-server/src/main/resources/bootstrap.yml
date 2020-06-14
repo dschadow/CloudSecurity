@@ -1,3 +1,29 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/dschadow/CloudSecurity
+          search-paths: config-repo
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8888
+
+logging:
+  level:
+    root: info
+
 encrypt:
   keyStore: # asymmetric encryption
     location: classpath:/server.jks
