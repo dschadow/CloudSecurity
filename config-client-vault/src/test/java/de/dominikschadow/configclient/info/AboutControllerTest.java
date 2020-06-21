@@ -18,6 +18,7 @@
 package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.ConfigClientVaultProperties;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +45,18 @@ public class AboutControllerTest {
     @MockBean
     private ConfigClientVaultProperties properties;
 
+    private ConfigClientVaultProperties.Application application;
+
+    @Before
+    public void setup() {
+        application = new ConfigClientVaultProperties.Application();
+        application.setName("Config Client Vault");
+        application.setProfile("Test");
+    }
+
     @Test
     public void openHomepageReturnsOk() throws Exception {
-        given(properties.getName()).willReturn("Config Client Vault");
-        given(properties.getProfile()).willReturn("Test");
+        given(properties.getApplication()).willReturn(application);
 
         mvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

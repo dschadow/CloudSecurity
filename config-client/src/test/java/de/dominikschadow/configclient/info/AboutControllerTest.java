@@ -50,7 +50,7 @@ public class AboutControllerTest {
     @Before
     public void setup() {
         application = new ConfigClientProperties.Application();
-        application.setName("Test");
+        application.setName("Config Client");
         application.setProfile("Test");
     }
 
@@ -58,6 +58,8 @@ public class AboutControllerTest {
     public void openHomepageReturnsOk() throws Exception {
         given(properties.getApplication()).willReturn(application);
 
-        mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Application information: Config Client with profile Test"));;
     }
 }
