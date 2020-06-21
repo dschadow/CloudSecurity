@@ -9,7 +9,7 @@ Every application (clients and config servers) exposes all Spring Actuator endpo
 - [Java 11](https://openjdk.java.net/)
 - [Lombok](https://projectlombok.org/)
 - [Maven 3](https://maven.apache.org/)
-- [Vault 1.3](https://vaultproject.io/)
+- [Vault 1.4](https://vaultproject.io/)
 
 # Jasypt
 
@@ -57,13 +57,13 @@ Switch to the Docker directory in this repository and execute `docker-compose up
 
 | Key #  | Unseal Key                                   |
 |--------|----------------------------------------------|
-| 1      | +KH72Bz6+KbwfNcqICGC08QdIyMjIpVwA5IwumZj+dxu |
-| 2      | +eLBsx8JUXpR6KZY5+6sUYXK2UobYfq1k7u2vwwWxQUD |
-| 3      | v6JBDA34C4/t7CNatOEtoxZJNLZMcZ1flX/R3Cbq0Pnn |
-| 4      | kWgyk8nwaHLTIz/aN/IQMA5gLdYnqtb6XeV473S/qMNv |
-| 5      | /eXaypXuVdeKKmG9NPIynMBbM3zG2HahYIWgIYdisbNz |
+| 1      | QXNjhGxYGmTSMg8QHu4pJM/j00iUIIdMGesOlgn0wXNx |
+| 2      | NfGJew3gIjf7XcA+PusvgWwFn+6p5CA56zAQPNynVOsO |
+| 3      | kHTkNCXf/EQl3+odgRYKN81CkCi+SHgHQhkSqv0oeh3Z |
+| 4      | 4Cmsi1Yf1gSKAOhpTswAvBfkV/5/67k/pSQ7/V8uGanW |
+| 5      | aqTh7C2eAP2vsYpJZrUetlCi3/PXyShXMVlcQnSHqRF1 |
 
-The root token is `s.WaK4N4tnBlvcffYHOg5BTTut`
+The root token is `s.LFQlHL44ddKCl6zIynJfHotu`
  
 After that, you can start the Spring Boot applications as described below. The Docker Compose file `docker-compose.yml` launches Vault and the PostgreSQL database required in the config-client-vault project. You can launch Vault separately with the `docker-compose-vault.yml` file.
 
@@ -94,7 +94,7 @@ Execute the following commands in order to enable the required backend and other
     vault secrets enable kv-v2
 
     # provide configuration data for the config-client-vault application
-    vault kv put kv-v2/config-client-vault application.name="Config Client Vault" application.profile="Demo"
+    vault kv put kv-v2/config-client-vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="Demo"
     
     # import policies
     vault policy write config-server-policy Docker/policies/config-server-policy.hcl

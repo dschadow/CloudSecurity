@@ -20,15 +20,15 @@ spring:
       # Token authentication
 #      authentication: TOKEN
       # root token
-#      token: s.WaK4N4tnBlvcffYHOg5BTTut
+#      token: s.LFQlHL44ddKCl6zIynJfHotu
       # config-client-vault token
-#      token: s.SYJwdgYvMzeCVMhlPxgVGiBG
+#      token: s.qUEq2S25KT5lreD6S66pFLxi
 
       # AppRole authentication
       authentication: APPROLE
       app-role:
-        role-id: 634ac346-9e77-db4e-cd8f-c002662339ea
-        secret-id: 62f5d5ea-7402-a6c9-1fe8-76edbec11181
+        role-id: 0434626a-b83b-305d-f74e-02aed97c5e7a
+        secret-id: fbec741d-5d68-1573-ab3e-e172c9878bd0
   datasource:
     url: jdbc:postgresql://localhost:5432/config-client-vault
     # credentials are obtained via Vault

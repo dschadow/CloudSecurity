@@ -13,13 +13,13 @@ spring:
           kv-version: 2
           # Token authentication
 #         authentication: TOKEN
-#         token: s.xJBWlDRWkawrrqwQwCMwdHVj
+#         token: s.agzrD2qEm3yne8UjVBDKEPIu
 
           # AppRole authentication
           authentication: APPROLE
           app-role:
-            role-id: 5da5ca89-b094-5746-b40d-9ea36ed40291
-            secret-id: ae40059f-16ae-6885-b170-8ecfada131f6
+            role-id: b6d8254b-c976-938a-c698-89ec0e0762ab
+            secret-id: 365fd9f6-223a-ef76-bf65-4ff3ca93160f
 
 management:
   endpoints:
