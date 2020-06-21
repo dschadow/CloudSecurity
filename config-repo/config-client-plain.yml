@@ -1,7 +1,7 @@
 config:
   client:
     application:
-      name: Config Client Test
+      name: Config Client
       profile: Plain
 
 spring:
