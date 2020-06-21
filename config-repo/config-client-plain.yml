@@ -1,6 +1,8 @@
-application:
-  name: Config Client
-  profile: Plain
+config:
+  client:
+    application:
+      name: Config Client
+      profile: Plain
 
 spring:
   datasource:

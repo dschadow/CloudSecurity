@@ -1,6 +1,8 @@
-application:
-  name: Config Client
-  profile: Cipher
+config:
+  client:
+    application:
+      name: Config Client
+      profile: Cipher
 
 spring:
   datasource:
