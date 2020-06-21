@@ -19,7 +19,8 @@ spring:
         role-id: 5da5ca89-b094-5746-b40d-9ea36ed40291
         secret-id: ae40059f-16ae-6885-b170-8ecfada131f6
   profiles:
-    active: vault
+    active:
+      - vault
 
 management:
   endpoints:
