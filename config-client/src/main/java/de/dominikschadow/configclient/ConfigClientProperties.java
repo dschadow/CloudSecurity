@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author Dominik Schadow
  */
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "config.client")
 @Getter
 @Setter
 public class ConfigClientProperties {
