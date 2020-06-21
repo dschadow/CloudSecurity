@@ -26,10 +26,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author Dominik Schadow
  */
-@ConfigurationProperties(prefix = "application")
+@ConfigurationProperties(prefix = "config.client.vault")
 @Getter
 @Setter
 public class ConfigClientVaultProperties {
-    private String name;
-    private String profile;
+    private Application application;
+
+    /**
+     * Basic application information.
+     */
+    @Getter
+    @Setter
+    public static class Application {
+        private String name;
+        private String profile;
+    }
 }

@@ -42,6 +42,7 @@ public class AboutController {
     @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "Returns application and profile information", response = String.class)
     public String about() {
-        return String.format("Application information: %s with profile %s", properties.getName(), properties.getProfile());
+        return String.format("Application information: %s with profile %s", properties.getApplication().getName(),
+                properties.getApplication().getProfile());
     }
 }
