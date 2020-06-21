@@ -37,3 +37,13 @@ spring:
     open-in-view: true
     hibernate:
       ddl-auto: create-drop
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    root: info
