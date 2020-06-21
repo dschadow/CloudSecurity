@@ -1,26 +1,25 @@
 spring:
   application:
     name: config-server-vault
-  cloud:
-    vault:
-      kv:
-        enabled: true
-        application-name: ${spring.application.name}
-        backend: kv-v2
-      scheme: http
-
-      # Token authentication
-#     authentication: TOKEN
-#     token: s.xJBWlDRWkawrrqwQwCMwdHVj
-
-      # AppRole authentication
-      authentication: APPROLE
-      app-role:
-        role-id: 5da5ca89-b094-5746-b40d-9ea36ed40291
-        secret-id: ae40059f-16ae-6885-b170-8ecfada131f6
   profiles:
     active:
       - vault
+  cloud:
+    config:
+      server:
+        vault:
+          port: 8200
+          host: 127.0.0.1
+          kv-version: 2
+          # Token authentication
+#         authentication: TOKEN
+#         token: s.xJBWlDRWkawrrqwQwCMwdHVj
+
+          # AppRole authentication
+          authentication: APPROLE
+          app-role:
+            role-id: 5da5ca89-b094-5746-b40d-9ea36ed40291
+            secret-id: ae40059f-16ae-6885-b170-8ecfada131f6
 
 management:
   endpoints:
