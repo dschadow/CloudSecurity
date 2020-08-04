@@ -17,7 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <swagger.version>2.9.2</swagger.version>
-        <spring.cloud.version>Hoxton.SR6</spring.cloud.version>
+        <spring.cloud.version>Hoxton.SR7</spring.cloud.version>
         <spring.cloud.vault.config.db.version>2.2.3.RELEASE</spring.cloud.vault.config.db.version>
         <jasypt.version>3.0.3</jasypt.version>
     </properties>
