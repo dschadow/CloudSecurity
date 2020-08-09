@@ -1,13 +1,13 @@
-path "kv-v2/*" {
-  capabilities = ["read"]
+path "secret/data/config-client-vault" {
+  capabilities = [ "read" ]
 }
 
-path "kv-v2/my-secrets/*" {
+path "secret/data/application" {
+  capabilities = [ "read" ]
+}
+
+path "secret/data/custom-secrets" {
   capabilities = ["create", "read", "update", "delete", "list"]
-}
-
-path "secret/*" {
-  capabilities = ["read"]
 }
 
 path "transit/*" {
