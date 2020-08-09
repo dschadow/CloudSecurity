@@ -103,7 +103,7 @@ Execute the following commands in order to enable the required backend and other
     # create a token for config-client-vault
     vault token create -policy=config-client-policy
     
-    # create a token for config-client-server
+    # create a token for config-server-vault
     vault token create -policy=config-server-policy
     
     # enable and configure AppRole authentication
