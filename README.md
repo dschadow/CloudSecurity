@@ -29,7 +29,7 @@ Starting the config server without a profile therefore requires Internet access 
 The basic auth credentials (user/secret) are required when accessing the config server.
 
 ### config-repo
-This folder contains all configuration files for all profiles used in the **config-client** and **config-client-vault** applications.
+This folder contains all configuration files for all profiles used in the **config-client** web application. This folder can be used with the **native** profile.
 
 ## config-client
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. Depending on the active Spring profile, the configuration files used are not encrypted (**plain**) or secured using Spring Config encryption functionality (**cipher**). There is no default profile available, so you have to provide a specific profile during start.
