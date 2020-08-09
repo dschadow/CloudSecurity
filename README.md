@@ -58,15 +58,15 @@ Switch to the Docker directory in this repository and execute `docker-compose up
 
 | Key #  | Unseal Key                                   |
 |--------|----------------------------------------------|
-| 1      | QXNjhGxYGmTSMg8QHu4pJM/j00iUIIdMGesOlgn0wXNx |
-| 2      | NfGJew3gIjf7XcA+PusvgWwFn+6p5CA56zAQPNynVOsO |
-| 3      | kHTkNCXf/EQl3+odgRYKN81CkCi+SHgHQhkSqv0oeh3Z |
-| 4      | 4Cmsi1Yf1gSKAOhpTswAvBfkV/5/67k/pSQ7/V8uGanW |
-| 5      | aqTh7C2eAP2vsYpJZrUetlCi3/PXyShXMVlcQnSHqRF1 |
+| 1      | UYPeGqfVo+AZApyrs/ZMDgHekS6y8Whix4+WAkdrdCEm |
+| 2      | 6t22E+b8iFeQWHOamp8xKk8swm1sjH6/kkZJ2umcFI2A |
+| 3      | dFx8s19cDUCivyDbwn4e+hs4vNFE+GxuqXeSAabrNPz4 |
+| 4      | Vip1hvMWfm2Dqm3pJdYA7H6OL8mv41MLLo/49KG0OMaz |
+| 5      | PKaOwoRwtj0ExSwOpFXMy0kA0jT/XLzK3mwTT0PMerFL |
 
-The root token is `s.LFQlHL44ddKCl6zIynJfHotu`
+Initial Root Token: `s.e20u7J6IlPhyocHpCoazdUXl`
  
-After that, you can start the Spring Boot applications as described below. The Docker Compose file `docker-compose.yml` launches Vault and the PostgreSQL database required in the config-client-vault project. You can launch Vault separately with the `docker-compose-vault.yml` file.
+After that, you can start the Spring Boot applications as described below. The Docker Compose file `docker-compose.yml` launches Vault, and the PostgreSQL database required in the config-client-vault project. You can launch Vault separately with the `docker-compose-vault.yml` file.
 
 Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
 
