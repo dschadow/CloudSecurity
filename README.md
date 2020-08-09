@@ -1,15 +1,15 @@
 Cloud Security
 ============
 
-This repository contains cloud security projects with [Spring Boot](https://projects.spring.io/spring-boot), [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It offers different possibilities on how to store secrets securely for local and cloud based web applications.
+This repository contains cloud security projects with [Spring Boot](https://projects.spring.io/spring-boot), [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It shows different possibilities how you can store secrets securely for local and cloud based (Spring Boot) web applications.
 
-Every application (clients and config servers) exposes all Spring Actuator endpoints at the default */actuator* endpoint.
+Every web application in this repository (clients and config servers) exposes all Spring Actuator endpoints at the default */actuator* endpoint.
 
 # Technologies
 - [Java 11](https://openjdk.java.net/)
 - [Lombok](https://projectlombok.org/)
 - [Maven 3](https://maven.apache.org/)
-- [Vault 1.4](https://vaultproject.io/)
+- [Vault 1.5](https://vaultproject.io/)
 
 # Jasypt
 
