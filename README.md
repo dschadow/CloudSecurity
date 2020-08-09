@@ -56,13 +56,13 @@ A local [Vault](https://www.vaultproject.io/) server is required for the **confi
 ## Docker
 Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications (a PostgreSQL database used for the dynamic database credentials demo is started as well). The only thing you have to do is to unseal Vault with three out of the five unseal keys. The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
 
-| Key #  | Unseal Key                                   |
-|--------|----------------------------------------------|
-| 1      | UYPeGqfVo+AZApyrs/ZMDgHekS6y8Whix4+WAkdrdCEm |
-| 2      | 6t22E+b8iFeQWHOamp8xKk8swm1sjH6/kkZJ2umcFI2A |
-| 3      | dFx8s19cDUCivyDbwn4e+hs4vNFE+GxuqXeSAabrNPz4 |
-| 4      | Vip1hvMWfm2Dqm3pJdYA7H6OL8mv41MLLo/49KG0OMaz |
-| 5      | PKaOwoRwtj0ExSwOpFXMy0kA0jT/XLzK3mwTT0PMerFL |
+| # | Unseal Key                                   |
+|---|----------------------------------------------|
+| 1 | UYPeGqfVo+AZApyrs/ZMDgHekS6y8Whix4+WAkdrdCEm |
+| 2 | 6t22E+b8iFeQWHOamp8xKk8swm1sjH6/kkZJ2umcFI2A |
+| 3 | dFx8s19cDUCivyDbwn4e+hs4vNFE+GxuqXeSAabrNPz4 |
+| 4 | Vip1hvMWfm2Dqm3pJdYA7H6OL8mv41MLLo/49KG0OMaz |
+| 5 | PKaOwoRwtj0ExSwOpFXMy0kA0jT/XLzK3mwTT0PMerFL |
 
 Initial Root Token: `s.e20u7J6IlPhyocHpCoazdUXl`
  
