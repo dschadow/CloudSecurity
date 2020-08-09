@@ -1,9 +1,6 @@
 spring:
-  application:
-    name: config-server-vault
   profiles:
-    active:
-      - vault
+    active: vault
   cloud:
     config:
       server:
@@ -11,15 +8,6 @@ spring:
           port: 8200
           host: 127.0.0.1
           kv-version: 2
-          # Token authentication
-#         authentication: TOKEN
-#         token: s.agzrD2qEm3yne8UjVBDKEPIu
-
-          # AppRole authentication
-          authentication: APPROLE
-          app-role:
-            role-id: b6d8254b-c976-938a-c698-89ec0e0762ab
-            secret-id: 365fd9f6-223a-ef76-bf65-4ff3ca93160f
 
 management:
   endpoints:
