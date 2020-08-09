@@ -50,10 +50,10 @@ The Config Server endpoints help to encrypt and decrypt data:
     curl localhost:8888/decrypt -d secretToDecrypt -u user:secret
 
 # Vault
-A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Docker as described below is the recommended and fully initialized version.
+A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended version.
 
 ## Docker
-Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. The only thing you have to do is to unseal Vault with three out of the five unseal keys. The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
+Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications (a PostgreSQL database used for the dynamic database credentials demo is started as well). The only thing you have to do is to unseal Vault with three out of the five unseal keys. The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
 
 | Key #  | Unseal Key                                   |
 |--------|----------------------------------------------|
@@ -78,9 +78,9 @@ This Spring Boot based web application contacts the Spring Cloud Config Server f
 The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml) file in the **config-client-vault** project does require valid credentials to access Vault. The active configuration is using AppRole, but Token support is available too.
 
 # Manual Vault Configuration
-In case you don't want to use the provided Vault Docker image you can find the required steps to initialize Vault below.
+In case you don't want to use the configured Vault Docker container you can find all required commands to initialize Vault below:
 
-    vault server -config Docker/config/dev-file.hcl
+    vault server -config Docker/config/file-storage.hcl
     export VAULT_ADDR=http://127.0.0.1:8200
     vault operator init
     export VAULT_TOKEN=[Root Token]
