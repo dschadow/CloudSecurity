@@ -41,13 +41,13 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SecretController {
     private final VaultOperations vault;
-    static final String KV_BASE_PATH = "kv-v2";
-    static final String PERSONAL_SECRETS_PATH = "my-secrets/";
+    static final String SECRET_BASE_PATH = "secret";
+    static final String PERSONAL_SECRETS_PATH = "custom-secrets";
     private VaultVersionedKeyValueOperations versionedKeyValueOperations;
 
     @PostConstruct
     public void init() {
-        versionedKeyValueOperations = vault.opsForVersionedKeyValue(KV_BASE_PATH);
+        versionedKeyValueOperations = vault.opsForVersionedKeyValue(SECRET_BASE_PATH);
     }
 
     /**
@@ -62,23 +62,22 @@ public class SecretController {
             response = VaultResponse.class)
     public ResponseEntity<Versioned.Version> writeSecret(@RequestBody Secret secret) {
         Map<String, String> value = new HashMap<>();
-        value.put("data", secret.getData());
+        value.put(secret.getKey(), secret.getData());
 
-        Versioned.Metadata metadata = versionedKeyValueOperations.put(PERSONAL_SECRETS_PATH + secret.getKey(), value);
+        Versioned.Metadata metadata = versionedKeyValueOperations.put(PERSONAL_SECRETS_PATH, value);
 
         return ResponseEntity.ok(metadata.getVersion());
     }
 
     /**
-     * Deletes the secret stored in the vault for the given key.
+     * Deletes the secret stored in the vault.
      *
-     * @param key The key to delete the secret for
      * @return Empty response
      */
-    @DeleteMapping("/secrets/{key}")
-    @ApiOperation(value = "Deletes the secret stored for the given key")
-    public ResponseEntity<Void> deleteSecret(@PathVariable String key) {
-        versionedKeyValueOperations.delete(PERSONAL_SECRETS_PATH + key);
+    @DeleteMapping("/secrets")
+    @ApiOperation(value = "Deletes the secret")
+    public ResponseEntity<Void> deleteSecret() {
+        versionedKeyValueOperations.delete(PERSONAL_SECRETS_PATH);
 
         return ResponseEntity.ok().build();
     }
@@ -89,11 +88,16 @@ public class SecretController {
      * @param key The key to load the secret for
      * @return The loaded secret from vault
      */
-    @GetMapping(value = "/secrets/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/secrets/{key}", produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "Returns the secret stored for the given key", response = Secret.class)
-    public ResponseEntity<Map<String, Object>> readSecret(@PathVariable String key) {
-        Versioned<Map<String, Object>> secret = versionedKeyValueOperations.get(PERSONAL_SECRETS_PATH + key);
+    public ResponseEntity<String> readSecret(@PathVariable String key) {
+        Versioned<Map<String, Object>> secret = versionedKeyValueOperations.get(PERSONAL_SECRETS_PATH);
 
-        return ResponseEntity.ok(secret.getData());
+        if (secret != null && secret.getData() != null) {
+            return ResponseEntity.ok((String) secret.getData().get(key));
+        }
+
+        return ResponseEntity.noContent().build();
+
     }
 }
