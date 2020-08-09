@@ -92,36 +92,21 @@ In case you don't want to use the configured Vault Docker container you can find
 Execute the following commands in order to enable the required backend and other services and to provide the required data:
 
     # enable secrets backend
-    vault secrets enable kv-v2
+    vault secrets enable -path=secret kv-v2
 
     # provide configuration data for the config-client-vault application
-    vault kv put kv-v2/config-client-vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="Demo"
+    vault kv put secret/config-client-vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="Demo"
     
-    # import policies
-    vault policy write config-server-policy Docker/policies/config-server-policy.hcl
+    # import policy
     vault policy write config-client-policy Docker/policies/config-client-policy.hcl
     
     # create a token for config-client-vault
     vault token create -policy=config-client-policy
     
-    # create a token for config-server-vault
-    vault token create -policy=config-server-policy
-    
     # enable and configure AppRole authentication
     vault auth enable approle
     
     # create roles with 1 hour TTL (can be renewed for up to 4 hours of its first creation)
-    vault write auth/approle/role/config-server \
-        token_ttl=1h \
-        token_max_ttl=4h \
-        token_policies=config-server-policy
-        
-    vault read auth/approle/role/config-server/role-id
-    # update config-server-vault/bootstrap.yml with the returned role-id
-    
-    vault write -f auth/approle/role/config-server/secret-id
-    # update config-server-vault/bootstrap.yml with the returned secret-id
-    
     vault write auth/approle/role/config-client \
         token_ttl=1h \
         token_max_ttl=4h \
@@ -150,7 +135,7 @@ Execute the following commands in order to enable the required backend and other
       default_ttl="1h" \
       max_ttl="24h"
     
-    # create the database connection
+    # create the database connection (the database must already exist)
     vault write database/config/config-client-vault \
         plugin_name=postgresql-database-plugin \
         allowed_roles="*" \
@@ -158,7 +143,7 @@ Execute the following commands in order to enable the required backend and other
         username="postgres" \
         password="password"
         
-    # force rotation for root user
+    # force rotation for root user (will destroy the previous root password)
     vault write --force /database/rotate-root/config-client-vault
     
     # create new credentials
