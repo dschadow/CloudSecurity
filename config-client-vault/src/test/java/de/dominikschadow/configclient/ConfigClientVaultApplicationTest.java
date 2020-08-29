@@ -17,20 +17,17 @@
  */
 package de.dominikschadow.configclient;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Tests the application itself and tries to startup the application context.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class ConfigClientVaultApplicationTest {
+class ConfigClientVaultApplicationTest {
     @Test
-    public void contextLoads() {
+    void contextLoads() {
     }
 }
