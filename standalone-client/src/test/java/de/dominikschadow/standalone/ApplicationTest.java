@@ -17,22 +17,19 @@
  */
 package de.dominikschadow.standalone;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Tests the application itself and tries to startup the application context.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(properties = {"jasypt.encryptor.password = sample-password"})
-public class ApplicationTest {
+class ApplicationTest {
     @Test
-    public void contextLoads() {
+    void contextLoads() {
     }
 }

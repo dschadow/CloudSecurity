@@ -17,28 +17,27 @@
  */
 package de.dominikschadow.standalone.info;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Tests the {@link AboutController} class.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @WebMvcTest(AboutController.class)
-public class AboutControllerTest {
+class AboutControllerTest {
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void openHomepageReturnsOk() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
+    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
+        mvc.perform(get("/"))
+           .andExpect(status().isOk());
     }
 }
