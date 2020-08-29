@@ -17,50 +17,48 @@
  */
 package de.dominikschadow.configclient.user;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the {@link UserRepository} interface.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @DataJpaTest
-public class UserRepositoryTest {
+class UserRepositoryTest {
     @Autowired
     private UserRepository repository;
 
     @Test
-    public void findAllReturnsAllUsers() {
+    void givenInitializedDatabaseWhenCountingThenReturnUserCount() {
         long users = repository.count();
 
-        assertThat(users).isEqualTo(3);
+        assertEquals(3, users);
     }
 
-    @Test
-    public void validIdFindOneReturnsCredentials() {
-        Long userId = 1L;
-
+    @ParameterizedTest(name = "User id {0}")
+    @ValueSource(longs = {1, 2, 3})
+    void givenKnownIdWhenFindingUserTHenReturnUser(long userId) {
         Optional<User> user = repository.findById(userId);
 
-        assertThat(user.isPresent()).isTrue();
-        assertThat(user.get().getLastname()).isEqualTo("Dent");
+        assertAll(() -> assertTrue(user.isPresent()),
+                  () -> assertEquals(userId, user.get().getId()));
     }
 
     @Test
-    public void invalidIdFindOneReturnsNull() {
+    void givenUnknownIdWhenFindingUserThenReturnEmptyResult() {
         Long userId = 100L;
 
         Optional<User> user = repository.findById(userId);
 
-        assertThat(user.isPresent()).isFalse();
+        assertTrue(user.isEmpty());
     }
 }

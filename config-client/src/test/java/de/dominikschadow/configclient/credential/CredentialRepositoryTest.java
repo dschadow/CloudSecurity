@@ -17,50 +17,48 @@
  */
 package de.dominikschadow.configclient.credential;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the {@link CredentialRepository} interface.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @DataJpaTest
-public class CredentialRepositoryTest {
+class CredentialRepositoryTest {
     @Autowired
     private CredentialRepository repository;
 
     @Test
-    public void findAllReturnsAllCredentials() {
+    void givenInitializedDatabaseWhenCountingThenReturnCredentialsCount() {
         long credentials = repository.count();
 
-        assertThat(credentials).isEqualTo(6);
+        assertEquals(6, credentials);
     }
 
-    @Test
-    public void validIdFindOneReturnsCredentials() {
-        Long credentialsId = 1L;
-
+    @ParameterizedTest(name = "Credentials id {0}")
+    @ValueSource(longs = {1, 2, 3, 4, 5, 6})
+    void givenKnownIdWhenFindingCredentialsTHenReturnCredentials(long credentialsId) {
         Optional<Credential> credentials = repository.findById(credentialsId);
 
-        assertThat(credentials.isPresent()).isTrue();
-        assertThat(credentials.get().getUsername()).isEqualTo("arthur1");
+        assertAll(() -> assertTrue(credentials.isPresent()),
+                  () -> assertEquals(credentialsId, credentials.get().getId()));
     }
 
     @Test
-    public void invalidIdFindOneReturnsNull() {
+    void givenUnknownIdWhenFindingCredentialsThenReturnEmptyResult() {
         Long credentialsId = 100L;
 
         Optional<Credential> credentials = repository.findById(credentialsId);
 
-        assertThat(credentials.isPresent()).isFalse();
+        assertTrue(credentials.isEmpty());
     }
 }
