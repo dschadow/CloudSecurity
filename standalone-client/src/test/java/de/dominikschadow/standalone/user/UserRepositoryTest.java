@@ -18,6 +18,8 @@
 package de.dominikschadow.standalone.user;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -42,14 +44,13 @@ class UserRepositoryTest {
         assertEquals(3, users);
     }
 
-    @Test
-    void givenKnownIdWhenFindingUserTHenReturnUser() {
-        Long userId = 1L;
-
+    @ParameterizedTest
+    @ValueSource(longs = {1, 2, 3})
+    void givenKnownIdWhenFindingUserTHenReturnUser(long userId) {
         Optional<User> user = repository.findById(userId);
 
         assertAll(() -> assertTrue(user.isPresent()),
-                  () -> assertEquals("Dent", user.get().getLastname()));
+                  () -> assertEquals(userId, user.get().getId()));
     }
 
     @Test

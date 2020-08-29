@@ -18,6 +18,8 @@
 package de.dominikschadow.standalone.credential;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -42,14 +44,13 @@ class CredentialRepositoryTest {
         assertEquals(6, credentials);
     }
 
-    @Test
-    void givenKnownIdWhenFindingCredentialsTHenReturnCredentials() {
-        Long credentialsId = 1L;
-
+    @ParameterizedTest
+    @ValueSource(longs = {1, 2, 3, 4, 5, 6})
+    void givenKnownIdWhenFindingCredentialsTHenReturnCredentials(long credentialsId) {
         Optional<Credential> credentials = repository.findById(credentialsId);
 
         assertAll(() -> assertTrue(credentials.isPresent()),
-                  () -> assertEquals("arthur1", credentials.get().getUsername()));
+                  () -> assertEquals(credentialsId, credentials.get().getId()));
     }
 
     @Test
