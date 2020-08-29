@@ -44,7 +44,7 @@ class UserRepositoryTest {
         assertEquals(3, users);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "User id {0}")
     @ValueSource(longs = {1, 2, 3})
     void givenKnownIdWhenFindingUserTHenReturnUser(long userId) {
         Optional<User> user = repository.findById(userId);

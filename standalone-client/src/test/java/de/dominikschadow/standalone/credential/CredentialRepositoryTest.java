@@ -44,7 +44,7 @@ class CredentialRepositoryTest {
         assertEquals(6, credentials);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Credentials id {0}")
     @ValueSource(longs = {1, 2, 3, 4, 5, 6})
     void givenKnownIdWhenFindingCredentialsTHenReturnCredentials(long credentialsId) {
         Optional<Credential> credentials = repository.findById(credentialsId);
