@@ -58,19 +58,19 @@ Switch to the Docker directory in this repository and execute `docker-compose up
 
 Next, you have to configure the active terminal to communicate with this Vault instance and to unseal it:
 * `export VAULT_ADDR=http://127.0.0.1:8200`
-* `export VAULT_TOKEN=s.e20u7J6IlPhyocHpCoazdUXl`
+* `export VAULT_TOKEN=s.BkbW9k3NrXL7DdVIN0JltBef`
 
 The only thing left to do is to unseal Vault with three out of the five unseal keys. One way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
 
 | # | Unseal Key                                   |
 |---|----------------------------------------------|
-| 1 | UYPeGqfVo+AZApyrs/ZMDgHekS6y8Whix4+WAkdrdCEm |
-| 2 | 6t22E+b8iFeQWHOamp8xKk8swm1sjH6/kkZJ2umcFI2A |
-| 3 | dFx8s19cDUCivyDbwn4e+hs4vNFE+GxuqXeSAabrNPz4 |
-| 4 | Vip1hvMWfm2Dqm3pJdYA7H6OL8mv41MLLo/49KG0OMaz |
-| 5 | PKaOwoRwtj0ExSwOpFXMy0kA0jT/XLzK3mwTT0PMerFL |
+| 1 | X9ohFkXYaKu1h6dMnKP0COCKNbZIxC93jHpojy9zZHrQ |
+| 2 | bkNFSvGmhvcdYg5QPVJoOzT99Eoui3NAZ5QSwPtAWiRE |
+| 3 | +UENAccStHNvCj4C3Kku/P6fwaB1Kyw+Vgz2GzmPwYBq |
+| 4 | i53/2P3zelAhWBil3dFD6vNn7c7MLvhwoSGDgWHMwrzY |
+| 5 | K0uPEO4EhWlS/U7hewZxJTTja9uXYkrrQh6ku8VgCo5t |
 
-Initial Root Token: `s.e20u7J6IlPhyocHpCoazdUXl`
+Initial Root Token: `s.BkbW9k3NrXL7DdVIN0JltBef`
  
 After that, you can start the Spring Boot applications as described below. The Docker Compose file `docker-compose.yml` launches Vault, and the PostgreSQL database required in the config-client-vault project. You can launch Vault separately with the `docker-compose-vault.yml` file.
 
@@ -104,7 +104,7 @@ Execute the following commands in order to enable the required backend and other
     vault kv put secret/config-client-vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="Demo"
     
     # import policy
-    vault policy write config-client-policy Docker/policies/config-client-policy.hcl
+    vault policy write config-client-policy policies/config-client-policy.hcl
     
     # create a token for config-client-vault
     vault token create -policy=config-client-policy
@@ -118,11 +118,11 @@ Execute the following commands in order to enable the required backend and other
         token_max_ttl=4h \
         token_policies=config-client-policy
     
-    vault read auth/approle/role/config-client/role-id
     # update config-client-vault/bootstrap.yml with the returned role-id
+    vault read auth/approle/role/config-client/role-id
     
-    vault write -f auth/approle/role/config-client/secret-id
     # update config-client-vault/bootstrap.yml with the returned secret-id
+    vault write -f auth/approle/role/config-client/secret-id
     
     # enable the Transit backend and provide a key
     vault secrets enable transit
@@ -132,28 +132,28 @@ Execute the following commands in order to enable the required backend and other
     vault secrets enable database
     
     # create an all privileges role
-    vault write database/roles/config-client-vault-write \
-      db_name=config-client-vault \
-      creation_statements="CREATE ROLE \"{{name}}\" \
-        WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
-        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
-      revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\
-      default_ttl="1h" \
-      max_ttl="24h"
+    vault write database/roles/config_client_vault_all_privileges \
+          db_name=config_client_vault \
+          creation_statements="CREATE ROLE \"{{name}}\" \
+            WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
+            GRANT ALL PRIVILEGES ON DATABASE config_client_vault TO \"{{name}}\";" \
+          revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\
+          default_ttl="1h" \
+          max_ttl="24h"
     
     # create the database connection (the database must already exist)
-    vault write database/config/config-client-vault \
+    vault write database/config/config_client_vault \
         plugin_name=postgresql-database-plugin \
         allowed_roles="*" \
-        connection_url="postgresql://{{username}}:{{password}}@postgres:5432/config-client-vault?sslmode=disable" \
+        connection_url="postgresql://{{username}}:{{password}}@postgres:5432/config_client_vault?sslmode=disable" \
         username="postgres" \
         password="password"
         
-    # force rotation for root user (will destroy the previous root password)
-    vault write --force /database/rotate-root/config-client-vault
+    # force rotation for root user (will destroy the existing root password, make sure you have another one)
+    vault write --force /database/rotate-root/config_client_vault
     
     # create new credentials
-    vault read database/creds/config-client-vault-write
+    vault read database/creds/config_client_vault_all_privileges
 
 ## Meta
 [![Build Status](https://travis-ci.org/dschadow/CloudSecurity.svg)](https://travis-ci.org/dschadow/CloudSecurity)
