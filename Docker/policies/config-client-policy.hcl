@@ -14,6 +14,6 @@ path "transit/*" {
   capabilities = ["read", "update"]
 }
 
-path "database/creds/config-client-vault-write" {
+path "database/creds/config_client_vault_all_privileges" {
   capabilities = ["read"]
 }
