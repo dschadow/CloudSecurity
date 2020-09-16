@@ -54,7 +54,13 @@ The Config Server endpoints help to encrypt and decrypt data:
 A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended version.
 
 ## Docker
-Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications (a PostgreSQL database used for the dynamic database credentials demo is started as well). The only thing you have to do is to unseal Vault with three out of the five unseal keys. The easiest way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
+Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications (a PostgreSQL database used for the dynamic database credentials demo is started as well). 
+
+Next, you have to configure the active terminal to communicate with this Vault instance and to unseal it:
+* `export VAULT_ADDR=http://127.0.0.1:8200`
+* `export VAULT_TOKEN=s.e20u7J6IlPhyocHpCoazdUXl`
+
+The only thing left to do is to unseal Vault with three out of the five unseal keys. One way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
 
 | # | Unseal Key                                   |
 |---|----------------------------------------------|
