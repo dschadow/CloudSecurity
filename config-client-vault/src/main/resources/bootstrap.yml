@@ -12,28 +12,28 @@ spring:
       # enable dynamic database credentials
       database:
         enabled: true
-        role: config-client-vault-write
+        role: config_client_vault_all_privileges
       host: localhost
       port: 8200
       scheme: http
 
       # Token authentication
-      authentication: TOKEN
+#      authentication: TOKEN
       # AppRole authentication
-#      authentication: APPROLE
+      authentication: APPROLE
 
       # root token
-      # token: s.e20u7J6IlPhyocHpCoazdUXl
+#      token: s.BkbW9k3NrXL7DdVIN0JltBef
 
       # config-client-vault token
-      token: s.bLR1OBPsEkINPU8gTjnr9F8g
+      token: s.XsdrZkPD26HhvoAZ6b4OJoMY
 
       # config-client-vault app-role
       app-role:
-        role-id: 0cf18dc2-fa49-57b6-277f-7ab2940e1aa5
-        secret-id: 7b06c770-6fed-ae46-c878-7dd55db9c725
+        role-id: 4b5dc32b-1420-a645-b3fc-309377d311e2
+        secret-id: c00a3681-0f52-57d1-f924-10889e94bb94
   datasource:
-    url: jdbc:postgresql://localhost:5432/config-client-vault
+    url: jdbc:postgresql://localhost:5432/config_client_vault
     # credentials are obtained via Vault
     initialization-mode: always
   jpa:
