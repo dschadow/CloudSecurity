@@ -45,8 +45,7 @@ public class TransitController {
      */
     @PostMapping(value = "/encrypt", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "Encrypts the given plaintext with the key identified by the given key name",
-            notes = "Encrypts the given plaintext with the key identified by the given key name.",
-            response = String.class)
+            notes = "Encrypts the given plaintext with the key identified by the given key name.")
     public ResponseEntity<String> encryptPayload(@RequestBody TransitPayload payload) {
         VaultTransitOperations operations = vault.opsForTransit();
 
@@ -61,8 +60,7 @@ public class TransitController {
      */
     @PostMapping(value = "/decrypt", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "Decrypts the given plaintext with the key identified by the given key name",
-            notes = "Decrypts the given ciphertext with the key identified by the given key name.",
-            response = String.class)
+            notes = "Decrypts the given ciphertext with the key identified by the given key name.")
     public ResponseEntity<String> decryptPayload(@RequestBody TransitPayload payload) {
         VaultTransitOperations operations = vault.opsForTransit();
 
@@ -75,7 +73,7 @@ public class TransitController {
     @GetMapping("/rotate/{keyName}")
     @ApiOperation(value = "Rotates the given key and creates a new version",
             notes = "Rotates the given key and creates a new version.")
-    public ResponseEntity rotateKey(@PathVariable("keyName") String keyName) {
+    public ResponseEntity<Void> rotateKey(@PathVariable("keyName") String keyName) {
         VaultTransitOperations operations = vault.opsForTransit();
         operations.rotate(keyName);
 

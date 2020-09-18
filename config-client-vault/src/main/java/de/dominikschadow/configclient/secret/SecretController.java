@@ -23,7 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultOperations;
 import org.springframework.vault.core.VaultVersionedKeyValueOperations;
-import org.springframework.vault.support.VaultResponse;
 import org.springframework.vault.support.Versioned;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,8 +57,7 @@ public class SecretController {
      */
     @PostMapping(value = "/secrets", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Writes the given secret into the vault",
-            notes = "Writes the given secret content into the vault using the given key as path.",
-            response = VaultResponse.class)
+            notes = "Writes the given secret content into the vault using the given key as path.")
     public ResponseEntity<Versioned.Version> writeSecret(@RequestBody Secret secret) {
         Map<String, String> value = new HashMap<>();
         value.put(secret.getKey(), secret.getData());
@@ -89,7 +87,7 @@ public class SecretController {
      * @return The loaded secret from vault
      */
     @GetMapping(value = "/secrets/{key}", produces = MediaType.TEXT_PLAIN_VALUE)
-    @ApiOperation(value = "Returns the secret stored for the given key", response = Secret.class)
+    @ApiOperation(value = "Returns the secret stored for the given key")
     public ResponseEntity<String> readSecret(@PathVariable String key) {
         Versioned<Map<String, Object>> secret = versionedKeyValueOperations.get(PERSONAL_SECRETS_PATH);
 
