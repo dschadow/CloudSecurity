@@ -20,6 +20,8 @@
         <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
         <spring.cloud.vault.config.db.version>2.2.5.RELEASE</spring.cloud.vault.config.db.version>
         <jasypt.version>3.0.3</jasypt.version>
+        <license.name>Apache License 2.0</license.name>
+        <license.url>http://www.apache.org/licenses/LICENSE-2.0</license.url>
     </properties>
 
     <parent>
@@ -173,7 +175,7 @@
 
     <organization>
         <name>Dominik Schadow</name>
-        <url>https://blog.dominikschadow.de</url>
+        <url>https://github.com/dschadow</url>
     </organization>
 
     <developers>
@@ -181,6 +183,7 @@
             <id>1</id>
             <name>Dominik Schadow</name>
             <email>dominikschadow@gmail.com</email>
+            <url>https://blog.dominikschadow.de</url>
             <roles>
                 <role>Project Lead</role>
                 <role>Developer</role>
@@ -190,8 +193,8 @@
 
     <licenses>
         <license>
-            <name>Apache License 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <name>${license.name}</name>
+            <url>${license.url}</url>
         </license>
     </licenses>
 

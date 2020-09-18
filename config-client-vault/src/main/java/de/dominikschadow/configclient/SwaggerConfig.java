@@ -17,6 +17,7 @@
  */
 package de.dominikschadow.configclient;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -36,24 +37,33 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+    @Autowired
+    private ConfigClientVaultProperties properties;
+
     @Bean
     public Docket api() {
+        // @formatter:off
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("de.dominikschadow.configclient"))
-                .paths(PathSelectors.any())
-                .build();
+            .apiInfo(apiInfo())
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("de.dominikschadow.configclient"))
+            .paths(PathSelectors.any())
+            .build();
+        // @formatter:on
     }
 
     private ApiInfo apiInfo() {
+        // @formatter:off
         return new ApiInfoBuilder()
-                .title("Spring Boot Config Client Vault")
-                .description("Spring Boot application using HashiCorp Vault via Spring Cloud Config Server and directly within the application via VaultTemplate.")
-                .contact(new Contact("Dominik Schadow", "https://github.com/dschadow", "dominikschadow@gmail.com"))
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("2.3.0")
-                .build();
+            .title(properties.getTitle())
+            .description(properties.getDescription())
+            .contact(new Contact(properties.getContact().getName(),
+                                 properties.getContact().getUrl(),
+                                 properties.getContact().getEmail()))
+            .license(properties.getLicenseName())
+            .licenseUrl(properties.getLicenseUrl())
+            .version(properties.getVersion())
+            .build();
+        // @formatter:on
     }
 }

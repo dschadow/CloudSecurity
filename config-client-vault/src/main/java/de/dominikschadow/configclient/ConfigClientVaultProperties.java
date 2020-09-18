@@ -31,6 +31,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 public class ConfigClientVaultProperties {
     private Application application;
+    private Contact contact;
+    private String version;
+    private String licenseName;
+    private String licenseUrl;
+    private String title;
+    private String description;
 
     /**
      * Basic application information.
@@ -40,5 +46,13 @@ public class ConfigClientVaultProperties {
     public static class Application {
         private String name;
         private String profile;
+    }
+
+    @Getter
+    @Setter
+    public static class Contact {
+        private String name;
+        private String url;
+        private String email;
     }
 }
