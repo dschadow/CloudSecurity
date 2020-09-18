@@ -49,7 +49,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot Config Client Vault")
-                .description("Spring Boot application using Vault with Config Server and directly via VaultTemplate.")
+                .description("Spring Boot application using HashiCorp Vault via Spring Cloud Config Server and directly within the application via VaultTemplate.")
                 .contact(new Contact("Dominik Schadow", "https://github.com/dschadow", "dominikschadow@gmail.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html")
