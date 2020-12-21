@@ -66,14 +66,12 @@
     </dependencyManagement>
 
     <build>
-        <defaultGoal>mvn compile jib:dockerBuild</defaultGoal>
-
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>com.google.cloud.tools</groupId>
                     <artifactId>jib-maven-plugin</artifactId>
-                    <version>2.6.0</version>
+                    <version>2.7.0</version>
                     <configuration>
                         <to>
                             <image>${docker.image.prefix}/${project.artifactId}</image>
