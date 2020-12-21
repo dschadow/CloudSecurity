@@ -18,7 +18,7 @@
 package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.ConfigClientVaultProperties;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +40,7 @@ public class AboutController {
      * @return The greeting
      */
     @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    @ApiOperation(value = "Returns application and profile information")
+    @Operation(summary = "Returns application and profile information")
     public String about() {
         return String.format("Application information: %s with profile %s", properties.getApplication().getName(),
                 properties.getApplication().getProfile());

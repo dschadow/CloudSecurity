@@ -17,7 +17,7 @@
  */
 package de.dominikschadow.configclient.transit;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +44,8 @@ public class TransitController {
      * @return The ciphertext
      */
     @PostMapping(value = "/encrypt", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ApiOperation(value = "Encrypts the given plaintext with the key identified by the given key name",
-            notes = "Encrypts the given plaintext with the key identified by the given key name.")
+    @Operation(summary = "Encrypts the given plaintext with the key identified by the given key name",
+            description = "Encrypts the given plaintext with the key identified by the given key name.")
     public ResponseEntity<String> encryptPayload(@RequestBody TransitPayload payload) {
         VaultTransitOperations operations = vault.opsForTransit();
 
@@ -59,8 +59,8 @@ public class TransitController {
      * @return The plaintext
      */
     @PostMapping(value = "/decrypt", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ApiOperation(value = "Decrypts the given plaintext with the key identified by the given key name",
-            notes = "Decrypts the given ciphertext with the key identified by the given key name.")
+    @Operation(summary = "Decrypts the given plaintext with the key identified by the given key name",
+            description = "Decrypts the given ciphertext with the key identified by the given key name.")
     public ResponseEntity<String> decryptPayload(@RequestBody TransitPayload payload) {
         VaultTransitOperations operations = vault.opsForTransit();
 
@@ -71,8 +71,8 @@ public class TransitController {
      * Rotates the given key and creates a new version.
      */
     @GetMapping("/rotate/{keyName}")
-    @ApiOperation(value = "Rotates the given key and creates a new version",
-            notes = "Rotates the given key and creates a new version.")
+    @Operation(summary = "Rotates the given key and creates a new version",
+            description = "Rotates the given key and creates a new version.")
     public ResponseEntity<Void> rotateKey(@PathVariable("keyName") String keyName) {
         VaultTransitOperations operations = vault.opsForTransit();
         operations.rotate(keyName);
@@ -84,8 +84,8 @@ public class TransitController {
      * Returns the key identified by the given name.
      */
     @GetMapping(value = "/keys/{keyName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Returns the key identified by the given name",
-            notes = "Returns the key identified by the given name.")
+    @Operation(summary = "Returns the key identified by the given name",
+            description = "Returns the key identified by the given name.")
     public ResponseEntity<VaultTransitKey> getKey(@PathVariable("keyName") String keyName) {
         VaultTransitOperations operations = vault.opsForTransit();
 

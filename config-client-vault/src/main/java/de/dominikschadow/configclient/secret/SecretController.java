@@ -17,7 +17,11 @@
  */
 package de.dominikschadow.configclient.secret;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,8 +60,8 @@ public class SecretController {
      * @return The stored secret
      */
     @PostMapping(value = "/secrets", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Writes the given secret into the vault",
-            notes = "Writes the given secret content into the vault using the given key as path.")
+    @Operation(summary = "Writes the given secret into vault",
+            description = "Writes the given secret content into vault using the given key as path.")
     public ResponseEntity<Versioned.Version> writeSecret(@RequestBody Secret secret) {
         Map<String, String> value = new HashMap<>();
         value.put(secret.getKey(), secret.getData());
@@ -68,12 +72,13 @@ public class SecretController {
     }
 
     /**
-     * Deletes the secret stored in the vault.
+     * Deletes the secret stored in vault.
      *
      * @return Empty response
      */
     @DeleteMapping("/secrets")
-    @ApiOperation(value = "Deletes the secret")
+    @Operation(summary = "Deletes the secret", description = "Deletes the secrets at the configured path")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Deleted the secret")})
     public ResponseEntity<Void> deleteSecret() {
         versionedKeyValueOperations.delete(PERSONAL_SECRETS_PATH);
 
@@ -87,8 +92,13 @@ public class SecretController {
      * @return The loaded secret from vault
      */
     @GetMapping(value = "/secrets/{key}", produces = MediaType.TEXT_PLAIN_VALUE)
-    @ApiOperation(value = "Returns the secret stored for the given key")
-    public ResponseEntity<String> readSecret(@PathVariable String key) {
+    @Operation(summary = "Returns the secret stored for the given key",
+            description = "Returns the secret stored for the given key")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The secret for the given key", content = @Content),
+            @ApiResponse(responseCode = "204", description = "No secret found for the given key")})
+    public ResponseEntity<String> readSecret(
+            @Parameter(description = "The key to identify the entry)", required = true) @PathVariable String key) {
         Versioned<Map<String, Object>> secret = versionedKeyValueOperations.get(PERSONAL_SECRETS_PATH);
 
         if (secret != null && secret.getData() != null) {
@@ -96,6 +106,5 @@ public class SecretController {
         }
 
         return ResponseEntity.noContent().build();
-
     }
 }
