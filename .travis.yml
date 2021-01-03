@@ -1,8 +1,0 @@
-sudo: false
-language: java
-jdk: openjdk11
-branches:
-  only:
-    - develop
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
