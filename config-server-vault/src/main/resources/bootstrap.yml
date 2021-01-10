@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: vault
+  cloud:
+    config:
+      server:
+        vault:
+          port: 8200
+          host: 127.0.0.1
+          kv-version: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8888

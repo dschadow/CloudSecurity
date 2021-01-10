@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    name: client-db
+    username: client-user
+    # password is client-password
+    # provide sample-password as jasypt.encryptor.password to decrypt
+    password: ENC(byF912frlZUCifdrOFlGJ8LTjWpVIutKtzU0St2X/hZ9sqRp9kOsg5Se8FVxshFu)
+  h2:
+    console:
+      enabled: true
+  application:
+    name: local-client
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: info

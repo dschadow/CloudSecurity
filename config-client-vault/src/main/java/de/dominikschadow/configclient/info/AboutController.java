@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,8 +17,8 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.ConfigClientProperties;
-import io.swagger.annotations.ApiOperation;
+import de.dominikschadow.configclient.ConfigClientVaultProperties;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class AboutController {
-    private ConfigClientProperties properties;
+    private ConfigClientVaultProperties properties;
 
     /**
      * Returns a greeting containing the applications name and profile.
@@ -40,9 +40,9 @@ public class AboutController {
      * @return The greeting
      */
     @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    @ApiOperation(value = "Returns application and profile information", response = String.class)
+    @Operation(summary = "Returns application and profile information")
     public String about() {
-        return "Hello from " + properties.getApplication().getName() + " with "
-                + properties.getApplication().getProfile() + " profile.";
+        return String.format("Application information: %s with profile %s", properties.getApplication().getName(),
+                properties.getApplication().getProfile());
     }
 }

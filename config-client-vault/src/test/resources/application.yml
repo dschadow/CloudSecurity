@@ -9,4 +9,18 @@ spring:
     password: config-client-db-password
 
 logging:
-  level: error
+  level:
+    root: info
+
+config:
+  client:
+    vault:
+      version: 1.0.0
+      title: Test
+      description: Test
+      license-name: Test
+      license-url: Test
+      contact:
+        name: Test
+        url: Test
+        email: Test

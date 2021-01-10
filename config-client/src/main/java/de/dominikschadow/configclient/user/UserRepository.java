@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -18,13 +18,11 @@
 package de.dominikschadow.configclient.user;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * User repository to access the {@link User} in the database.
  *
  * @author Dominik Schadow
  */
-@RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 }

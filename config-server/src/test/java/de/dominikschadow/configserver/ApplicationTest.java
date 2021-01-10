@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,17 +17,14 @@
  */
 package de.dominikschadow.configserver;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Tests the application itself and tries to startup the application context.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ApplicationTest {
     @Test

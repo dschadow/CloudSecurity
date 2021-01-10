@@ -1,0 +1,12 @@
+config:
+  client:
+    vault:
+      version: '@project.version@'
+      title: '@project.name@'
+      description: '@project.description@'
+      license-name: '@license.name@'
+      license-url: '@license.url@'
+      contact:
+        name: '@project.organization.name@'
+        url: '@project.organization.url@'
+        email: dominikschadow@gmail.com

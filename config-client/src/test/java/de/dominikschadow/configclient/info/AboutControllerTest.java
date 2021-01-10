@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -18,13 +18,11 @@
 package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.ConfigClientProperties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -36,9 +34,8 @@ import static org.mockito.BDDMockito.given;
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @WebMvcTest(AboutController.class)
-public class AboutControllerTest {
+class AboutControllerTest {
     @Autowired
     private MockMvc mvc;
 
@@ -47,16 +44,19 @@ public class AboutControllerTest {
 
     private ConfigClientProperties.Application application;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         application = new ConfigClientProperties.Application();
-        application.setName("Test");
+        application.setName("Config Client");
         application.setProfile("Test");
     }
 
     @Test
-    public void openHomepageReturnsOk() throws Exception {
+    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
         given(properties.getApplication()).willReturn(application);
-        mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
+
+        mvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Application information: Config Client with profile Test"));
     }
 }

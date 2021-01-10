@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:12
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_ROOT_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - config_client_vault_db_data:/var/lib/postgresql/data
+    networks:
+      - cloud-security
+  vault:
+    image: vault:1.5.3
+    container_name: vault
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./logs:/vault/logs
+      - ./file:/vault/file
+      - ./config:/vault/config
+      - ./policies:/vault/policies
+    entrypoint: vault server -config=/vault/config/file-storage.hcl
+    networks:
+      - cloud-security
+
+volumes:
+  config_client_vault_db_data:
+
+networks:
+  cloud-security:

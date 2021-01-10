@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -40,7 +40,11 @@ public class AboutController {
      */
     @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
     public String about() {
-        return "Hello from " + properties.getApplication().getName() + " with "
-                + properties.getApplication().getProfile() + " profile.";
+        if (properties.getApplication() != null) {
+            return String.format("Application information: %s with profile %s", properties.getApplication().getName(),
+                    properties.getApplication().getProfile());
+        }
+
+        return "Application properties are null";
     }
 }

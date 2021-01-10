@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,48 +17,48 @@
  */
 package de.dominikschadow.configclient.user;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the {@link UserRepository} interface.
  *
  * @author Dominik Schadow
  */
-@RunWith(SpringRunner.class)
 @DataJpaTest
-public class UserRepositoryTest {
+class UserRepositoryTest {
     @Autowired
     private UserRepository repository;
 
     @Test
-    public void findAllReturnsAllUsers() {
+    void givenInitializedDatabaseWhenCountingThenReturnUserCount() {
         long users = repository.count();
 
         assertEquals(3, users);
     }
 
-    @Test
-    public void validIdFindOneReturnsCredentials() {
-        Long credentialsId = 1L;
+    @ParameterizedTest(name = "User id {0}")
+    @ValueSource(longs = {1, 2, 3})
+    void givenKnownIdWhenFindingUserTHenReturnUser(long userId) {
+        Optional<User> user = repository.findById(userId);
 
-        User user = repository.findOne(credentialsId);
-
-        assertEquals("Dent", user.getLastname());
+        assertAll(() -> assertTrue(user.isPresent()),
+                  () -> assertEquals(userId, user.get().getId()));
     }
 
     @Test
-    public void invalidIdFindOneReturnsNull() {
+    void givenUnknownIdWhenFindingUserThenReturnEmptyResult() {
         Long userId = 100L;
 
-        User user = repository.findOne(userId);
+        Optional<User> user = repository.findById(userId);
 
-        assertNull(user);
+        assertTrue(user.isEmpty());
     }
 }

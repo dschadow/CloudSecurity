@@ -1,6 +1,8 @@
-application:
-  name: Config Client
-  profile: Plain
+config:
+  client:
+    application:
+      name: Config Client
+      profile: Plain
 
 spring:
   datasource:
@@ -11,5 +13,12 @@ spring:
     console:
       enabled: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 logging:
-  level: warn
+  level:
+    root: info

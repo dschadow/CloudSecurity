@@ -1,6 +1,0 @@
-application:
-  name: Config Client Vault
-  profile: Default
-
-logging:
-  level: warn
