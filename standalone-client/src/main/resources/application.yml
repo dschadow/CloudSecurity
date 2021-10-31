@@ -1,6 +1,6 @@
 spring:
   datasource:
-    name: client-db
+    name: standalone-client
     username: client-user
     # password is client-password
     # provide sample-password as jasypt.encryptor.password to decrypt
