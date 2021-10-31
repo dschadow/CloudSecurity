@@ -9,7 +9,7 @@ spring:
     console:
       enabled: true
   application:
-    name: local-client
+    name: standalone-client
 
 management:
   endpoints:
