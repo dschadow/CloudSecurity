@@ -15,7 +15,6 @@ spring:
     username: client-user
     password: client-password
     driverClassName: org.h2.Driver
-    initialization-mode: always
   h2:
     console:
       enabled: true
