@@ -9,7 +9,7 @@ Every web application in this repository (clients and config servers) exposes al
 - [Java 17](https://openjdk.java.net/)
 - [Lombok](https://projectlombok.org/)
 - [Maven 3](https://maven.apache.org/)
-- [Vault 1.8](https://vaultproject.io/)
+- [Vault 1.9](https://vaultproject.io/)
 - [PostgreSQL 14](https://www.postgresql.org/)
 
 # Jasypt
