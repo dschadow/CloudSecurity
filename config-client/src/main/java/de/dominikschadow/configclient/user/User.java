@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -30,7 +30,7 @@ import java.util.Set;
  * @author Dominik Schadow
  */
 @Entity
-@Table
+@Table(name = "client_users")
 @Getter
 @Setter
 public class User {

@@ -1,13 +1,19 @@
-application:
-  name: Config Client
-  profile: Test
+config:
+  client:
+    application:
+      name: Config Client
+      profile: test
 
 spring:
+  config:
+    import: "optional:configserver:"
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
   datasource:
-    name: config-client-db
-    username: config-client-db-user
-    password: config-client-db-password
-
-logging:
-  level:
-    root: info
+    name: client-db
+    url: jdbc:h2:mem:client-db
+    username: client-user
+    password: client-password
+    driverClassName: org.h2.Driver
