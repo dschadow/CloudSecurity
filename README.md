@@ -23,6 +23,10 @@ All client applications use [Spring Cloud Config](https://cloud.spring.io/spring
 ## config-server
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration files provided in the **config-repo** folder in my GitHub repository.
 
+There are two application configurations available:
+- **config-client** with the profile [cipher](http://localhost:8888/config-client/cipher)
+- **config-client** with the profile [plain](http://localhost:8888/config-client/plain) 
+
 Starting the config server without a profile therefore requires Internet access to read the configuration files from my GitHub repo. To use a local configuration instead (e.g. the one in the **config-repo** directory) you have to enable the **native** profile during startup and to provide a file system resource location containing the configuration, e.g. 
 
     spring.cloud.config.server.native.search-locations=file:/var/config-repo/
