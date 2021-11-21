@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>config-client-vault</artifactId>
     <packaging>jar</packaging>
-    <name>Spring Boot Config Client Vault</name>
+    <name>Config Client Vault</name>
     <description>Spring Boot application using HashiCorp Vault via Spring Cloud Config Server and directly within the application via VaultTemplate</description>
 
     <dependencies>
