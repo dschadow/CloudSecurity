@@ -5,10 +5,16 @@ config:
       profile: Plain
 
 spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
   datasource:
     name: client-db
+    url: jdbc:h2:mem:client-db
     username: client-user
     password: client-password
+    driverClassName: org.h2.Driver
   h2:
     console:
       enabled: true
