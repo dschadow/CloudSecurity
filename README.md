@@ -1,7 +1,7 @@
 Cloud Security
 ============
 
-This repository contains cloud security projects with [Spring Boot](https://projects.spring.io/spring-boot), [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It shows different possibilities how you can store secrets securely for local and cloud based (Spring Boot) web applications.
+This repository contains cloud security projects with [Spring Boot](https://projects.spring.io/spring-boot), [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It shows different possibilities how to store secrets securely for local and cloud based Spring Boot web applications.
 
 Every web application in this repository (clients and config servers) exposes all Spring Actuator endpoints at the default */actuator* endpoint.
 
@@ -21,20 +21,11 @@ The standalone application is using [Jasypt for Spring Boot](https://github.com/
 All client applications use [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) to separate code and configuration and therefore require a running config server before starting the actual application.
 
 ## config-server
-This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration files provided in the **config-repo** folder in my GitHub repository.
+This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client** web application. After starting the config server with the default profile, the server is available on port 8888 and will use the configuration files provided in the **config-repo** folder in my GitHub repository. Starting the config server without a profile therefore requires Internet access to read the configuration files
 
 There are two application configurations available:
 - **config-client** with the profile [cipher](http://localhost:8888/config-client/cipher)
 - **config-client** with the profile [plain](http://localhost:8888/config-client/plain) 
-
-Starting the config server without a profile therefore requires Internet access to read the configuration files from my GitHub repo. To use a local configuration instead (e.g. the one in the **config-repo** directory) you have to enable the **native** profile during startup and to provide a file system resource location containing the configuration, e.g. 
-
-    spring.cloud.config.server.native.search-locations=file:/var/config-repo/
-
-The basic auth credentials (user/secret) are required when accessing the config server.
-
-### config-repo
-This folder contains all configuration files for all profiles used in the **config-client** web application. This folder can be used with the **native** profile.
 
 ## config-client
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. Depending on the active Spring profile, the configuration files used are not encrypted (**plain**) or secured using Spring Config encryption functionality (**cipher**). There is no default profile available, so you have to provide a specific profile during start.
@@ -51,8 +42,8 @@ This profile uses Config Server functionality to encrypt sensitive properties. I
       
 The Config Server endpoints help to encrypt and decrypt data:
 
-    curl localhost:8888/encrypt -d secretToEncrypt -u user:secret
-    curl localhost:8888/decrypt -d secretToDecrypt -u user:secret
+    curl http://localhost:8888/encrypt -d secretToEncrypt
+    curl http://localhost:8888/decrypt -d secretToDecrypt
 
 # Vault
 A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended version.
