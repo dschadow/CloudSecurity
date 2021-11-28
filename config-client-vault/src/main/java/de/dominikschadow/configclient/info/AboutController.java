@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -19,7 +19,7 @@ package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.ConfigClientVaultProperties;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Dominik Schadow
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AboutController {
-    private ConfigClientVaultProperties properties;
+    private final ConfigClientVaultProperties properties;
 
     /**
      * Returns a greeting containing the applications name and profile.
