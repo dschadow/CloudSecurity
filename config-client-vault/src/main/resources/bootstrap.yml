@@ -35,11 +35,13 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/config_client_vault
     # credentials are obtained via Vault
-    initialization-mode: always
   jpa:
     open-in-view: true
     hibernate:
       ddl-auto: create-drop
+  sql:
+    init:
+      mode: always
 
 management:
   endpoints:
