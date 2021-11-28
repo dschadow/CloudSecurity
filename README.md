@@ -49,9 +49,10 @@ The Config Server endpoints help to encrypt and decrypt data:
 A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended version.
 
 ## Docker
-Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications (a PostgreSQL database used for the dynamic database credentials demo is started as well). 
+Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. A PostgreSQL database used for the dynamic database credentials demo is started as well. 
 
-Next, you have to configure the active terminal to communicate with this Vault instance and to unseal it:
+Next, you have to configure the active terminal to communicate with this Vault instance:
+
 * `export VAULT_ADDR=http://127.0.0.1:8200`
 * `export VAULT_TOKEN=s.BkbW9k3NrXL7DdVIN0JltBef`
 
@@ -59,13 +60,13 @@ The only thing left to do is to unseal Vault with three out of the five unseal k
 
 | # | Unseal Key                                   |
 |---|----------------------------------------------|
-| 1 | X9ohFkXYaKu1h6dMnKP0COCKNbZIxC93jHpojy9zZHrQ |
-| 2 | bkNFSvGmhvcdYg5QPVJoOzT99Eoui3NAZ5QSwPtAWiRE |
-| 3 | +UENAccStHNvCj4C3Kku/P6fwaB1Kyw+Vgz2GzmPwYBq |
-| 4 | i53/2P3zelAhWBil3dFD6vNn7c7MLvhwoSGDgWHMwrzY |
-| 5 | K0uPEO4EhWlS/U7hewZxJTTja9uXYkrrQh6ku8VgCo5t |
+| 1 | MGR8tmfgLlcK8k54WtvIRLKHGOs/gh7+ySCD7GgIkLEm |
+| 2 | c+xkPggSQyB3VZRR+Lg2MDKK27DlARiNnCf2VrkuEYyr |
+| 3 | lHoa4BZSHiziMUHCBuVbQNzPLoLn+kwyvmm1cBfposLF |
+| 4 | Q54oYXsNP6laAnWudVHPyWURUCJWejbukYj6lh6tz8n1 |
+| 5 | yxZgYjbcS+/EnL0QSV1eSSn32vXsFlEVGPkSQ9Iw6oFJ |
 
-Initial Root Token: `s.BkbW9k3NrXL7DdVIN0JltBef`
+Initial Root Token: `s.JxDNItLGn69f5ev30SXoO6sY`
  
 After that, you can start the Spring Boot applications as described below. The Docker Compose file `docker-compose.yml` launches Vault, and the PostgreSQL database required in the config-client-vault project. You can launch Vault separately with the `docker-compose-vault.yml` file.
 
@@ -107,10 +108,10 @@ Execute the following commands in order to enable the required backend and other
     # enable and configure AppRole authentication
     vault auth enable approle
     
-    # create roles with 1 hour TTL (can be renewed for up to 4 hours of its first creation)
+    # create roles with 24 hour TTL (can be renewed for up to 48 hours of its first creation)
     vault write auth/approle/role/config-client \
-        token_ttl=1h \
-        token_max_ttl=4h \
+        token_ttl=24h \
+        token_max_ttl=48h \
         token_policies=config-client-policy
     
     # update config-client-vault/bootstrap.yml with the returned role-id
@@ -133,8 +134,8 @@ Execute the following commands in order to enable the required backend and other
             WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
             GRANT ALL PRIVILEGES ON DATABASE config_client_vault TO \"{{name}}\";" \
           revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\
-          default_ttl="1h" \
-          max_ttl="24h"
+          default_ttl="24h" \
+          max_ttl="48h"
     
     # create the database connection (the database must already exist)
     vault write database/config/config_client_vault \
