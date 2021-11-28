@@ -1,5 +1,5 @@
 spring:
   config:
-    import: "optional:configserver:"
+    import: "configserver:"
   application:
     name: Config-Client
