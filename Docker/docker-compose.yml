@@ -6,7 +6,7 @@ services:
     container_name: postgres
     environment:
       - POSTGRES_PASSWORD=password
-      - POSTGRES_ROOT_PASSWORD=password
+      - POSTGRES_ROOT_PASSWORD=password # default username is postgres
     ports:
       - "5432:5432"
     volumes:

@@ -1,6 +1,6 @@
 spring:
   config:
-    import: "configserver:"
+    import: "configserver:,vault:"
   application:
     name: config-client-vault
   cloud:
@@ -20,27 +20,24 @@ spring:
       scheme: http
 
       # Token authentication
-      # authentication: TOKEN
+      authentication: TOKEN
 
       # root token
-      # token: s.JxDNItLGn69f5ev30SXoO6sY
+      token: s.JxDNItLGn69f5ev30SXoO6sY
 
-      # config-client-vault token
-      token: s.YvG0vcQYVoa280DfoFtAQpia
-
-      # AppRole authentication
-      authentication: APPROLE
-      # config-client-vault app-role
-      app-role:
-        role-id: 4481025f-208e-436c-8688-2269897bfe56
-        secret-id: 51f3e028-553f-133b-e1cc-a6628f3fe245
+#     # AppRole authentication
+#     authentication: APPROLE
+#     # config-client-vault app-role
+#     app-role:
+#       role-id: 4481025f-208e-436c-8688-2269897bfe56
+#       secret-id: 51f3e028-553f-133b-e1cc-a6628f3fe245
   datasource:
     url: jdbc:postgresql://localhost:5432/config_client_vault
     # credentials are obtained via Vault
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
   sql:
     init:
       mode: always
