@@ -54,26 +54,19 @@ A local [Vault](https://www.vaultproject.io/) server is required for the **confi
 ## Docker
 Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. A PostgreSQL database used for the dynamic database credentials demo is started as well. 
 
-Next, you have to configure the active terminal to communicate with this Vault instance:
+The only thing left to do is to unseal Vault with three out of the five unseal keys. Open Vault web UI in your browser (http://localhost:8200/ui) and follow the instructions there. 
 
-* `export VAULT_ADDR=http://127.0.0.1:8200`
-* `export VAULT_TOKEN=s.JxDNItLGn69f5ev30SXoO6sY`
-
-The only thing left to do is to unseal Vault with three out of the five unseal keys. One way to do that is to open Vault web UI in your browser (http://localhost:8200/ui), otherwise you can execute `vault operator unseal` in the command line. 
-
-| # | Unseal Key                                   |
-|---|----------------------------------------------|
-| 1 | MGR8tmfgLlcK8k54WtvIRLKHGOs/gh7+ySCD7GgIkLEm |
-| 2 | c+xkPggSQyB3VZRR+Lg2MDKK27DlARiNnCf2VrkuEYyr |
-| 3 | lHoa4BZSHiziMUHCBuVbQNzPLoLn+kwyvmm1cBfposLF |
-| 4 | Q54oYXsNP6laAnWudVHPyWURUCJWejbukYj6lh6tz8n1 |
-| 5 | yxZgYjbcS+/EnL0QSV1eSSn32vXsFlEVGPkSQ9Iw6oFJ |
+| #   | Unseal Key                                   |
+|-----|----------------------------------------------|
+| 1   | MGR8tmfgLlcK8k54WtvIRLKHGOs/gh7+ySCD7GgIkLEm |
+| 2   | c+xkPggSQyB3VZRR+Lg2MDKK27DlARiNnCf2VrkuEYyr |
+| 3   | lHoa4BZSHiziMUHCBuVbQNzPLoLn+kwyvmm1cBfposLF |
+| 4   | Q54oYXsNP6laAnWudVHPyWURUCJWejbukYj6lh6tz8n1 |
+| 5   | yxZgYjbcS+/EnL0QSV1eSSn32vXsFlEVGPkSQ9Iw6oFJ |
 
 Initial Root Token: `s.JxDNItLGn69f5ev30SXoO6sY`
  
-After that, you can start the Spring Boot applications as described below. The Docker Compose file `docker-compose.yml` launches Vault, and the PostgreSQL database required in the config-client-vault project. You can launch Vault separately with the `docker-compose-vault.yml` file.
-
-Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
+After that, you can start the Spring Boot applications as described below. Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
 
 ## config-server-vault
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault. The [application.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/application.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients (like a browser) that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
