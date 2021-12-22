@@ -3,6 +3,11 @@ application:
   profile: Test
 
 spring:
+  cloud:
+    config:
+      enabled: false
+    vault:
+      enabled: false
   datasource:
     name: config-client-db
     username: config-client-db-user

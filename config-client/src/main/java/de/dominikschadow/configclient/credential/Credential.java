@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -31,7 +31,7 @@ import javax.persistence.Table;
  * @author Dominik Schadow
  */
 @Entity
-@Table
+@Table(name = "client_credentials")
 @Getter
 @Setter
 public class Credential {

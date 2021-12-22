@@ -1,12 +1,12 @@
-version: '3.7'
+version: "3"
 
 services:
   postgres:
-    image: postgres:12
+    image: postgres:14
     container_name: postgres
     environment:
       - POSTGRES_PASSWORD=password
-      - POSTGRES_ROOT_PASSWORD=password
+      - POSTGRES_ROOT_PASSWORD=password # default username is postgres
     ports:
       - "5432:5432"
     volumes:
@@ -14,7 +14,7 @@ services:
     networks:
       - cloud-security
   vault:
-    image: vault:1.5.3
+    image: vault:1.9.1
     container_name: vault
     cap_add:
       - IPC_LOCK

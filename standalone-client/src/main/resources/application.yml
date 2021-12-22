@@ -1,15 +1,21 @@
 spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
   datasource:
-    name: client-db
+    name: standalone-client
+    url: jdbc:h2:mem:standalone-client
     username: client-user
     # password is client-password
     # provide sample-password as jasypt.encryptor.password to decrypt
     password: ENC(byF912frlZUCifdrOFlGJ8LTjWpVIutKtzU0St2X/hZ9sqRp9kOsg5Se8FVxshFu)
+    driverClassName: org.h2.Driver
   h2:
     console:
       enabled: true
   application:
-    name: local-client
+    name: standalone-client
 
 management:
   endpoints:

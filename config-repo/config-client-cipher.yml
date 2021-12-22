@@ -5,10 +5,16 @@ config:
       profile: Cipher
 
 spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
   datasource:
     name: client-db
+    url: jdbc:h2:mem:client-db
     username: client-user
     password: '{cipher}AQAtzrbgIjeR/NpvkZv6EKcoNSYU7vk+5clXahgvcm5FAVXJVnSDjfjX7sLQbRq/pMwVsRmaNsrhEiQRrTc6EUzQZChxbg81R1Y/oxuxIBjdAIUNtuihglPH64Rz31z/ExsYPCblLo8ESP01xu0bclQs7gaLyfsmCNSrPosVAXXjbF2KS9uqAk8e6k4CT5wnzN72NAcYQWjMPKY+AGRz6a7R+ENeEqwm8s5xZtmJrCDnCHUg2PMdcKT6oKn6drL/tiLHat7m5DsbKMsYvuRAb3U6MDAGTLkws6bEjptCTtcxjy12hfDRVwxR3EYS/80W7oYCtKmsgFa5yeY/M0ccVhImu9TRgj/j/7E0hhJ3DEiEPfQ3UtzK4wm77vFl3LXKjh4='
+    driverClassName: org.h2.Driver
   h2:
     console:
       enabled: true
