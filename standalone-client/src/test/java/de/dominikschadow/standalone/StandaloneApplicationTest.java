@@ -28,7 +28,7 @@ import org.springframework.test.context.TestPropertySource;
  */
 @SpringBootTest
 @TestPropertySource(properties = {"jasypt.encryptor.password = sample-password"})
-class ApplicationTest {
+class StandaloneApplicationTest {
     @Test
     void contextLoads() {
     }

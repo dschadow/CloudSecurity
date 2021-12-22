@@ -26,13 +26,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Dominik Schadow
  */
 @SpringBootApplication
-public class Application {
+public class StandaloneApplication {
     /**
      * Starts the application with the embedded Tomcat.
      *
      * @param args Runtime arguments
      */
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(StandaloneApplication.class, args);
     }
 }
