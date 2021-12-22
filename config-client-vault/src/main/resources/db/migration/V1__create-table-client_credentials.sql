@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS client_credentials;
-
 CREATE TABLE client_credentials (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
