@@ -130,7 +130,8 @@ Execute the following commands in order to enable the required backend and other
           db_name=config_client_vault \
           creation_statements="CREATE ROLE \"{{name}}\" \
             WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
-            GRANT ALL PRIVILEGES ON DATABASE config_client_vault TO \"{{name}}\";" \
+            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO \"{{name}}\";" \
           revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\
           default_ttl="24h" \
           max_ttl="48h"
