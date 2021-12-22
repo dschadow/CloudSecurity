@@ -17,17 +17,24 @@
  */
 package de.dominikschadow.configserver;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
- * Tests the application itself and tries to startup the application context.
+ * Main class to start the embedded web server and the Spring Boot application.
  *
  * @author Dominik Schadow
  */
-@SpringBootTest
-public class ApplicationTest {
-    @Test
-    public void contextLoads() {
+@SpringBootApplication
+@EnableConfigServer
+public class ConfigServerApplication {
+    /**
+     * Starts the config server application with the embedded Tomcat.
+     *
+     * @param args Runtime arguments
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(ConfigServerApplication.class, args);
     }
 }
