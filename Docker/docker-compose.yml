@@ -14,7 +14,7 @@ services:
     networks:
       - cloud-security
   vault:
-    image: vault:1.9.1
+    image: vault:1.9.2
     container_name: vault
     cap_add:
       - IPC_LOCK
