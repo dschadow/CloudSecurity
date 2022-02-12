@@ -16,8 +16,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
-        <spring.cloud.version>2021.0.0</spring.cloud.version>
-        <spring.cloud.vault.config.db.version>3.1.0</spring.cloud.vault.config.db.version>
         <jasypt.version>3.0.4</jasypt.version>
         <license.name>Apache License 2.0</license.name>
         <license.url>https://www.apache.org/licenses/LICENSE-2.0</license.url>
@@ -35,19 +33,19 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
+                <version>2021.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-vault-config-databases</artifactId>
-                <version>${spring.cloud.vault.config.db.version}</version>
+                <version>3.1.0</version>
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
-                <version>1.6.5</version>
+                <version>1.6.6</version>
             </dependency>
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
