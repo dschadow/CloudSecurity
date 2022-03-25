@@ -13,7 +13,7 @@ Every web application in this repository (clients and config servers) exposes al
 
 # Technologies
 - [PostgreSQL 14](https://www.postgresql.org)
-- [Vault 1.9](https://vaultproject.io)
+- [Vault 1.10](https://vaultproject.io)
 
 # Jasypt
 
