@@ -8,10 +8,12 @@ Every web application in this repository (clients and config servers) exposes al
 # Requirements
 - [Docker](https://www.docker.com)
 - [Java 17](https://openjdk.java.net)
-- [Lombok](https://projectlombok.org) (required as IDE plug-in)
+- [Lombok](https://projectlombok.org) (required as IDE plug-in as well)
 - [Maven 3](https://maven.apache.org)
 
 # Technologies
+Database and Vault can (and should) both be used via a Docker container as described below.
+
 - [PostgreSQL 14](https://www.postgresql.org)
 - [Vault 1.11](https://vaultproject.io)
 
@@ -58,13 +60,13 @@ The only thing left to do is to unseal Vault with three out of the five unseal k
 
 | #   | Unseal Key                                   |
 |-----|----------------------------------------------|
-| 1   | MGR8tmfgLlcK8k54WtvIRLKHGOs/gh7+ySCD7GgIkLEm |
-| 2   | c+xkPggSQyB3VZRR+Lg2MDKK27DlARiNnCf2VrkuEYyr |
-| 3   | lHoa4BZSHiziMUHCBuVbQNzPLoLn+kwyvmm1cBfposLF |
-| 4   | Q54oYXsNP6laAnWudVHPyWURUCJWejbukYj6lh6tz8n1 |
-| 5   | yxZgYjbcS+/EnL0QSV1eSSn32vXsFlEVGPkSQ9Iw6oFJ |
+| 1   | cEUnWBASdzIGbkxYzHVt2t957RUw6P8aXWZqzjHGOHCI |
+| 2   | dEzFHo0MhVC09v9w2jPhP4BlKPg85w0URc+4vVJX2R7u |
+| 3   | sU4554l1mktQXZBiw00tLBbogbZVCgIdv8juKC5SF7Gy |
+| 4   | R8o4NZUVDe6zmRnH93JhSJwBImy+7XKeWYevoX0/nAgq |
+| 5   | nB736jEE7z8oy3nCYehRScipo/3fCGwkBpJ1lIm6xDAT |
 
-Initial Root Token: `s.JxDNItLGn69f5ev30SXoO6sY`
+Initial Root Token: `hvs.NWNBgPVg7RNyfuad5Qg4MJdg`
  
 After that, you can start the Spring Boot applications as described below. Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
 
@@ -76,7 +78,7 @@ There is only one application configuration **config-client-vault** with the pro
 ## config-client-vault
 This Spring Boot based web application contacts the Spring Cloud Config Server for the configuration and exposes the REST endpoints `/`, `/credentials` and `/secrets`. The `/secrets` endpoint communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured Vault. You can use the applications **openAPI UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints. This project requires a running PostgreSQL database and uses dynamic database credentials provided by Vault.
     
-The [bootstrap.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/bootstrap.yml) file in the **config-client-vault** project does require valid credentials to access Vault. The active configuration is using AppRole, but Token support is available too.
+The [application.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/application.yml) file in the **config-client-vault** project does require valid credentials to access Vault. The active configuration is using AppRole, but Token support is available too.
 
 # Manual Vault Configuration
 In case you don't want to use the configured Vault Docker container you can find all required commands to initialize Vault below:
@@ -112,10 +114,10 @@ Execute the following commands in order to enable the required backend and other
         token_max_ttl=48h \
         token_policies=config-client-policy
     
-    # update config-client-vault/bootstrap.yml with the returned role-id
+    # update config-client-vault/application.yml with the returned role-id
     vault read auth/approle/role/config-client/role-id
     
-    # update config-client-vault/bootstrap.yml with the returned secret-id
+    # update config-client-vault/application.yml with the returned secret-id
     vault write -f auth/approle/role/config-client/secret-id
     
     # enable the Transit backend and provide a key
@@ -128,15 +130,15 @@ Execute the following commands in order to enable the required backend and other
     # create an all privileges role
     vault write database/roles/config_client_vault_all_privileges \
           db_name=config_client_vault \
-          creation_statements="CREATE ROLE \"{{name}}\" \
+          creation_statements="CREATE ROLE '{{name}}' \
             WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
-            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
-            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO \"{{name}}\";" \
-          revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\
+            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO '{{name}}'; \
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO '{{name}}';" \
+          revocation_statements="ALTER ROLE '{{name}}' NOLOGIN;" \
           default_ttl="24h" \
           max_ttl="48h"
     
-    # create the database connection (the database must already exist)
+    # create the database connection (the database must already exist, create it with "CREATE DATABASE config_client_vault;")
     vault write database/config/config_client_vault \
         plugin_name=postgresql-database-plugin \
         allowed_roles="*" \
@@ -144,7 +146,7 @@ Execute the following commands in order to enable the required backend and other
         username="postgres" \
         password="password"
         
-    # force rotation for root user (will destroy the existing root password, make sure you have another one)
+    # force rotation for root user (THIS WILL DESTROY the existing root password, make sure you have another one)
     vault write --force /database/rotate-root/config_client_vault
     
     # create new credentials
