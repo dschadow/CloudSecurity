@@ -20,7 +20,8 @@ package de.dominikschadow.standalone.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * User repository to access the {@link User} in the database.
+ * User repository to access the {@link User} in the database. With Spring Data REST, this repository is exposed via
+ * the /users endpoint.
  *
  * @author Dominik Schadow
  */
