@@ -17,12 +17,12 @@
  */
 package de.dominikschadow.standalone.credential;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Credential repository to access the {@link Credential} in the database.
  *
  * @author Dominik Schadow
  */
-public interface CredentialRepository extends PagingAndSortingRepository<Credential, Long> {
+public interface CredentialRepository extends JpaRepository<Credential, Long> {
 }

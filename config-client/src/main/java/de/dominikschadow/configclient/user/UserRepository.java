@@ -17,12 +17,12 @@
  */
 package de.dominikschadow.configclient.user;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * User repository to access the {@link User} in the database.
  *
  * @author Dominik Schadow
  */
-public interface UserRepository extends PagingAndSortingRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }
