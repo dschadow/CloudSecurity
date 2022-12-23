@@ -18,6 +18,7 @@
 package de.dominikschadow.configclient;
 
 import com.zaxxer.hikari.HikariDataSource;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,6 @@ import org.springframework.vault.core.lease.SecretLeaseContainer;
 import org.springframework.vault.core.lease.domain.RequestedSecret;
 import org.springframework.vault.core.lease.event.SecretLeaseCreatedEvent;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
 
 import static org.springframework.vault.core.lease.domain.RequestedSecret.Mode.RENEW;
