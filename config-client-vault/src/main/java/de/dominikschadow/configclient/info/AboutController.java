@@ -51,7 +51,7 @@ public class AboutController {
         String about = "Application properties are not set";
 
         if (properties.getApplication() != null) {
-            about = String.format("Application information: %s with profile %s", properties.getApplication().getName(),
+            about = String.format("%s with profile %s", properties.getApplication().getName(),
                     properties.getApplication().getProfile());
         }
 
