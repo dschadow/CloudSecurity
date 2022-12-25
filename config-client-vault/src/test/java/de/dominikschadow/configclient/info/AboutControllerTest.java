@@ -48,7 +48,7 @@ class AboutControllerTest {
     void setup() {
         application = new ConfigClientVaultProperties.Application();
         application.setName("Config Client Vault");
-        application.setProfile("Test");
+        application.setProfile("test");
     }
 
     @Test
@@ -57,6 +57,7 @@ class AboutControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Application information: Config Client Vault with profile Test"));
+                .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))
+                .andExpect(MockMvcResultMatchers.jsonPath("info").value("Config Client Vault with profile test"));
     }
 }

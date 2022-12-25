@@ -66,6 +66,6 @@ class AboutControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("info").value("Application information: Config Client with profile test"));
+                .andExpect(MockMvcResultMatchers.jsonPath("info").value("Config Client with profile test"));
     }
 }
