@@ -71,9 +71,9 @@ Initial Root Token: `hvs.WzBcwSIguPzLnhfJmPaCIMnK`
 After that, you can start the Spring Boot applications as described below. Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
 
 ## config-server-vault
-This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault. The [application.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/application.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients (like a browser) that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
+This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault.
 
-There is only one application configuration **config-client-vault** with the profile [default](http://localhost:8888/config-client-vault/default) available.
+There is only one application configuration **config-client-vault** with the profile [default](http://localhost:8888/config-client-vault/default) available. Clients (like a browser) that want to access any configuration stored within Vault must provide a valid access token via the *X-Config-Token* header.
 
 ## config-client-vault
 This Spring Boot based web application contacts the Spring Cloud Config Server for the configuration and exposes the REST endpoints `/`, `/credentials` and `/secrets`. The `/secrets` endpoint communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured Vault. You can use the applications **OpenAPI UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints. This project requires a running PostgreSQL database and uses dynamic database credentials provided by Vault.
