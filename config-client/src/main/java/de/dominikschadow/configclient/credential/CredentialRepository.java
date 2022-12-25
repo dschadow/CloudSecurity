@@ -17,12 +17,12 @@
  */
 package de.dominikschadow.configclient.credential;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Credential repository to access the {@link Credential} in the database.
  *
  * @author Dominik Schadow
  */
-public interface CredentialRepository extends JpaRepository<Credential, Long> {
+public interface CredentialRepository extends CrudRepository<Credential, Long> {
 }

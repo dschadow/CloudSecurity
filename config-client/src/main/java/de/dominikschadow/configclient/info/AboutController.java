@@ -18,10 +18,18 @@
 package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.ConfigClientProperties;
-import lombok.AllArgsConstructor;
-import org.springframework.http.MediaType;
+import de.dominikschadow.configclient.credential.CredentialRepository;
+import de.dominikschadow.configclient.user.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * REST controller to return basic application information.
@@ -29,22 +37,30 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Dominik Schadow
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AboutController {
-    private ConfigClientProperties properties;
+    private final ConfigClientProperties properties;
+    private final RepositoryEntityLinks entityLinks;
 
     /**
      * Returns a greeting containing the applications name and profile.
      *
      * @return The greeting
      */
-    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String about() {
+    @GetMapping(value = "/")
+    public HttpEntity<ApplicationInformation> about() {
+        String about = "Application properties are not set";
+
         if (properties.getApplication() != null) {
-            return String.format("Application information: %s with profile %s", properties.getApplication().getName(),
+            about = String.format("Application information: %s with profile %s", properties.getApplication().getName(),
                     properties.getApplication().getProfile());
         }
 
-        return "Application properties are null";
+        ApplicationInformation info = new ApplicationInformation(about);
+        info.add(linkTo(methodOn(AboutController.class).about()).withSelfRel());
+        info.add(entityLinks.linkToCollectionResource(UserRepository.class));
+        info.add(entityLinks.linkToCollectionResource(CredentialRepository.class));
+
+        return new ResponseEntity<>(info, HttpStatus.OK);
     }
 }
