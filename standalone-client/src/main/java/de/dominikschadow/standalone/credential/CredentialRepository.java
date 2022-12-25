@@ -17,7 +17,7 @@
  */
 package de.dominikschadow.standalone.credential;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Credential repository to access the {@link Credential} in the database. With Spring Data REST, this repository is
@@ -25,5 +25,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Dominik Schadow
  */
-public interface CredentialRepository extends JpaRepository<Credential, Long> {
+public interface CredentialRepository extends CrudRepository<Credential, Long> {
 }
