@@ -22,7 +22,6 @@ import de.dominikschadow.configclient.credential.CredentialRepository;
 import de.dominikschadow.configclient.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +47,7 @@ public class AboutController {
      * @return The greeting
      */
     @GetMapping(value = "/")
-    public HttpEntity<ApplicationInformation> about() {
+    public ResponseEntity<ApplicationInformation> about() {
         String about = "Application properties are not set";
 
         if (properties.getApplication() != null) {

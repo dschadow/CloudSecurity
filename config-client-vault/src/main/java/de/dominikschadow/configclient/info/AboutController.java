@@ -21,7 +21,6 @@ import de.dominikschadow.configclient.ConfigClientVaultProperties;
 import de.dominikschadow.configclient.credential.CredentialController;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +46,7 @@ public class AboutController {
      */
     @GetMapping(value = "/")
     @Operation(summary = "Returns application and profile information")
-    public HttpEntity<ApplicationInformation> about() {
+    public ResponseEntity<ApplicationInformation> about() {
         String about = "Application properties are not set";
 
         if (properties.getApplication() != null) {
