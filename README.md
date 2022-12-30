@@ -97,7 +97,7 @@ Execute the following commands in order to enable the required backend and other
     vault secrets enable -path=secret kv-v2
 
     # provide configuration data for the config-client-vault application
-    vault kv put secret/config-client-vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="vault"
+    vault kv put secret/Config-Client-Vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="vault"
     
     # import policy
     vault policy write config-client-policy Docker/policies/config-client-policy.hcl
@@ -130,11 +130,11 @@ Execute the following commands in order to enable the required backend and other
     # create an all privileges role
     vault write database/roles/config_client_vault_all_privileges \
           db_name=config_client_vault \
-          creation_statements="CREATE ROLE '{{name}}' \
+          creation_statements="CREATE ROLE \"{{name}}\" \
             WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
-            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO '{{name}}'; \
-            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO '{{name}}';" \
-          revocation_statements="ALTER ROLE '{{name}}' NOLOGIN;" \
+            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\"; \
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO \"{{name}}\";" \
+          revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;" \
           default_ttl="24h" \
           max_ttl="48h"
     
