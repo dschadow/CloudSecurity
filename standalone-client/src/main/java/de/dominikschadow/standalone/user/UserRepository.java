@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,12 +17,13 @@
  */
 package de.dominikschadow.standalone.user;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * User repository to access the {@link User} in the database.
+ * User repository to access the {@link User} in the database. With Spring Data REST, this repository is exposed via
+ * the /users endpoint.
  *
  * @author Dominik Schadow
  */
-public interface UserRepository extends PagingAndSortingRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 }

@@ -1,8 +1,16 @@
-path "secret/data/config-client-vault" {
+path "secret/data/Config-Client-Vault" {
+  capabilities = [ "read" ]
+}
+
+path "secret/data/Config-Client-Vault/*" {
   capabilities = [ "read" ]
 }
 
 path "secret/data/application" {
+  capabilities = [ "read" ]
+}
+
+path "secret/data/application/*" {
   capabilities = [ "read" ]
 }
 

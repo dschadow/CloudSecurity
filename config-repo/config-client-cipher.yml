@@ -2,7 +2,7 @@ config:
   client:
     application:
       name: Config Client
-      profile: Cipher
+      profile: cipher
 
 spring:
   jpa:

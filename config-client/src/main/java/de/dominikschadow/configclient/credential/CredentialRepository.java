@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,12 +17,12 @@
  */
 package de.dominikschadow.configclient.credential;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Credential repository to access the {@link Credential} in the database.
  *
  * @author Dominik Schadow
  */
-public interface CredentialRepository extends PagingAndSortingRepository<Credential, Long> {
+public interface CredentialRepository extends CrudRepository<Credential, Long> {
 }

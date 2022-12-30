@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -18,11 +18,16 @@
 package de.dominikschadow.configclient.info;
 
 import de.dominikschadow.configclient.ConfigClientVaultProperties;
+import de.dominikschadow.configclient.credential.CredentialController;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * REST controller to return basic application information.
@@ -39,10 +44,20 @@ public class AboutController {
      *
      * @return The greeting
      */
-    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/")
     @Operation(summary = "Returns application and profile information")
-    public String about() {
-        return String.format("Application information: %s with profile %s", properties.getApplication().getName(),
-                properties.getApplication().getProfile());
+    public ResponseEntity<ApplicationInformation> about() {
+        String about = "Application properties are not set";
+
+        if (properties.getApplication() != null) {
+            about = String.format("%s with profile %s", properties.getApplication().getName(),
+                    properties.getApplication().getProfile());
+        }
+
+        ApplicationInformation info = new ApplicationInformation(about);
+        info.add(linkTo(methodOn(AboutController.class).about()).withSelfRel());
+        info.add(linkTo(methodOn(CredentialController.class).getAllCredentials()).withRel("credentials"));
+
+        return new ResponseEntity<>(info, HttpStatus.OK);
     }
 }

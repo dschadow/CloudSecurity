@@ -2,7 +2,7 @@ config:
   client:
     application:
       name: Config Client
-      profile: Plain
+      profile: plain
 
 spring:
   jpa:

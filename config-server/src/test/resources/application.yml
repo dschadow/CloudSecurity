@@ -5,7 +5,7 @@ spring:
         git:
           uri: https://github.com/dschadow/CloudSecurity
           search-paths: config-repo
-          default-label: develop
+          default-label: main
       enabled: false
 
 logging:

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,10 +17,18 @@
  */
 package de.dominikschadow.standalone.info;
 
+import de.dominikschadow.standalone.credential.CredentialRepository;
+import de.dominikschadow.standalone.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
+import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * REST controller to return basic application information.
@@ -28,17 +36,24 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Dominik Schadow
  */
 @RestController
+@RequiredArgsConstructor
 public class AboutController {
     @Value("${spring.application.name}")
     private String applicationName;
+    private final RepositoryEntityLinks entityLinks;
 
     /**
-     * Returns a greeting containing the applications name.
+     * Returns basic information about the application as well as links to the other available endpoints.
      *
-     * @return The greeting
+     * @return Application information
      */
-    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String about() {
-        return "Hello from " + applicationName;
+    @GetMapping(value = "/")
+    public ResponseEntity<ApplicationInformation> about() {
+        ApplicationInformation info = new ApplicationInformation(applicationName);
+        info.add(linkTo(methodOn(AboutController.class).about()).withSelfRel());
+        info.add(entityLinks.linkToCollectionResource(UserRepository.class));
+        info.add(entityLinks.linkToCollectionResource(CredentialRepository.class));
+
+        return new ResponseEntity<>(info, HttpStatus.OK);
     }
 }

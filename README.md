@@ -14,8 +14,8 @@ Every web application in this repository (clients and config servers) exposes al
 # Technologies
 Database and Vault can (and should) both be used via a Docker container as described below.
 
-- [PostgreSQL 14](https://www.postgresql.org)
-- [Vault 1.11](https://vaultproject.io)
+- [PostgreSQL 15](https://www.postgresql.org)
+- [Vault 1.12](https://vaultproject.io)
 
 # Jasypt
 
@@ -51,7 +51,7 @@ The Config Server endpoints help to encrypt and decrypt data:
     curl http://localhost:8888/decrypt -d secretToDecrypt
 
 # Vault
-A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended version.
+A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended setup.
 
 ## Docker
 Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. A PostgreSQL database used for the dynamic database credentials demo is started as well. 
@@ -60,23 +60,23 @@ The only thing left to do is to unseal Vault with three out of the five unseal k
 
 | #   | Unseal Key                                   |
 |-----|----------------------------------------------|
-| 1   | cEUnWBASdzIGbkxYzHVt2t957RUw6P8aXWZqzjHGOHCI |
-| 2   | dEzFHo0MhVC09v9w2jPhP4BlKPg85w0URc+4vVJX2R7u |
-| 3   | sU4554l1mktQXZBiw00tLBbogbZVCgIdv8juKC5SF7Gy |
-| 4   | R8o4NZUVDe6zmRnH93JhSJwBImy+7XKeWYevoX0/nAgq |
-| 5   | nB736jEE7z8oy3nCYehRScipo/3fCGwkBpJ1lIm6xDAT |
+| 1   | ndPiS12Q92PqSdahBL4xFkDSjHTivINXQeC62jUv6tVa |
+| 2   | 8FpTPAQSFj2j2NyAt1V47iZtBn4g+a3V5hgc6L6ogiw5 |
+| 3   | xRDWjq+0n72AjfC6Zt19Aiw3XCnMBJ424QoKATDROi+F |
+| 4   | wBEG41KMWWpYbhYwtSl/+0hYOhSNQGhsvH8T1FZiJh4w |
+| 5   | YJ+WiIAzWDatj3eAiiULjw/BoNF+30DWsrFqs6xnDadR |
 
-Initial Root Token: `hvs.NWNBgPVg7RNyfuad5Qg4MJdg`
+Initial Root Token: `hvs.WzBcwSIguPzLnhfJmPaCIMnK`
  
 After that, you can start the Spring Boot applications as described below. Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
 
 ## config-server-vault
-This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault. The [application.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-server-vault/src/main/resources/application.yml) requires a valid Vault token: this is already set for the Vault Docker container but must be updated in case you are using your own Vault. Clients (like a browser) that want to access any configuration must provide a valid Vault token as well via a *X-Config-Token* header.
+This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault.
 
-There is only one application configuration **config-client-vault** with the profile [default](http://localhost:8888/config-client-vault/default) available.
+There is only one application configuration **config-client-vault** with the profile [default](http://localhost:8888/config-client-vault/default) available. Clients (like a browser) that want to access any configuration stored within Vault must provide a valid access token via the *X-Config-Token* header.
 
 ## config-client-vault
-This Spring Boot based web application contacts the Spring Cloud Config Server for the configuration and exposes the REST endpoints `/`, `/credentials` and `/secrets`. The `/secrets` endpoint communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured Vault. You can use the applications **openAPI UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints. This project requires a running PostgreSQL database and uses dynamic database credentials provided by Vault.
+This Spring Boot based web application contacts the Spring Cloud Config Server for the configuration and exposes the REST endpoints `/`, `/credentials` and `/secrets`. The `/secrets` endpoint communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured Vault. You can use the applications **OpenAPI UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints. This project requires a running PostgreSQL database and uses dynamic database credentials provided by Vault.
     
 The [application.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/application.yml) file in the **config-client-vault** project does require valid credentials to access Vault. The active configuration is using AppRole, but Token support is available too.
 
@@ -97,10 +97,10 @@ Execute the following commands in order to enable the required backend and other
     vault secrets enable -path=secret kv-v2
 
     # provide configuration data for the config-client-vault application
-    vault kv put secret/config-client-vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="Demo"
+    vault kv put secret/Config-Client-Vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="vault"
     
     # import policy
-    vault policy write config-client-policy policies/config-client-policy.hcl
+    vault policy write config-client-policy Docker/policies/config-client-policy.hcl
     
     # create a token for config-client-vault
     vault token create -policy=config-client-policy
@@ -130,11 +130,11 @@ Execute the following commands in order to enable the required backend and other
     # create an all privileges role
     vault write database/roles/config_client_vault_all_privileges \
           db_name=config_client_vault \
-          creation_statements="CREATE ROLE '{{name}}' \
+          creation_statements="CREATE ROLE \"{{name}}\" \
             WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
-            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO '{{name}}'; \
-            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO '{{name}}';" \
-          revocation_statements="ALTER ROLE '{{name}}' NOLOGIN;" \
+            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\"; \
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO \"{{name}}\";" \
+          revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;" \
           default_ttl="24h" \
           max_ttl="48h"
     

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,11 +17,17 @@
  */
 package de.dominikschadow.standalone.info;
 
+import de.dominikschadow.standalone.credential.CredentialRepository;
+import de.dominikschadow.standalone.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
+import org.springframework.hateoas.Link;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,9 +40,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AboutControllerTest {
     @Autowired
     private MockMvc mvc;
+    @MockBean
+    private RepositoryEntityLinks entityLinks;
 
     @Test
     void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
+        when(entityLinks.linkToCollectionResource(UserRepository.class)).thenReturn(Link.of("/users"));
+        when(entityLinks.linkToCollectionResource(CredentialRepository.class)).thenReturn(Link.of("/credentials"));
+
         mvc.perform(get("/"))
            .andExpect(status().isOk());
     }
