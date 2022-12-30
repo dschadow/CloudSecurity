@@ -2,7 +2,7 @@ spring:
   config:
     import: "configserver:,vault:"
   application:
-    name: config-client-vault
+    name: Config-Client-Vault
   cloud:
     config:
       uri: http://localhost:8888
