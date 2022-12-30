@@ -5,9 +5,7 @@ spring:
     config:
       server:
         vault:
-          port: 8200
-          host: 127.0.0.1
-          kv-version: 2
+          kvVersion: 2
 
 management:
   endpoints:
