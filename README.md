@@ -153,4 +153,4 @@ Execute the following commands in order to enable the required backend and other
     vault read database/creds/config_client_vault_all_privileges
 
 ## Meta
-![Build](https://github.com/dschadow/CloudSecurity/workflows/Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Build](https://github.com/dschadow/CloudSecurity/workflows/Build/badge.svg) [![codecov](https://codecov.io/gh/dschadow/CloudSecurity/branch/main/graph/badge.svg?token=5gnWr92QHj)](https://codecov.io/gh/dschadow/CloudSecurity) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
