@@ -9,3 +9,4 @@
 .factorypath
 target/
 vault_data/
+.DS_Store
