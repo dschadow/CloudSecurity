@@ -15,7 +15,7 @@ Every web application in this repository (clients and config servers) exposes al
 Database and Vault can (and should) both be used via a Docker container as described below.
 
 - [PostgreSQL 16](https://www.postgresql.org)
-- [Vault 1.14](https://vaultproject.io)
+- [Vault 1.15](https://vaultproject.io)
 
 # Jasypt
 
