@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -49,7 +49,7 @@ public class TransitController {
     public ResponseEntity<String> encryptPayload(@RequestBody TransitPayload payload) {
         VaultTransitOperations operations = vault.opsForTransit();
 
-        return ResponseEntity.ok(operations.encrypt(payload.getKeyName(), payload.getPayload()));
+        return ResponseEntity.ok(operations.encrypt(payload.keyName(), payload.payload()));
     }
 
     /**
@@ -64,7 +64,7 @@ public class TransitController {
     public ResponseEntity<String> decryptPayload(@RequestBody TransitPayload payload) {
         VaultTransitOperations operations = vault.opsForTransit();
 
-        return ResponseEntity.ok(operations.decrypt(payload.getKeyName(), payload.getPayload()));
+        return ResponseEntity.ok(operations.decrypt(payload.keyName(), payload.payload()));
     }
 
     /**

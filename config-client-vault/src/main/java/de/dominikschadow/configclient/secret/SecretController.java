@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -64,7 +64,7 @@ public class SecretController {
             description = "Writes the given secret content into vault using the given key as path.")
     public ResponseEntity<Versioned.Version> writeSecret(@RequestBody Secret secret) {
         Map<String, String> value = new HashMap<>();
-        value.put(secret.getKey(), secret.getData());
+        value.put(secret.key(), secret.data());
 
         Versioned.Metadata metadata = versionedKeyValueOperations.put(PERSONAL_SECRETS_PATH, value);
 

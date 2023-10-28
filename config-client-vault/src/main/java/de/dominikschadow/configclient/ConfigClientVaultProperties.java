@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,8 +17,6 @@
  */
 package de.dominikschadow.configclient;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -27,32 +25,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Dominik Schadow
  */
 @ConfigurationProperties(prefix = "config.client.vault")
-@Getter
-@Setter
-public class ConfigClientVaultProperties {
-    private Application application;
-    private Contact contact;
-    private String version;
-    private String licenseName;
-    private String licenseUrl;
-    private String title;
-    private String description;
-
-    /**
-     * Basic application information.
-     */
-    @Getter
-    @Setter
-    public static class Application {
-        private String name;
-        private String profile;
+public record ConfigClientVaultProperties(Application application, Contact contact, String version, String licenseName, String licenseUrl, String title, String description) {
+    public record Application(String name, String profile) {
     }
 
-    @Getter
-    @Setter
-    public static class Contact {
-        private String name;
-        private String url;
-        private String email;
+    public record Contact(String name, String url, String email) {
     }
 }

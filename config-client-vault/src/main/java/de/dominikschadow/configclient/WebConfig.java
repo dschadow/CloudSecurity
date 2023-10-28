@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -37,12 +37,12 @@ public class WebConfig {
 
     @Bean
     public OpenAPI openAPI() {
-        return new OpenAPI().info(new Info().title(properties.getTitle())
-            .description(properties.getDescription())
-            .contact(new Contact().name(properties.getContact().getName())
-                                  .email(properties.getContact().getEmail())
-                                  .url(properties.getContact().getUrl()))
-            .license(new License().name(properties.getLicenseName()).url(properties.getLicenseUrl()))
-            .version(properties.getVersion()));
+        return new OpenAPI().info(new Info().title(properties.title())
+            .description(properties.description())
+            .contact(new Contact().name(properties.contact().name())
+                                  .email(properties.contact().email())
+                                  .url(properties.contact().url()))
+            .license(new License().name(properties.licenseName()).url(properties.licenseUrl()))
+            .version(properties.version()));
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,21 +17,9 @@
  */
 package de.dominikschadow.configclient.secret;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * Secret for a user, consists of a user id and the data to protect.
  *
  * @author Dominik Schadow
  */
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Secret {
-    private String key;
-    private String data;
-}
+public record Secret(String key, String data) {}

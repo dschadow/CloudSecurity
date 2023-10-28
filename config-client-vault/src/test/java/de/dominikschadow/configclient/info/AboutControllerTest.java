@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,17 +17,13 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.ConfigClientVaultProperties;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.mockito.BDDMockito.given;
 
 /**
  * Tests the {@link AboutController} class.
@@ -35,26 +31,13 @@ import static org.mockito.BDDMockito.given;
  * @author Dominik Schadow
  */
 @WebMvcTest(AboutController.class)
+@TestPropertySource(properties = {"config.client.vault.application.name=Config Client Vault", "config.client.vault.application.profile=test"})
 class AboutControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @MockBean
-    private ConfigClientVaultProperties properties;
-
-    private ConfigClientVaultProperties.Application application;
-
-    @BeforeEach
-    void setup() {
-        application = new ConfigClientVaultProperties.Application();
-        application.setName("Config Client Vault");
-        application.setProfile("test");
-    }
-
     @Test
     void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
-        given(properties.getApplication()).willReturn(application);
-
         mvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -49,9 +49,9 @@ public class AboutController {
     public ResponseEntity<ApplicationInformation> about() {
         String about = "Application properties are not set";
 
-        if (properties.getApplication() != null) {
-            about = String.format("%s with profile %s", properties.getApplication().getName(),
-                    properties.getApplication().getProfile());
+        if (properties.application() != null) {
+            about = String.format("%s with profile %s", properties.application().name(),
+                    properties.application().profile());
         }
 
         ApplicationInformation info = new ApplicationInformation(about);
