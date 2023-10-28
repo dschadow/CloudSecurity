@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,16 +17,12 @@
  */
 package de.dominikschadow.standalone.info;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
+@Getter
+@RequiredArgsConstructor
 public class ApplicationInformation extends RepresentationModel<ApplicationInformation> {
     private final String info;
-
-    public ApplicationInformation(String info) {
-        this.info = info;
-    }
-
-    public String getInfo() {
-        return info;
-    }
 }
