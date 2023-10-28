@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,16 +17,15 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.ConfigClientProperties;
 import de.dominikschadow.configclient.credential.CredentialRepository;
 import de.dominikschadow.configclient.user.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -39,27 +38,16 @@ import static org.mockito.BDDMockito.given;
  * @author Dominik Schadow
  */
 @WebMvcTest(AboutController.class)
+@TestPropertySource(properties = {"config.client.application.name=Config Client", "config.client.application.profile=test"})
 class AboutControllerTest {
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private ConfigClientProperties properties;
-    @MockBean
     private RepositoryEntityLinks entityLinks;
-
-    private ConfigClientProperties.Application application;
-
-    @BeforeEach
-    void setup() {
-        application = new ConfigClientProperties.Application();
-        application.setName("Config Client");
-        application.setProfile("test");
-    }
 
     @Test
     void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
-        given(properties.getApplication()).willReturn(application);
         given(entityLinks.linkToCollectionResource(UserRepository.class)).willReturn(Link.of("/users"));
         given(entityLinks.linkToCollectionResource(CredentialRepository.class)).willReturn(Link.of("/credentials"));
 

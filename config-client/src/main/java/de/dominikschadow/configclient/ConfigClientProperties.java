@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dominik Schadow, dominikschadow@gmail.com
+ * Copyright (C) 2023 Dominik Schadow, dominikschadow@gmail.com
  *
  * This file is part of the Cloud Security project.
  *
@@ -17,8 +17,6 @@
  */
 package de.dominikschadow.configclient;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -27,18 +25,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Dominik Schadow
  */
 @ConfigurationProperties(prefix = "config.client")
-@Getter
-@Setter
-public class ConfigClientProperties {
-    private Application application;
-
-    /**
-     * Basic application information.
-     */
-    @Getter
-    @Setter
-    public static class Application {
-        private String name;
-        private String profile;
+public record ConfigClientProperties (Application application) {
+    public record Application (String name, String profile) {
     }
 }
