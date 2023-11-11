@@ -7,7 +7,7 @@ Every web application in this repository (clients and config servers) exposes al
 
 # Requirements
 - [Docker](https://www.docker.com)
-- [Java 17](https://openjdk.java.net)
+- [Java 21](https://dev.java)
 - [Lombok](https://projectlombok.org) (required as IDE plug-in as well)
 - [Maven 3](https://maven.apache.org)
 
