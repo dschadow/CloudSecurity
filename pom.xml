@@ -136,7 +136,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>8.4.3</version>
+                <version>9.0.0</version>
                 <configuration>
                     <!-- analyzers not required in these projects -->
                     <artifactoryAnalyzerEnabled>false</artifactoryAnalyzerEnabled>
