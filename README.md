@@ -15,7 +15,7 @@ Every web application in this repository (clients and config servers) exposes al
 Database and Vault can (and should) both be used via a Docker container as described below.
 
 - [PostgreSQL 16](https://www.postgresql.org)
-- [Vault 1.15](https://vaultproject.io)
+- [Vault 1.17](https://vaultproject.io)
 
 # Jasypt
 
@@ -54,7 +54,7 @@ The Config Server endpoints help to encrypt and decrypt data:
 A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended setup.
 
 ## Docker
-Switch to the Docker directory in this repository and execute `docker-compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. A PostgreSQL database used for the dynamic database credentials demo is started as well. 
+Switch to the Docker directory in this repository and execute `docker compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. A PostgreSQL database used for the dynamic database credentials demo is started as well. 
 
 The only thing left to do is to unseal Vault with three out of the five unseal keys. Open Vault web UI in your browser (http://localhost:8200/ui) and follow the instructions there. 
 
