@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -15,7 +13,7 @@ services:
     networks:
       - cloud-security
   vault:
-    image: hashicorp/vault:1.17.0
+    image: hashicorp/vault:1.17.2
     container_name: vault
     cap_add:
       - IPC_LOCK
