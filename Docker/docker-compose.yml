@@ -13,7 +13,7 @@ services:
     networks:
       - cloud-security
   vault:
-    image: hashicorp/vault:1.17.5
+    image: hashicorp/vault:1.18.2
     container_name: vault
     cap_add:
       - IPC_LOCK
