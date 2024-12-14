@@ -21,7 +21,6 @@ import de.dominikschadow.configclient.ConfigClientVaultProperties;
 import de.dominikschadow.configclient.credential.CredentialController;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,10 +53,10 @@ public class AboutController {
                     properties.application().profile());
         }
 
-        ApplicationInformation info = new ApplicationInformation(about);
+        var info = new ApplicationInformation(about);
         info.add(linkTo(methodOn(AboutController.class).about()).withSelfRel());
         info.add(linkTo(methodOn(CredentialController.class).getAllCredentials()).withRel("credentials"));
 
-        return new ResponseEntity<>(info, HttpStatus.OK);
+        return ResponseEntity.ok(info);
     }
 }

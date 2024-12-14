@@ -22,7 +22,6 @@ import de.dominikschadow.configclient.credential.CredentialRepository;
 import de.dominikschadow.configclient.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,11 +54,11 @@ public class AboutController {
                     properties.application().profile());
         }
 
-        ApplicationInformation info = new ApplicationInformation(about);
+        var info = new ApplicationInformation(about);
         info.add(linkTo(methodOn(AboutController.class).about()).withSelfRel());
         info.add(entityLinks.linkToCollectionResource(UserRepository.class));
         info.add(entityLinks.linkToCollectionResource(CredentialRepository.class));
 
-        return new ResponseEntity<>(info, HttpStatus.OK);
+        return ResponseEntity.ok(info);
     }
 }

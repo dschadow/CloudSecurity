@@ -22,7 +22,6 @@ import de.dominikschadow.standalone.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,11 +48,11 @@ public class AboutController {
      */
     @GetMapping(value = "/")
     public ResponseEntity<ApplicationInformation> about() {
-        ApplicationInformation info = new ApplicationInformation(applicationName);
+        var info = new ApplicationInformation(applicationName);
         info.add(linkTo(methodOn(AboutController.class).about()).withSelfRel());
         info.add(entityLinks.linkToCollectionResource(UserRepository.class));
         info.add(entityLinks.linkToCollectionResource(CredentialRepository.class));
 
-        return new ResponseEntity<>(info, HttpStatus.OK);
+        return ResponseEntity.ok(info);
     }
 }
