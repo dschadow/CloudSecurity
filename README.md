@@ -1,86 +1,99 @@
-Cloud Security
-============
+# Cloud Security Project Guidelines
 
-This repository contains cloud security projects with [Spring Boot](https://projects.spring.io/spring-boot), [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) and [Vault](https://www.vaultproject.io). It shows different possibilities how to store secrets securely for local and cloud based Spring Boot web applications.
+![Build](https://github.com/dschadow/CloudSecurity/workflows/Build/badge.svg) [![codecov](https://codecov.io/gh/dschadow/CloudSecurity/branch/main/graph/badge.svg?token=5gnWr92QHj)](https://codecov.io/gh/dschadow/CloudSecurity) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Every web application in this repository (clients and config servers) exposes all Spring Actuator endpoints at the default */actuator* endpoint.
+## Project Overview
+This project demonstrates cloud security implementations using Spring Cloud Config and HashiCorp Vault, with examples of secure configuration management and secret handling.
 
-# Requirements
-- [Docker](https://www.docker.com)
-- [Java 21](https://dev.java)
-- [Lombok](https://projectlombok.org) (required as IDE plug-in as well)
-- [Maven 3](https://maven.apache.org)
+## Tech Stack
+- Java 21
+- Spring Boot 3.4
+- Spring Cloud 2024
+- HashiCorp Vault 1.18
+- PostgreSQL 17
+- Jasypt for encryption
+- SpringDoc OpenAPI
+- Docker for containerization
+- Maven for build management
 
-# Technologies
-Database and Vault can (and should) both be used via a Docker container as described below.
+## Project Structure
+```
+CloudSecurity/
+├── config-client/        # Basic config client implementation
+├── config-client-vault/  # Vault-integrated config client
+├── config-server/        # Basic config server
+├── config-server-vault/  # Vault-integrated config server
+├── standalone-client/    # Independent client implementation
+├── config-repo/         # Configuration repository
+└── Docker/             # Container configurations
+```
 
-- [PostgreSQL 16](https://www.postgresql.org)
-- [Vault 1.17](https://vaultproject.io)
-
-# Jasypt
-
-## standalone-client
+### standalone-client
 The standalone application is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure sensitive configuration properties. This demo application shows the simplest way to encrypt sensitive properties without requiring another service or system. You have to provide an environment variable named `jasypt.encryptor.password` with the value `sample-password` to decrypt the database password during application start. After launching, `http://localhost:8080` shows basic application information.
 
-# Spring Cloud Config
+### Spring Cloud Config
 All client applications use [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) to separate code and configuration and therefore require a running config server before starting the actual application.
 
-## config-server
+#### config-server
 This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client** web application. After starting the config server with the default profile, the server is available on port 8888 and will use the configuration files provided in the **config-repo** folder in my GitHub repository. Starting the config server without a profile therefore requires Internet access to read the configuration files
 
 There are two application configurations available:
 - **config-client** with the profile [cipher](http://localhost:8888/config-client/cipher)
-- **config-client** with the profile [plain](http://localhost:8888/config-client/plain) 
+- **config-client** with the profile [plain](http://localhost:8888/config-client/plain)
 
-## config-client
+#### config-client
 This Spring Boot based web application exposes the REST endpoints `/`, `/users` and `/credentials`. Depending on the active Spring profile, the configuration files used are not encrypted (**plain**) or secured using Spring Config encryption functionality (**cipher**). There is no default profile available, so you have to provide a specific profile during start.
 
-### Profile plain
+##### Profile plain
 Configuration files are not protected at all, even sensitive configuration properties are stored in plain text.
 
-### Profile cipher
+##### Profile cipher
 This profile uses Config Server functionality to encrypt sensitive properties. It requires either a symmetric or asymmetric key. The sample is based on asymmetric encryption and is using a keystore (`server.jks`) which was created with the following command:
 
     keytool -genkeypair -alias configserver -storetype JKS -keyalg RSA \
       -dname "CN=Config Server,OU=Unit,O=Organization,L=City,S=State,C=Germany" \
       -keypass secret -keystore server.jks -storepass secret
-      
+
 The Config Server endpoints help to encrypt and decrypt data:
 
     curl http://localhost:8888/encrypt -d secretToEncrypt
     curl http://localhost:8888/decrypt -d secretToDecrypt
 
-# Vault
-A local [Vault](https://www.vaultproject.io/) server is required for the **config-client-vault** and the **config-server-vault** applications to work. Using Vault in a Docker container with the pre-configured files available in this repository as described below is the recommended setup.
+## Build & Run
+1. Build the project:
+   ```bash
+   mvn clean install
+   ```
 
-## Docker
-Switch to the Docker directory in this repository and execute `docker compose up -d`. This will launch a preconfigured Vault container which already contains all required configuration for the demo applications. A PostgreSQL database used for the dynamic database credentials demo is started as well. 
+2. Start infrastructure:
+   ```bash
+   cd Docker
+   docker-compose up -d
+   ```
 
-The only thing left to do is to unseal Vault with three out of the five unseal keys. Open Vault web UI in your browser (http://localhost:8200/ui) and follow the instructions there. 
+3. Initialize Vault:
+   - Open Vault UI at http://localhost:8200
+   - Use the following unseal keys (any 3 out of 5):
+     ```
+     Key 1: ndPiS12Q92PqSdahBL4xFkDSjHTivINXQeC62jUv6tVa
+     Key 2: 8FpTPAQSFj2j2NyAt1V47iZtBn4g+a3V5hgc6L6ogiw5
+     Key 3: xRDWjq+0n72AjfC6Zt19Aiw3XCnMBJ424QoKATDROi+F
+     Key 4: wBEG41KMWWpYbhYwtSl/+0hYOhSNQGhsvH8T1FZiJh4w
+     Key 5: YJ+WiIAzWDatj3eAiiULjw/BoNF+30DWsrFqs6xnDadR
+     ```
+   - Initial Root Token: `hvs.WzBcwSIguPzLnhfJmPaCIMnK`
 
-| #   | Unseal Key                                   |
-|-----|----------------------------------------------|
-| 1   | ndPiS12Q92PqSdahBL4xFkDSjHTivINXQeC62jUv6tVa |
-| 2   | 8FpTPAQSFj2j2NyAt1V47iZtBn4g+a3V5hgc6L6ogiw5 |
-| 3   | xRDWjq+0n72AjfC6Zt19Aiw3XCnMBJ424QoKATDROi+F |
-| 4   | wBEG41KMWWpYbhYwtSl/+0hYOhSNQGhsvH8T1FZiJh4w |
-| 5   | YJ+WiIAzWDatj3eAiiULjw/BoNF+30DWsrFqs6xnDadR |
+4. Run applications in order:
+   - Start config-server or config-server-vault
+   - Start client applications
 
-Initial Root Token: `hvs.WzBcwSIguPzLnhfJmPaCIMnK`
- 
-After that, you can start the Spring Boot applications as described below. Note that all tokens and AppRoles expire, so you may have to create new ones as described in the **Manual Vault Configuration** section below.
+## Testing
+- JUnit tests are available for each module
+- Run tests with: `mvn test`
+- JaCoCo test coverage reports are generated automatically
+- Test reports location: `target/site/jacoco/index.html`
 
-## config-server-vault
-This project contains the Spring Cloud Config server which must be started like a Spring Boot application before using the **config-client-vault** web application. After starting the config server without a specific profile, the server is available on port 8888 and will use the configuration provided in Vault.
-
-There is only one application configuration **config-client-vault** with the profile [default](http://localhost:8888/config-client-vault/default) available. Clients (like a browser) that want to access any configuration stored within Vault must provide a valid access token via the *X-Config-Token* header.
-
-## config-client-vault
-This Spring Boot based web application contacts the Spring Cloud Config Server for the configuration and exposes the REST endpoints `/`, `/credentials` and `/secrets`. The `/secrets` endpoint communicates with Vault directly and provides POST and GET methods to read and write individual values to the configured Vault. You can use the applications **OpenAPI UI** on `http://localhost:8080/swagger-ui.html` to interact with all endpoints. This project requires a running PostgreSQL database and uses dynamic database credentials provided by Vault.
-    
-The [application.yml](https://github.com/dschadow/CloudSecurity/blob/develop/config-client-vault/src/main/resources/application.yml) file in the **config-client-vault** project does require valid credentials to access Vault. The active configuration is using AppRole, but Token support is available too.
-
-# Manual Vault Configuration
+## Manual Vault Configuration
 In case you don't want to use the configured Vault Docker container you can find all required commands to initialize Vault below:
 
     vault server -config Docker/config/file-storage.hcl
@@ -151,6 +164,3 @@ Execute the following commands in order to enable the required backend and other
     
     # create new credentials
     vault read database/creds/config_client_vault_all_privileges
-
-## Meta
-![Build](https://github.com/dschadow/CloudSecurity/workflows/Build/badge.svg) [![codecov](https://codecov.io/gh/dschadow/CloudSecurity/branch/main/graph/badge.svg?token=5gnWr92QHj)](https://codecov.io/gh/dschadow/CloudSecurity) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
