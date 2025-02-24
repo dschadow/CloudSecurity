@@ -28,6 +28,61 @@ CloudSecurity/
 └── Docker/             # Container configurations
 ```
 
+## Architecture Overview
+The system is designed with multiple layers of configuration and security management:
+
+```
++-------------------------------------------------------------------------+
+|                           Client Applications                            |
+|  +----------------+  +-------------------+  +------------------+         |
+|  | Standalone     |  | Config Client     |  | Config Client    |         |
+|  | Client         |  | (Basic)           |  | (Vault)          |         |
+|  | [Jasypt]       |  |                   |  |                  |         |
+|  +--------+-------+  +---------+---------+  +--------+---------+         |
+|           |                    |                     |                    |
+|           |                    |                     |                    |
++-----------|--------------------+---------------------|--------------------+
+            |                    |                     |
+            v                    v                     v
++-------------------------------------------------------------------------+
+|                        Configuration Layer                               |
+|  +----------------+  +-------------------+  +------------------+         |
+|  | Jasypt         |  | Config Server     |  | Config Server    |         |
+|  | Encryption     |  | (Basic)           |  | (Vault)          |         |
+|  |                |  |                   |  |                  |         |
+|  +----------------+  +--------+----------+  +--------+---------+         |
+|                              |                       |                    |
++------------------------------|-----------------------)--------------------+
+                              |                       |
+                              v                       v
++-------------------------------------------------------------------------+
+|                        Security & Storage                                |
+|  +----------------+  +-------------------+  +------------------+         |
+|  | Config Repo    |  | HashiCorp         |  | PostgreSQL       |         |
+|  | (Git)          |  | Vault             |  | Database         |         |
+|  |                |  |                   |  |                  |         |
+|  +----------------+  +-------------------+  +------------------+         |
+|                                                                         |
++-------------------------------------------------------------------------+
+```
+
+The architecture consists of three main layers:
+
+1. **Client Applications Layer**
+   - Standalone Client with Jasypt encryption
+   - Basic Config Client using Spring Cloud Config
+   - Vault-enabled Config Client for advanced secret management
+
+2. **Configuration Layer**
+   - Basic Config Server for centralized configuration
+   - Vault-enabled Config Server for secure secret management
+   - Jasypt encryption for standalone operations
+
+3. **Security & Storage Layer**
+   - Git-based Configuration Repository
+   - HashiCorp Vault for secret management and dynamic credentials
+   - PostgreSQL database for application data
+
 ### standalone-client
 The standalone application is using [Jasypt for Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot) to secure sensitive configuration properties. This demo application shows the simplest way to encrypt sensitive properties without requiring another service or system. You have to provide an environment variable named `jasypt.encryptor.password` with the value `sample-password` to decrypt the database password during application start. After launching, `http://localhost:8080` shows basic application information.
 
@@ -111,35 +166,35 @@ Execute the following commands in order to enable the required backend and other
 
     # provide configuration data for the config-client-vault application
     vault kv put secret/Config-Client-Vault config.client.vault.application.name="Config Client Vault" config.client.vault.application.profile="vault"
-    
+
     # import policy
     vault policy write config-client-policy Docker/policies/config-client-policy.hcl
-    
+
     # create a token for config-client-vault
     vault token create -policy=config-client-policy
-    
+
     # enable and configure AppRole authentication
     vault auth enable approle
-    
+
     # create roles with 24 hour TTL (can be renewed for up to 48 hours of its first creation)
     vault write auth/approle/role/config-client \
         token_ttl=24h \
         token_max_ttl=48h \
         token_policies=config-client-policy
-    
+
     # update config-client-vault/application.yml with the returned role-id
     vault read auth/approle/role/config-client/role-id
-    
+
     # update config-client-vault/application.yml with the returned secret-id
     vault write -f auth/approle/role/config-client/secret-id
-    
+
     # enable the Transit backend and provide a key
     vault secrets enable transit
     vault write -f transit/keys/symmetric-sample-key
-    
+
     # enable dynamic database secrets
     vault secrets enable database
-    
+
     # create an all privileges role
     vault write database/roles/config_client_vault_all_privileges \
           db_name=config_client_vault \
@@ -150,7 +205,7 @@ Execute the following commands in order to enable the required backend and other
           revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;" \
           default_ttl="24h" \
           max_ttl="48h"
-    
+
     # create the database connection (the database must already exist, create it with "CREATE DATABASE config_client_vault;")
     vault write database/config/config_client_vault \
         plugin_name=postgresql-database-plugin \
@@ -158,9 +213,9 @@ Execute the following commands in order to enable the required backend and other
         connection_url="postgresql://{{username}}:{{password}}@postgres:5432/config_client_vault?sslmode=disable" \
         username="postgres" \
         password="password"
-        
+
     # force rotation for root user (THIS WILL DESTROY the existing root password, make sure you have another one)
     vault write --force /database/rotate-root/config_client_vault
-    
+
     # create new credentials
     vault read database/creds/config_client_vault_all_privileges
