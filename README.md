@@ -24,8 +24,8 @@ CloudSecurity/
 ├── config-server/        # Basic config server
 ├── config-server-vault/  # Vault-integrated config server
 ├── standalone-client/    # Independent client implementation
-├── config-repo/         # Configuration repository
-└── Docker/             # Container configurations
+├── config-repo/          # Configuration repository
+└── Docker/               # Container configurations
 ```
 
 ## Architecture Overview
