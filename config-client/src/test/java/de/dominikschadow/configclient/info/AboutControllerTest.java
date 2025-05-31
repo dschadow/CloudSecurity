@@ -17,6 +17,7 @@
  */
 package de.dominikschadow.configclient.info;
 
+import de.dominikschadow.configclient.ConfigClientProperties;
 import de.dominikschadow.configclient.credential.CredentialRepository;
 import de.dominikschadow.configclient.user.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -46,8 +47,13 @@ class AboutControllerTest {
     @MockBean
     private RepositoryEntityLinks entityLinks;
 
+    @MockBean
+    private ConfigClientProperties properties;
+
     @Test
     void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
+        ConfigClientProperties.Application application = new ConfigClientProperties.Application("Config Client", "test");
+        given(properties.application()).willReturn(application);
         given(entityLinks.linkToCollectionResource(UserRepository.class)).willReturn(Link.of("/users"));
         given(entityLinks.linkToCollectionResource(CredentialRepository.class)).willReturn(Link.of("/credentials"));
 
@@ -55,5 +61,17 @@ class AboutControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))
                 .andExpect(MockMvcResultMatchers.jsonPath("info").value("Config Client with profile test"));
+    }
+
+    @Test
+    void givenGetRequestWhenApplicationPropertiesNullThenReturnDefaultMessage() throws Exception {
+        given(properties.application()).willReturn(null);
+        given(entityLinks.linkToCollectionResource(UserRepository.class)).willReturn(Link.of("/users"));
+        given(entityLinks.linkToCollectionResource(CredentialRepository.class)).willReturn(Link.of("/credentials"));
+
+        mvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))
+                .andExpect(MockMvcResultMatchers.jsonPath("info").value("Application properties are not set"));
     }
 }
