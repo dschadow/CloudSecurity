@@ -22,13 +22,16 @@ import de.dominikschadow.standalone.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -40,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AboutControllerTest {
     @Autowired
     private MockMvc mvc;
-    @MockBean
+    @MockitoBean
     private RepositoryEntityLinks entityLinks;
 
     @Test
@@ -49,6 +52,11 @@ class AboutControllerTest {
         when(entityLinks.linkToCollectionResource(CredentialRepository.class)).thenReturn(Link.of("/credentials"));
 
         mvc.perform(get("/"))
-           .andExpect(status().isOk());
+           .andExpect(status().isOk())
+           .andExpect(content().contentType("application/hal+json"))
+           .andExpect(jsonPath("$.info", is("standalone-client")))
+           .andExpect(jsonPath("$._links.self[0].href", containsString("/")))
+           .andExpect(jsonPath("$._links.self[1].href", is("/users")))
+           .andExpect(jsonPath("$._links.self[2].href", is("/credentials")));
     }
 }

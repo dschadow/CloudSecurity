@@ -61,4 +61,56 @@ class CredentialRepositoryTest {
 
         assertTrue(credentials.isEmpty());
     }
+
+    @Test
+    void givenInitializedDatabaseWhenFindingAllCredentialsThenReturnAllCredentials() {
+        Iterable<Credential> credentials = repository.findAll();
+
+        long count = 0;
+        for (Credential credential : credentials) {
+            assertNotNull(credential.getId());
+            count++;
+        }
+
+        assertEquals(6, count);
+    }
+
+    @Test
+    void givenExistingCredentialWhenUpdatingThenCredentialIsUpdated() {
+        // Get an existing credential
+        Optional<Credential> existingCredential = repository.findById(1L);
+        assertTrue(existingCredential.isPresent());
+
+        // Update the credential
+        Credential credential = existingCredential.get();
+        credential.setUsername("updateduser");
+        credential.setPassword("updatedpassword");
+
+        // Save the updated credential
+        Credential savedCredential = repository.save(credential);
+
+        // Verify the update
+        assertAll(
+            () -> assertEquals(1L, savedCredential.getId()),
+            () -> assertEquals(credential.getUserId(), savedCredential.getUserId()),
+            () -> assertEquals("updateduser", savedCredential.getUsername()),
+            () -> assertEquals("updatedpassword", savedCredential.getPassword())
+        );
+
+        // Verify the update is persisted
+        Optional<Credential> updatedCredential = repository.findById(1L);
+        assertTrue(updatedCredential.isPresent());
+        assertEquals("updateduser", updatedCredential.get().getUsername());
+        assertEquals("updatedpassword", updatedCredential.get().getPassword());
+    }
+
+    @Test
+    void givenExistingCredentialWhenDeletingThenCredentialIsDeleted() {
+        long initialCount = repository.count();
+
+        repository.deleteById(1L);
+
+        assertEquals(initialCount - 1, repository.count());
+        assertTrue(repository.findById(1L).isEmpty());
+    }
 }
