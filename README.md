@@ -123,7 +123,7 @@ The Config Server endpoints help to encrypt and decrypt data:
 2. Start infrastructure:
    ```bash
    cd Docker
-   docker-compose up -d
+   docker compose up -d
    ```
 
 3. Initialize Vault:
