@@ -13,6 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: CloudSecurity Build
+    permissions:
+      contents: read
+      # required for the tokenless Codecov upload via OpenID Connect
+      id-token: write
     steps:
     - name: Checkout
       uses: actions/checkout@v5
@@ -24,5 +28,9 @@ jobs:
         cache: 'maven'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Generate Codecov Report
-      uses: codecov/codecov-action@v5
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v7
+      with:
+        use_oidc: true
+        files: ./standalone-client/target/site/jacoco/jacoco.xml,./config-client/target/site/jacoco/jacoco.xml,./config-client-vault/target/site/jacoco/jacoco.xml,./config-server/target/site/jacoco/jacoco.xml,./config-server-vault/target/site/jacoco/jacoco.xml
+        fail_ci_if_error: true
