@@ -34,7 +34,7 @@ public class ConfigServerVaultApplication {
      *
      * @param args Runtime arguments
      */
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.run(ConfigServerVaultApplication.class, args);
     }
 }

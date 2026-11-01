@@ -34,7 +34,7 @@ public class ConfigClientApplication {
      *
      * @param args Runtime arguments
      */
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.run(ConfigClientApplication.class, args);
     }
 }
