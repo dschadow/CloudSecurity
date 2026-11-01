@@ -1,4 +1,7 @@
 spring:
+  threads:
+    virtual:
+      enabled: true
   config:
     import: "configserver:"
   application:

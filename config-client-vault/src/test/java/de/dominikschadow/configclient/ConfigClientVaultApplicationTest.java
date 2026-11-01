@@ -19,6 +19,7 @@ package de.dominikschadow.configclient;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 
 /**
  * Tests the application itself and tries to startup the application context.
@@ -26,6 +27,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @author Dominik Schadow
  */
 @SpringBootTest
+@Import(TestVaultConfig.class)
 class ConfigClientVaultApplicationTest {
     @Test
     void contextLoads() {

@@ -17,19 +17,19 @@
  */
 package de.dominikschadow.configclient;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.vault.authentication.ClientAuthentication;
 import org.springframework.vault.authentication.TokenAuthentication;
 import org.springframework.vault.client.VaultEndpoint;
 import org.springframework.vault.config.AbstractVaultConfiguration;
 
 /**
- * Test vault configuration.
+ * Test vault configuration, replaces the Spring Cloud Vault auto-configuration (disabled in tests).
  *
  * @author Dominik Schadow
  */
-@Configuration
-public class VaultConfig extends AbstractVaultConfiguration {
+@TestConfiguration
+public class TestVaultConfig extends AbstractVaultConfiguration {
     @Override
     public VaultEndpoint vaultEndpoint() {
         VaultEndpoint vaultEndpoint = new VaultEndpoint();

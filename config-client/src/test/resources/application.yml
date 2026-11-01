@@ -8,7 +8,6 @@ spring:
   config:
     import: "optional:configserver:"
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none
   datasource:

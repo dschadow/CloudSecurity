@@ -20,7 +20,6 @@ package de.dominikschadow.configclient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * Main class to start the embedded web server and the Spring Boot application.
@@ -29,7 +28,6 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  */
 @SpringBootApplication
 @EnableConfigurationProperties(ConfigClientVaultProperties.class)
-@RefreshScope
 public class ConfigClientVaultApplication {
     /**
      * Starts the config client application with the embedded Tomcat.

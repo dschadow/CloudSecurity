@@ -19,9 +19,9 @@ package de.dominikschadow.configclient;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.vault.core.lease.SecretLeaseContainer;
 import org.springframework.vault.core.lease.domain.RequestedSecret;
@@ -34,17 +34,23 @@ import static org.springframework.vault.core.lease.domain.RequestedSecret.Mode.R
 
 /**
  * Configuration for Vault and Spring Boot to renew and rotate database secrets (based on Vault dynamic secrets).
- *
+ * Only active if Spring Cloud Vault is enabled.
  * @author Dominik Schadow
  */
 @Slf4j
 @Configuration
-@RequiredArgsConstructor
+@ConditionalOnBooleanProperty(name = "spring.cloud.vault.enabled", matchIfMissing = true)
 public class VaultConfig {
     private final SecretLeaseContainer secretLeaseContainer;
     private final HikariDataSource hikariDataSource;
-    @Value("${spring.cloud.vault.database.role}")
-    private String databaseRole;
+    private final String databaseRole;
+
+    public VaultConfig(SecretLeaseContainer secretLeaseContainer, HikariDataSource hikariDataSource,
+                       @Value("${spring.cloud.vault.database.role}") String databaseRole) {
+        this.secretLeaseContainer = secretLeaseContainer;
+        this.hikariDataSource = hikariDataSource;
+        this.databaseRole = databaseRole;
+    }
 
     @PostConstruct
     public void postConstruct() {
@@ -58,15 +64,14 @@ public class VaultConfig {
                     log.info("Retrieved a RENEW event");
 
                     secretLeaseContainer.requestRotatingSecret(vaultCredsPath);
-                } else if (secretLeaseEvent.getSource().getMode() == ROTATE) {
+                } else if (secretLeaseEvent.getSource().getMode() == ROTATE
+                        && secretLeaseEvent instanceof SecretLeaseCreatedEvent secretLeaseCreatedEvent) {
                     log.info("Retrieved a ROTATE event");
 
-                    SecretLeaseCreatedEvent secretLeaseCreatedEvent = (SecretLeaseCreatedEvent) secretLeaseEvent;
                     Map<String, Object> secrets = secretLeaseCreatedEvent.getSecrets();
                     String username = (String) secrets.get("username");
                     String password = (String) secrets.get("password");
 
-                    updateDbProperties(username, password);
                     updateDataSource(username, password);
                 }
             }
@@ -75,15 +80,12 @@ public class VaultConfig {
         secretLeaseContainer.addRequestedSecret(secret);
     }
 
+    /**
+     * Updates the credentials of the HikariCP connection pool and evicts the existing connections, new connections
+     * are created with the rotated credentials.
+     */
     private void updateDataSource(String username, String password) {
-        log.info("Updating datasource properties");
-
-        System.setProperty("spring.datasource.username", username);
-        System.setProperty("spring.datasource.password", password);
-    }
-
-    private void updateDbProperties(String username, String password) {
-        log.info("Updating HikariCP");
+        log.info("Updating HikariCP credentials");
 
         hikariDataSource.getHikariConfigMXBean().setUsername(username);
         hikariDataSource.getHikariConfigMXBean().setPassword(password);

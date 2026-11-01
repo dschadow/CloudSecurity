@@ -6,9 +6,9 @@
 This project demonstrates cloud security implementations using Spring Cloud Config and HashiCorp Vault, with examples of secure configuration management and secret handling.
 
 ## Tech Stack
-- Java 21
-- Spring Boot 3.5
-- Spring Cloud 2025
+- Java 25
+- Spring Boot 4.1
+- Spring Cloud 2025.1
 - HashiCorp Vault 1.20
 - PostgreSQL 17
 - Jasypt for encryption

@@ -26,8 +26,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @author Dominik Schadow
  */
 @SpringBootTest
-public class ConfigClientApplicationTest {
+class ConfigClientApplicationTest {
     @Test
-    public void contextLoads() {
+    void contextLoads() {
     }
 }

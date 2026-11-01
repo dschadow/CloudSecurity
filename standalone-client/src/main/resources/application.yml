@@ -1,6 +1,8 @@
 spring:
+  threads:
+    virtual:
+      enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none
   datasource:

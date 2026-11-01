@@ -21,7 +21,7 @@ import de.dominikschadow.standalone.credential.CredentialRepository;
 import de.dominikschadow.standalone.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
