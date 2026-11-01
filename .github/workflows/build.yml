@@ -32,5 +32,5 @@ jobs:
       uses: codecov/codecov-action@v7
       with:
         use_oidc: true
-        files: ./standalone-client/target/site/jacoco/jacoco.xml,./config-client/target/site/jacoco/jacoco.xml,./config-client-vault/target/site/jacoco/jacoco.xml,./config-server/target/site/jacoco/jacoco.xml,./config-server-vault/target/site/jacoco/jacoco.xml
+        files: ./standalone-client/target/site/jacoco/jacoco.xml,./config-client/target/site/jacoco/jacoco.xml,./config-client-vault/target/site/jacoco/jacoco.xml
         fail_ci_if_error: true
