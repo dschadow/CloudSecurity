@@ -61,4 +61,16 @@ class UserRepositoryTest {
 
         assertTrue(user.isEmpty());
     }
+
+    @Test
+    void givenNewUserWhenSavingThenGenerateIdAfterInitialData() {
+        User user = new User();
+        user.setFirstname("Trillian");
+        user.setLastname("Astra");
+
+        User savedUser = repository.save(user);
+
+        assertNotNull(savedUser.getId());
+        assertTrue(savedUser.getId() > 3);
+    }
 }

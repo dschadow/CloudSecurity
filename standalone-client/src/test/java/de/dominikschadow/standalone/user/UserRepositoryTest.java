@@ -185,4 +185,16 @@ class UserRepositoryTest {
                              updatedCredential.getPassword().equals("new_password"))
         );
     }
+
+    @Test
+    void givenNewUserWhenSavingThenGenerateIdAfterInitialData() {
+        User user = new User();
+        user.setFirstname("Trillian");
+        user.setLastname("Astra");
+
+        User savedUser = repository.save(user);
+
+        assertNotNull(savedUser.getId());
+        assertTrue(savedUser.getId() > 3);
+    }
 }

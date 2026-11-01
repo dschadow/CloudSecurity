@@ -18,7 +18,7 @@
 package de.dominikschadow.configclient.transit;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultOperations;
@@ -33,9 +33,12 @@ import org.springframework.web.bind.annotation.*;
  * @author Dominik Schadow
  */
 @RestController
-@RequiredArgsConstructor
 public class TransitController {
-    private final VaultOperations vault;
+    private final VaultTransitOperations transitOperations;
+
+    public TransitController(VaultOperations vault) {
+        this.transitOperations = vault.opsForTransit();
+    }
 
     /**
      * Encrypts the given plaintext with the key identified by the given key name.
@@ -46,10 +49,8 @@ public class TransitController {
     @PostMapping(value = "/encrypt", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @Operation(summary = "Encrypts the given plaintext with the key identified by the given key name",
             description = "Encrypts the given plaintext with the key identified by the given key name.")
-    public ResponseEntity<String> encryptPayload(@RequestBody TransitPayload payload) {
-        VaultTransitOperations operations = vault.opsForTransit();
-
-        return ResponseEntity.ok(operations.encrypt(payload.keyName(), payload.payload()));
+    public ResponseEntity<String> encryptPayload(@Valid @RequestBody TransitPayload payload) {
+        return ResponseEntity.ok(transitOperations.encrypt(payload.keyName(), payload.payload()));
     }
 
     /**
@@ -61,23 +62,20 @@ public class TransitController {
     @PostMapping(value = "/decrypt", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @Operation(summary = "Decrypts the given plaintext with the key identified by the given key name",
             description = "Decrypts the given ciphertext with the key identified by the given key name.")
-    public ResponseEntity<String> decryptPayload(@RequestBody TransitPayload payload) {
-        VaultTransitOperations operations = vault.opsForTransit();
-
-        return ResponseEntity.ok(operations.decrypt(payload.keyName(), payload.payload()));
+    public ResponseEntity<String> decryptPayload(@Valid @RequestBody TransitPayload payload) {
+        return ResponseEntity.ok(transitOperations.decrypt(payload.keyName(), payload.payload()));
     }
 
     /**
-     * Rotates the given key and creates a new version.
+     * Rotates the given key and creates a new version. Changes state in Vault and is therefore a POST request.
      */
-    @GetMapping("/rotate/{keyName}")
+    @PostMapping("/rotate/{keyName}")
     @Operation(summary = "Rotates the given key and creates a new version",
             description = "Rotates the given key and creates a new version.")
-    public ResponseEntity<Void> rotateKey(@PathVariable("keyName") String keyName) {
-        VaultTransitOperations operations = vault.opsForTransit();
-        operations.rotate(keyName);
+    public ResponseEntity<Void> rotateKey(@PathVariable String keyName) {
+        transitOperations.rotate(keyName);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -86,9 +84,9 @@ public class TransitController {
     @GetMapping(value = "/keys/{keyName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Returns the key identified by the given name",
             description = "Returns the key identified by the given name.")
-    public ResponseEntity<VaultTransitKey> getKey(@PathVariable("keyName") String keyName) {
-        VaultTransitOperations operations = vault.opsForTransit();
+    public ResponseEntity<VaultTransitKey> getKey(@PathVariable String keyName) {
+        VaultTransitKey key = transitOperations.getKey(keyName);
 
-        return ResponseEntity.ok(operations.getKey(keyName));
+        return key != null ? ResponseEntity.ok(key) : ResponseEntity.notFound().build();
     }
 }

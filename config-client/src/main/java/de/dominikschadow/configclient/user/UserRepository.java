@@ -17,12 +17,12 @@
  */
 package de.dominikschadow.configclient.user;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
 /**
  * User repository to access the {@link User} in the database.
  *
  * @author Dominik Schadow
  */
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends ListCrudRepository<User, Long> {
 }

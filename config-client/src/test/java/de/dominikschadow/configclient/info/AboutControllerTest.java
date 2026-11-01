@@ -17,7 +17,6 @@
  */
 package de.dominikschadow.configclient.info;
 
-import de.dominikschadow.configclient.ConfigClientProperties;
 import de.dominikschadow.configclient.credential.CredentialRepository;
 import de.dominikschadow.configclient.user.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -25,53 +24,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.assertj.MockMvcTester;
+import org.springframework.test.web.servlet.assertj.MvcTestResult;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 /**
- * Tests the {@link AboutController} class.
+ * Tests the {@link AboutController} class with the application properties from the test application.yml.
  *
  * @author Dominik Schadow
  */
 @WebMvcTest(AboutController.class)
-@TestPropertySource(properties = {"config.client.application.name=Config Client", "config.client.application.profile=test"})
 class AboutControllerTest {
     @Autowired
-    private MockMvc mvc;
+    private MockMvcTester mvc;
 
     @MockitoBean
     private RepositoryEntityLinks entityLinks;
 
-    @MockitoBean
-    private ConfigClientProperties properties;
-
     @Test
-    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
-        ConfigClientProperties.Application application = new ConfigClientProperties.Application("Config Client", "test");
-        given(properties.application()).willReturn(application);
-        given(entityLinks.linkToCollectionResource(UserRepository.class)).willReturn(Link.of("/users"));
-        given(entityLinks.linkToCollectionResource(CredentialRepository.class)).willReturn(Link.of("/credentials"));
+    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() {
+        given(entityLinks.linkToCollectionResource(UserRepository.class)).willReturn(Link.of("/users", "users"));
+        given(entityLinks.linkToCollectionResource(CredentialRepository.class)).willReturn(Link.of("/credentials", "credentials"));
 
-        mvc.perform(MockMvcRequestBuilders.get("/"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("info").value("Config Client with profile test"));
-    }
+        MvcTestResult result = mvc.get().uri("/").exchange();
 
-    @Test
-    void givenGetRequestWhenApplicationPropertiesNullThenReturnDefaultMessage() throws Exception {
-        given(properties.application()).willReturn(null);
-        given(entityLinks.linkToCollectionResource(UserRepository.class)).willReturn(Link.of("/users"));
-        given(entityLinks.linkToCollectionResource(CredentialRepository.class)).willReturn(Link.of("/credentials"));
-
-        mvc.perform(MockMvcRequestBuilders.get("/"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("info").value("Application properties are not set"));
+        assertThat(result).hasStatusOk().hasContentType(MediaTypes.HAL_JSON);
+        assertThat(result).bodyJson().extractingPath("$.info").isEqualTo("Config Client with profile test");
+        assertThat(result).bodyJson().extractingPath("$._links.users.href").isEqualTo("/users");
+        assertThat(result).bodyJson().extractingPath("$._links.credentials.href").isEqualTo("/credentials");
     }
 }

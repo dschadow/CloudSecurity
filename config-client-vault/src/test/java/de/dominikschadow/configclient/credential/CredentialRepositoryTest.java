@@ -17,6 +17,7 @@
  */
 package de.dominikschadow.configclient.credential;
 
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -61,5 +62,26 @@ class CredentialRepositoryTest {
         Optional<Credential> credentials = repository.findById(credentialsId);
 
         assertThat(credentials.isPresent()).isFalse();
+    }
+
+    @Test
+    void givenNewCredentialWhenSavingThenGenerateIdAfterInitialData() {
+        Credential credential = new Credential();
+        credential.setUsername("newuser");
+        credential.setPin("123456");
+
+        Credential savedCredential = repository.saveAndFlush(credential);
+
+        assertNotNull(savedCredential.getId());
+        assertTrue(savedCredential.getId() > 6);
+    }
+
+    @Test
+    void givenInvalidCredentialWhenSavingThenThrowConstraintViolation() {
+        Credential credential = new Credential();
+        credential.setUsername("abc");
+        credential.setPin("1");
+
+        assertThrows(ConstraintViolationException.class, () -> repository.saveAndFlush(credential));
     }
 }

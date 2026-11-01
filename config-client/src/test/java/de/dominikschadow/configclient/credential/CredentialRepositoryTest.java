@@ -61,4 +61,17 @@ class CredentialRepositoryTest {
 
         assertTrue(credentials.isEmpty());
     }
+
+    @Test
+    void givenNewCredentialWhenSavingThenGenerateIdAfterInitialData() {
+        Credential credential = new Credential();
+        credential.setUserId(1L);
+        credential.setUsername("newuser");
+        credential.setPassword("newpassword");
+
+        Credential savedCredential = repository.save(credential);
+
+        assertNotNull(savedCredential.getId());
+        assertTrue(savedCredential.getId() > 6);
+    }
 }

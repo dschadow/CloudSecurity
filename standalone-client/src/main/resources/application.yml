@@ -12,7 +12,6 @@ spring:
     # password is client-password
     # provide sample-password as jasypt.encryptor.password to decrypt
     password: ENC(byF912frlZUCifdrOFlGJ8LTjWpVIutKtzU0St2X/hZ9sqRp9kOsg5Se8FVxshFu)
-    driverClassName: org.h2.Driver
   h2:
     console:
       enabled: true

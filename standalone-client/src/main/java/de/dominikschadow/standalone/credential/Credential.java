@@ -19,13 +19,15 @@ package de.dominikschadow.standalone.credential;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
- * Credential entity.
+ * Credential entity. Fields are populated by JPA, therefore nullness is not specified.
  *
  * @author Dominik Schadow
  */
@@ -33,9 +35,10 @@ import lombok.Setter;
 @Table(name = "client_credentials")
 @Getter
 @Setter
+@NullUnmarked
 public class Credential {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
     private String username;

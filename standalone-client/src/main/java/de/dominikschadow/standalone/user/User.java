@@ -21,11 +21,12 @@ import de.dominikschadow.standalone.credential.Credential;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.jspecify.annotations.NullUnmarked;
 
 import java.util.Set;
 
 /**
- * Users entity.
+ * Users entity. Fields are populated by JPA, therefore nullness is not specified.
  *
  * @author Dominik Schadow
  */
@@ -33,9 +34,10 @@ import java.util.Set;
 @Table(name = "client_users")
 @Getter
 @Setter
+@NullUnmarked
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstname;
     private String lastname;

@@ -8,3 +8,7 @@ INSERT INTO client_credentials (id, user_id, username, password) VALUES (3, 2, '
 INSERT INTO client_credentials (id, user_id, username, password) VALUES (4, 3, 'ford1', 'prefect');
 INSERT INTO client_credentials (id, user_id, username, password) VALUES (5, 3, 'ford2', 'prefect');
 INSERT INTO client_credentials (id, user_id, username, password) VALUES (6, 3, 'ford3', 'prefect');
+
+-- the inserts above use explicit ids, move the identity columns behind them
+ALTER TABLE client_users ALTER COLUMN id RESTART WITH 4;
+ALTER TABLE client_credentials ALTER COLUMN id RESTART WITH 7;

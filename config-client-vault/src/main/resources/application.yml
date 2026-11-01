@@ -38,7 +38,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/config_client_vault
     # credentials are obtained via Vault
   jpa:
-    open-in-view: true
+    open-in-view: false
+  flyway:
+    # vendor specific migrations, e.g. to reset sequences after inserting data with explicit ids
+    locations: classpath:db/migration,classpath:db/vendor/{vendor}
 
 management:
   endpoints:

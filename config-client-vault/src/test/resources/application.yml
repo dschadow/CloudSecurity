@@ -1,7 +1,3 @@
-application:
-  name: Config Client Vault
-  profile: Test
-
 spring:
   cloud:
     config:
@@ -12,6 +8,8 @@ spring:
     name: config-client-db
     username: config-client-db-user
     password: config-client-db-password
+  flyway:
+    locations: classpath:db/migration,classpath:db/vendor/{vendor}
 
 logging:
   level:

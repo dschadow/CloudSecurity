@@ -17,6 +17,7 @@
  */
 package de.dominikschadow.configclient;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -25,7 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Dominik Schadow
  */
 @ConfigurationProperties(prefix = "config.client")
-public record ConfigClientProperties (Application application) {
-    public record Application (String name, String profile) {
+public record ConfigClientProperties(@Nullable Application application) {
+    public record Application(String name, String profile) {
     }
 }

@@ -17,7 +17,7 @@
  */
 package de.dominikschadow.standalone.user;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
 /**
  * User repository to access the {@link User} in the database. With Spring Data REST, this repository is exposed via
@@ -25,5 +25,5 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Dominik Schadow
  */
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends ListCrudRepository<User, Long> {
 }

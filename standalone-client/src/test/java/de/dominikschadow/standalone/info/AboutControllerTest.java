@@ -24,14 +24,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.assertj.MockMvcTester;
+import org.springframework.test.web.servlet.assertj.MvcTestResult;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
 /**
  * Tests the {@link AboutController} class.
@@ -41,21 +40,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(AboutController.class)
 class AboutControllerTest {
     @Autowired
-    private MockMvc mvc;
+    private MockMvcTester mvc;
     @MockitoBean
     private RepositoryEntityLinks entityLinks;
 
     @Test
-    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
-        when(entityLinks.linkToCollectionResource(UserRepository.class)).thenReturn(Link.of("/users"));
-        when(entityLinks.linkToCollectionResource(CredentialRepository.class)).thenReturn(Link.of("/credentials"));
+    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() {
+        given(entityLinks.linkToCollectionResource(UserRepository.class)).willReturn(Link.of("/users", "users"));
+        given(entityLinks.linkToCollectionResource(CredentialRepository.class)).willReturn(Link.of("/credentials", "credentials"));
 
-        mvc.perform(get("/"))
-           .andExpect(status().isOk())
-           .andExpect(content().contentType("application/hal+json"))
-           .andExpect(jsonPath("$.info", is("standalone-client")))
-           .andExpect(jsonPath("$._links.self[0].href", containsString("/")))
-           .andExpect(jsonPath("$._links.self[1].href", is("/users")))
-           .andExpect(jsonPath("$._links.self[2].href", is("/credentials")));
+        MvcTestResult result = mvc.get().uri("/").exchange();
+
+        assertThat(result).hasStatusOk().hasContentType(MediaTypes.HAL_JSON);
+        assertThat(result).bodyJson().extractingPath("$.info").isEqualTo("standalone-client");
+        assertThat(result).bodyJson().extractingPath("$._links.self.href").asString().endsWith("/");
+        assertThat(result).bodyJson().extractingPath("$._links.users.href").isEqualTo("/users");
+        assertThat(result).bodyJson().extractingPath("$._links.credentials.href").isEqualTo("/credentials");
     }
 }

@@ -22,8 +22,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.vault.core.VaultOperations;
@@ -31,7 +30,6 @@ import org.springframework.vault.core.VaultVersionedKeyValueOperations;
 import org.springframework.vault.support.Versioned;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -41,16 +39,13 @@ import java.util.Map;
  * @author Dominik Schadow
  */
 @RestController
-@RequiredArgsConstructor
 public class SecretController {
-    private final VaultOperations vault;
     static final String SECRET_BASE_PATH = "secret";
     static final String PERSONAL_SECRETS_PATH = "custom-secrets";
-    private VaultVersionedKeyValueOperations versionedKeyValueOperations;
+    private final VaultVersionedKeyValueOperations versionedKeyValueOperations;
 
-    @PostConstruct
-    public void init() {
-        versionedKeyValueOperations = vault.opsForVersionedKeyValue(SECRET_BASE_PATH);
+    public SecretController(VaultOperations vault) {
+        this.versionedKeyValueOperations = vault.opsForVersionedKeyValue(SECRET_BASE_PATH);
     }
 
     /**
@@ -62,11 +57,9 @@ public class SecretController {
     @PostMapping(value = "/secrets", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Writes the given secret into vault",
             description = "Writes the given secret content into vault using the given key as path.")
-    public ResponseEntity<Versioned.Version> writeSecret(@RequestBody Secret secret) {
-        Map<String, String> value = new HashMap<>();
-        value.put(secret.key(), secret.data());
-
-        Versioned.Metadata metadata = versionedKeyValueOperations.put(PERSONAL_SECRETS_PATH, value);
+    public ResponseEntity<Versioned.Version> writeSecret(@Valid @RequestBody Secret secret) {
+        Versioned.Metadata metadata = versionedKeyValueOperations.put(PERSONAL_SECRETS_PATH,
+                Map.of(secret.key(), secret.data()));
 
         return ResponseEntity.ok(metadata.getVersion());
     }
@@ -78,11 +71,11 @@ public class SecretController {
      */
     @DeleteMapping("/secrets")
     @Operation(summary = "Deletes the secret", description = "Deletes the secrets at the configured path")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Deleted the secret")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Deleted the secret")})
     public ResponseEntity<Void> deleteSecret() {
         versionedKeyValueOperations.delete(PERSONAL_SECRETS_PATH);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -98,11 +91,11 @@ public class SecretController {
             @ApiResponse(responseCode = "200", description = "The secret for the given key", content = @Content),
             @ApiResponse(responseCode = "204", description = "No secret found for the given key")})
     public ResponseEntity<String> readSecret(
-            @Parameter(description = "The key to identify the entry)", required = true) @PathVariable String key) {
+            @Parameter(description = "The key to identify the entry", required = true) @PathVariable String key) {
         Versioned<Map<String, Object>> secret = versionedKeyValueOperations.get(PERSONAL_SECRETS_PATH);
 
-        if (secret != null && secret.getData() != null) {
-            return ResponseEntity.ok((String) secret.getData().get(key));
+        if (secret != null && secret.getData() != null && secret.getData().get(key) instanceof String value) {
+            return ResponseEntity.ok(value);
         }
 
         return ResponseEntity.noContent().build();

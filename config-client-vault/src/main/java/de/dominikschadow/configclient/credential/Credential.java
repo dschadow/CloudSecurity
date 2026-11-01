@@ -19,15 +19,18 @@ package de.dominikschadow.configclient.credential;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
- * Credential entity.
+ * Credential entity. Fields are populated by JPA, therefore nullness is not specified. The Bean Validation
+ * constraints are checked by Hibernate before persisting or updating an entity.
  *
  * @author Dominik Schadow
  */
@@ -35,14 +38,15 @@ import lombok.Setter;
 @Table(name = "client_credentials")
 @Getter
 @Setter
+@NullUnmarked
 public class Credential {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min = 5, max = 50, message  = "Username must be between {min} and {max} characters")
+    @Size(min = 5, max = 50, message = "Username must be between {min} and {max} characters")
     private String username;
     @NotNull
-    @Size(min = 5, max = 10, message  = "PIN must be between {min} and {max} characters")
+    @Size(min = 5, max = 10, message = "PIN must be between {min} and {max} characters")
     private String pin;
 }

@@ -19,7 +19,6 @@ package de.dominikschadow.standalone.info;
 
 import de.dominikschadow.standalone.credential.CredentialRepository;
 import de.dominikschadow.standalone.user.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +34,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  * @author Dominik Schadow
  */
 @RestController
-@RequiredArgsConstructor
 public class AboutController {
-    @Value("${spring.application.name}")
-    private String applicationName;
+    private final String applicationName;
     private final RepositoryEntityLinks entityLinks;
+
+    public AboutController(@Value("${spring.application.name}") String applicationName,
+                           RepositoryEntityLinks entityLinks) {
+        this.applicationName = applicationName;
+        this.entityLinks = entityLinks;
+    }
 
     /**
      * Returns basic information about the application as well as links to the other available endpoints.

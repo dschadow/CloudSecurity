@@ -15,4 +15,3 @@ spring:
     url: jdbc:h2:mem:client-db
     username: client-user
     password: client-password
-    driverClassName: org.h2.Driver

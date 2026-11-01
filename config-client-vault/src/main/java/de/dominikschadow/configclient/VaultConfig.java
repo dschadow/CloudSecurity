@@ -24,8 +24,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.vault.core.lease.SecretLeaseContainer;
-import org.springframework.vault.core.lease.domain.RequestedSecret;
 import org.springframework.vault.core.lease.event.SecretLeaseCreatedEvent;
+import org.springframework.vault.core.lease.event.SecretLeaseExpiredEvent;
 
 import java.util.Map;
 
@@ -33,8 +33,12 @@ import static org.springframework.vault.core.lease.domain.RequestedSecret.Mode.R
 import static org.springframework.vault.core.lease.domain.RequestedSecret.Mode.ROTATE;
 
 /**
- * Configuration for Vault and Spring Boot to renew and rotate database secrets (based on Vault dynamic secrets).
- * Only active if Spring Cloud Vault is enabled.
+ * Configuration for Vault and Spring Boot to rotate database secrets (based on Vault dynamic secrets).
+ * <p>
+ * Spring Cloud Vault requests the database credentials as renewable secret and renews the lease until its maximum
+ * TTL is reached. Once the lease expires, rotating credentials are requested. Each time new rotated credentials are
+ * created, the HikariCP connection pool is updated. Only active if Spring Cloud Vault is enabled.
+ *
  * @author Dominik Schadow
  */
 @Slf4j
@@ -53,31 +57,27 @@ public class VaultConfig {
     }
 
     @PostConstruct
-    public void postConstruct() {
+    public void registerLeaseListener() {
         final String vaultCredsPath = "database/creds/" + databaseRole;
 
-        final RequestedSecret secret = RequestedSecret.renewable(vaultCredsPath);
-
         secretLeaseContainer.addLeaseListener(secretLeaseEvent -> {
-            if (secretLeaseEvent.getSource() == secret) {
-                if (secretLeaseEvent.getSource().getMode() == RENEW) {
-                    log.info("Retrieved a RENEW event");
+            if (!vaultCredsPath.equals(secretLeaseEvent.getSource().getPath())) {
+                return;
+            }
 
-                    secretLeaseContainer.requestRotatingSecret(vaultCredsPath);
-                } else if (secretLeaseEvent.getSource().getMode() == ROTATE
-                        && secretLeaseEvent instanceof SecretLeaseCreatedEvent secretLeaseCreatedEvent) {
-                    log.info("Retrieved a ROTATE event");
+            if (secretLeaseEvent instanceof SecretLeaseExpiredEvent
+                    && secretLeaseEvent.getSource().getMode() == RENEW) {
+                log.info("Lease of the database credentials expired, requesting rotating credentials");
 
-                    Map<String, Object> secrets = secretLeaseCreatedEvent.getSecrets();
-                    String username = (String) secrets.get("username");
-                    String password = (String) secrets.get("password");
+                secretLeaseContainer.requestRotatingSecret(vaultCredsPath);
+            } else if (secretLeaseEvent instanceof SecretLeaseCreatedEvent secretLeaseCreatedEvent
+                    && secretLeaseEvent.getSource().getMode() == ROTATE) {
+                log.info("Received rotated database credentials");
 
-                    updateDataSource(username, password);
-                }
+                Map<String, Object> secrets = secretLeaseCreatedEvent.getSecrets();
+                updateDataSource((String) secrets.get("username"), (String) secrets.get("password"));
             }
         });
-
-        secretLeaseContainer.addRequestedSecret(secret);
     }
 
     /**

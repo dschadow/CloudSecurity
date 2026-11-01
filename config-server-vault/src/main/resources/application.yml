@@ -8,7 +8,7 @@ spring:
     config:
       server:
         vault:
-          kvVersion: 2
+          kv-version: 2
 
 management:
   endpoints:

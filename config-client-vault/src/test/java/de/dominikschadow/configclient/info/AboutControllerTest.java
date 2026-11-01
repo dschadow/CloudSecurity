@@ -20,10 +20,12 @@ package de.dominikschadow.configclient.info;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.assertj.MockMvcTester;
+import org.springframework.test.web.servlet.assertj.MvcTestResult;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests the {@link AboutController} class.
@@ -34,13 +36,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @TestPropertySource(properties = {"config.client.vault.application.name=Config Client Vault", "config.client.vault.application.profile=test"})
 class AboutControllerTest {
     @Autowired
-    private MockMvc mvc;
+    private MockMvcTester mvc;
 
     @Test
-    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("info").value("Config Client Vault with profile test"));
+    void givenGetRequestWhenUsingRootUrlThenReturnStartPage() {
+        MvcTestResult result = mvc.get().uri("/").exchange();
+
+        assertThat(result).hasStatusOk().hasContentType(MediaTypes.HAL_JSON);
+        assertThat(result).bodyJson().extractingPath("$.info").isEqualTo("Config Client Vault with profile test");
+        assertThat(result).bodyJson().extractingPath("$._links.credentials.href").asString().endsWith("/credentials");
     }
 }

@@ -17,9 +17,12 @@
  */
 package de.dominikschadow.configclient.secret;
 
+import jakarta.validation.constraints.NotBlank;
+
 /**
  * Secret for a user, consists of a user id and the data to protect.
  *
  * @author Dominik Schadow
  */
-public record Secret(String key, String data) {}
+public record Secret(@NotBlank String key, @NotBlank String data) {
+}

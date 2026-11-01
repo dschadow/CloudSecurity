@@ -47,10 +47,10 @@ public class AboutController {
     @Operation(summary = "Returns application and profile information")
     public ResponseEntity<ApplicationInformation> about() {
         String about = "Application properties are not set";
+        var application = properties.application();
 
-        if (properties.application() != null) {
-            about = String.format("%s with profile %s", properties.application().name(),
-                    properties.application().profile());
+        if (application != null) {
+            about = "%s with profile %s".formatted(application.name(), application.profile());
         }
 
         var info = new ApplicationInformation(about);

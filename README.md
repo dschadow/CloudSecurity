@@ -9,8 +9,8 @@ This project demonstrates cloud security implementations using Spring Cloud Conf
 - Java 25
 - Spring Boot 4.1
 - Spring Cloud 2025.1
-- HashiCorp Vault 1.20
-- PostgreSQL 17
+- HashiCorp Vault 1.21
+- PostgreSQL 18
 - Jasypt for encryption
 - SpringDoc OpenAPI
 - Docker for containerization

@@ -113,4 +113,17 @@ class CredentialRepositoryTest {
         assertEquals(initialCount - 1, repository.count());
         assertTrue(repository.findById(1L).isEmpty());
     }
+
+    @Test
+    void givenNewCredentialWhenSavingThenGenerateIdAfterInitialData() {
+        Credential credential = new Credential();
+        credential.setUserId(1L);
+        credential.setUsername("newuser");
+        credential.setPassword("newpassword");
+
+        Credential savedCredential = repository.save(credential);
+
+        assertNotNull(savedCredential.getId());
+        assertTrue(savedCredential.getId() > 6);
+    }
 }

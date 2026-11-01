@@ -29,7 +29,7 @@ logging:
     root: info
 
 encrypt:
-  keyStore: # asymmetric encryption
+  key-store: # asymmetric encryption
     location: classpath:/server.jks
     password: secret
     alias: configserver
