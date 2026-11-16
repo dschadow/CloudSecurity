@@ -176,27 +176,10 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>13.0.0</version>
                 <configuration>
-                    <!-- analyzers not required in these projects -->
-                    <artifactoryAnalyzerEnabled>false</artifactoryAnalyzerEnabled>
-                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-                    <autoconfAnalyzerEnabled>false</autoconfAnalyzerEnabled>
-                    <bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
-                    <cmakeAnalyzerEnabled>false</cmakeAnalyzerEnabled>
-                    <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
-                    <composerAnalyzerEnabled>false</composerAnalyzerEnabled>
-                    <golangDepEnabled>false</golangDepEnabled>
-                    <golangModEnabled>false</golangModEnabled>
-                    <nexusAnalyzerEnabled>false</nexusAnalyzerEnabled>
-                    <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
-                    <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled>
-                    <nugetconfAnalyzerEnabled>false</nugetconfAnalyzerEnabled>
-                    <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
-                    <opensslAnalyzerEnabled>false</opensslAnalyzerEnabled>
-                    <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
-                    <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
-                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
-                    <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
-                    <swiftPackageManagerAnalyzerEnabled>false</swiftPackageManagerAnalyzerEnabled>
+                    <nvdMaxRetryCount>10</nvdMaxRetryCount>
+                    <nvdApiDelay>6000</nvdApiDelay>
+                    <nvdApiKeyEnvironmentVariable>NVD_KEY</nvdApiKeyEnvironmentVariable>
+                    <skipProvidedScope>true</skipProvidedScope>
                 </configuration>
                 <reportSets>
                     <reportSet>
